@@ -21,5 +21,8 @@ export const useStyles = makeStyles((theme) => ({
         whiteSpace: "nowrap"
     }, displayNone: {
         display: 'none',
+    }, extendedIcon: {
+        marginRight: theme.spacing(1),
+        marginLeft: theme.spacing(1),
     },
 }));

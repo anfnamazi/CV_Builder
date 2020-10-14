@@ -3,12 +3,19 @@ import {
   Container,
   CssBaseline,
   Fab,
+  Grid,
   Step,
   StepLabel,
   Stepper,
   Typography,
 } from "@material-ui/core";
-import { Check } from "@material-ui/icons";
+import {
+  ArrowForward,
+  Check,
+  Send,
+  SkipNext,
+  SkipPrevious,
+} from "@material-ui/icons";
 import clsx from "clsx";
 import React, { Fragment, useState } from "react";
 import { useStyles } from "../utils/styles";
@@ -17,6 +24,8 @@ import BaseInfo from "./baseInformation";
 import PropTypes from "prop-types";
 import EducationHistory from "./educationHistory";
 import JobHistory from "./jobHistory";
+import Skill from "./skill";
+import Project from "./Project";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -26,6 +35,10 @@ function getStepContent(stepIndex) {
       return <EducationHistory />;
     case 2:
       return <JobHistory />;
+    case 3:
+      return <Skill />;
+    case 4:
+      return <Project />;
 
     default:
       return "Unknown stepIndex";
@@ -33,14 +46,7 @@ function getStepContent(stepIndex) {
 }
 
 function getSteps() {
-  return [
-    "اطلاعات پایه",
-    "سوابق تحصیلی",
-    "سوابق شغلی",
-    "مهارت ها",
-    "پروژه ها",
-    "دریافت رزومه",
-  ];
+  return ["اطلاعات پایه", "سوابق تحصیلی", "سوابق شغلی", "مهارت ها", "پروژه ها"];
 }
 
 function QontoStepIcon(props) {
@@ -103,10 +109,38 @@ const ResumeForm = () => {
           <div>
             {activeStep === steps.length ? (
               <div>
-                <Typography className={classes.instructions}>
-                  All steps completed
+                <Typography
+                  component="h3"
+                  style={{ textAlign: "center", marginTop: 40 }}
+                  className={classes.instructions}
+                >
+                  اتمام فرآیند باتشکر
                 </Typography>
-                <Button onClick={handleReset}>Reset</Button>
+                <Grid
+                  container
+                  spacing={5}
+                  style={{ marginTop: 20, padding: 20 }}
+                >
+                  <Grid item xs>
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={handleReset}
+                      startIcon={<ArrowForward />}
+                    >
+                      بازگشت به صفحه اول
+                    </Button>
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      endIcon={<Send style={{ transform: "rotate(180deg)" }} />}
+                    >
+                      ارسال
+                    </Button>
+                  </Grid>
+                </Grid>
               </div>
             ) : (
               <div>
@@ -129,6 +163,7 @@ const ResumeForm = () => {
                   color="secondary"
                   size="medium"
                 >
+                  <SkipNext className={classes.extendedIcon} />
                   مرحله قبل
                 </Fab>
                 <Fab
@@ -143,7 +178,8 @@ const ResumeForm = () => {
                   onClick={handleNext}
                   size="medium"
                 >
-                  {activeStep === steps.length - 1 ? "ارسال" : "ذخیره و ادامه"}
+                  ذخیره و ادامه
+                  <SkipPrevious className={classes.extendedIcon} />
                 </Fab>
               </div>
             )}

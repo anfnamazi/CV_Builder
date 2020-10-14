@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   Grid,
   InputLabel,
+  MenuItem,
   Paper,
   Select,
   TextField,
@@ -55,20 +56,14 @@ const JobHistory = () => {
         <Grid container justify="center" spacing={2}>
           <Grid item sm={3}>
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">نحوه همکاری</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                name="cooperateType"
-              ></Select>
+              <InputLabel>نحوه همکاری</InputLabel>
+              <Select name="cooperateType"></Select>
             </FormControl>
           </Grid>
           <Grid item sm={3}>
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">سطح ارشدیت</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                name="seniorLevel"
-              ></Select>
+              <InputLabel>سطح ارشدیت</InputLabel>
+              <Select name="seniorLevel"></Select>
             </FormControl>
           </Grid>
           <Grid item sm={2}>
@@ -103,35 +98,44 @@ const JobHistory = () => {
           style={{ marginTop: 20 }}
         >
           <Grid item sm={4}>
-            <InputLabel id="demo-simple-select-label">شروع</InputLabel>
+            <InputLabel>شروع</InputLabel>
             <Grid container spacing={1}>
               <Grid item sm={7}>
                 <Select
-                  labelId="demo-simple-select-label"
                   name="startJobMonth"
                   className={classes.formControl}
-                ></Select>
+                  defaultValue="def"
+                >
+                  <MenuItem disabled value="def">
+                    ماه
+                  </MenuItem>
+                </Select>
               </Grid>
               <Grid item sm={5}>
                 <TextField
                   className={classes.formControl}
                   name="startJobYear"
                   type="number"
+                  placeholder="سال"
                 />
               </Grid>
             </Grid>
           </Grid>
           <Grid item sm={4}>
-            <InputLabel id="demo-simple-select-label">اتمام</InputLabel>
+            <InputLabel>اتمام</InputLabel>
             <Grid container spacing={1}>
               <Grid item sm={7}>
                 <Select
-                  labelId="demo-simple-select-label"
                   name="endJobMonth"
                   className={classes.formControl}
                   disabled={inJob}
-                  value={inJob ? "" : null}
-                ></Select>
+                  value={inJob ? "" : "def"}
+                  defaultValue="def"
+                >
+                  <MenuItem disabled value="def">
+                    ماه
+                  </MenuItem>
+                </Select>
               </Grid>
               <Grid item sm={5}>
                 <TextField
@@ -140,6 +144,7 @@ const JobHistory = () => {
                   type="number"
                   disabled={inJob}
                   value={inJob ? "" : null}
+                  placeholder="سال"
                 />
               </Grid>
             </Grid>

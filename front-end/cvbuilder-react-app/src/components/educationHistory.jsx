@@ -25,11 +25,8 @@ const EducationHistory = () => {
         <Grid container justify="center" spacing={2}>
           <Grid sm={2} item>
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">مقطع</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                name="sectionEdu"
-              ></Select>
+              <InputLabel>مقطع</InputLabel>
+              <Select name="sectionEdu"></Select>
             </FormControl>
           </Grid>
           <Grid sm={2} item>
@@ -48,11 +45,8 @@ const EducationHistory = () => {
           </Grid>
           <Grid sm={2} item>
             <FormControl className={classes.formControl}>
-              <InputLabel id="demo-simple-select-label">نوع موسسه</InputLabel>
-              <Select
-                labelId="demo-simple-select-label"
-                name="uniType"
-              ></Select>
+              <InputLabel>نوع موسسه</InputLabel>
+              <Select name="uniType"></Select>
             </FormControl>
           </Grid>
           <Grid sm={2} item>

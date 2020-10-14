@@ -93,11 +93,11 @@ const BaseInfo = () => {
                 />
               </Grid>
             </Grid>
-            <Grid container spacing={2} style={{ marginTop: 10 }}>
+            <Grid container spacing={2} style={{ marginTop: 20 }}>
               <Grid xs={2} item>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">جنسیت</InputLabel>
-                  <Select labelId="demo-simple-select-label" name="gender">
+                  <InputLabel>جنسیت</InputLabel>
+                  <Select name="gender">
                     <MenuItem value={"مرد"}>مرد</MenuItem>
                     <MenuItem value={"زن"}>زن</MenuItem>
                   </Select>
@@ -105,10 +105,8 @@ const BaseInfo = () => {
               </Grid>
               <Grid xs={2} item>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">
-                    وضعیت تاهل
-                  </InputLabel>
-                  <Select labelId="demo-simple-select-label" name="marital">
+                  <InputLabel>وضعیت تاهل</InputLabel>
+                  <Select name="marital">
                     <MenuItem value={"مجرد"}>مجرد</MenuItem>
                     <MenuItem value={"متاهل"}>متاهل</MenuItem>
                   </Select>
@@ -116,10 +114,8 @@ const BaseInfo = () => {
               </Grid>
               <Grid xs={3} item>
                 <FormControl className={classes.formControl}>
-                  <InputLabel id="demo-simple-select-label">
-                    وضعیت سربازی
-                  </InputLabel>
-                  <Select labelId="demo-simple-select-label" name="military">
+                  <InputLabel>وضعیت سربازی</InputLabel>
+                  <Select name="military">
                     <MenuItem value={"مشمول"}>مشمول</MenuItem>
                     <MenuItem value={"در حال خدمت"}>در حال خدمت</MenuItem>
                     <MenuItem value={"پایان خدمت"}>پایان خدمت</MenuItem>
@@ -133,29 +129,36 @@ const BaseInfo = () => {
                 </FormControl>
               </Grid>
               <Grid item xs={5}>
-                <InputLabel id="demo-simple-select-label">
-                  تاریخ تولد
-                </InputLabel>
+                <InputLabel>تاریخ تولد</InputLabel>
                 <Grid container spacing={1}>
                   <Grid item xs={3}>
                     <Select
-                      labelId="demo-simple-select-label"
                       name="birthDay"
                       className={classes.formControl}
-                    ></Select>
+                      defaultValue="def"
+                    >
+                      <MenuItem disabled value="def">
+                        روز
+                      </MenuItem>
+                    </Select>
                   </Grid>
                   <Grid item xs={6}>
                     <Select
-                      labelId="demo-simple-select-label"
                       name="birthMonth"
                       className={classes.formControl}
-                    ></Select>
+                      defaultValue="def"
+                    >
+                      <MenuItem disabled value="def">
+                        ماه
+                      </MenuItem>
+                    </Select>
                   </Grid>
                   <Grid item xs={3}>
                     <TextField
                       className={classes.formControl}
                       name="birthYear"
                       type="number"
+                      placeholder="سال"
                     />
                   </Grid>
                 </Grid>
