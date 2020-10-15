@@ -22,33 +22,33 @@ const Skill = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={3} item>
+          <Grid md={3} item>
             <TextField
               className={classes.formControl}
               label="نام زبان"
               name="fieldEdu"
             />
           </Grid>
-          <Grid sm={2} item>
-            <Box component="fieldset" mb={2} borderColor="transparent">
+          <Grid md={2} item>
+            <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">خواندن</Typography>
               <Rating size="small" name="readSkill" />
             </Box>
           </Grid>
-          <Grid sm={2} item>
-            <Box component="fieldset" mb={2} borderColor="transparent">
+          <Grid md={2} item>
+            <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">نوشتن</Typography>
               <Rating size="small" name="writeSkill" />
             </Box>
           </Grid>
-          <Grid sm={2} item>
-            <Box component="fieldset" mb={2} borderColor="transparent">
+          <Grid md={2} item>
+            <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">شنیداری</Typography>
               <Rating size="small" name="hearSkill" />
             </Box>
           </Grid>
-          <Grid sm={2} item>
-            <Box component="fieldset" mb={2} borderColor="transparent">
+          <Grid md={2} item>
+            <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">گفتاری</Typography>
               <Rating size="small" name="speakSkill" />
             </Box>
@@ -59,14 +59,14 @@ const Skill = () => {
         مهارت های تجربی
       </Typography>
       <Grid container spacing={1}>
-        <Grid item spacing={3} sm={6}>
+        <Grid item spacing={3} xs={12} sm={6}>
           <Paper style={{ padding: "25px 30px" }}>
             <Grid container justify="center" spacing={2}>
-              <Grid sm={7} item>
+              <Grid md={7} item>
                 <TextField label="نام مهارت" name="experienceSkillTitle" />
               </Grid>
-              <Grid sm={5} item>
-                <Box component="fieldset" mb={2} borderColor="transparent">
+              <Grid md={5} item>
+                <Box component="fieldset" borderColor="transparent">
                   <Typography component="legend">سطح</Typography>
                   <Rating size="small" name="experienceSkillLevel" />
                 </Box>
@@ -80,13 +80,13 @@ const Skill = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={3} item>
+          <Grid xs={4} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع گواهینامه</InputLabel>
               <Select name="certificateType"></Select>
             </FormControl>
           </Grid>
-          <Grid sm={9} item>
+          <Grid xs={8} item>
             <TextField
               label="عنوان"
               name="certificateTitle"
@@ -100,7 +100,7 @@ const Skill = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={8} item>
+          <Grid xs={12} md={8} item>
             <TextField
               name="honorTitle"
               label="عنوان"
@@ -108,7 +108,7 @@ const Skill = () => {
               placeholder="به طور مثال: برنده جایزه، مقاله برتر پژوهشگاه، دانشجوی ممتاز کارشناسی ارشد"
             />
           </Grid>
-          <Grid sm={4} item>
+          <Grid xs={12} md={4} item>
             <InputLabel>تاریخ</InputLabel>
             <Grid container spacing={1}>
               <Grid item xs={6}>

@@ -5,6 +5,7 @@ import {
   Fab,
   Grid,
   Step,
+  StepButton,
   StepLabel,
   Stepper,
   Typography,
@@ -90,19 +91,25 @@ const ResumeForm = () => {
     setActiveStep(0);
   };
 
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
   return (
     <Fragment>
       <CssBaseline />
-      <Container maxWidth="md" style={{ marginBottom: 50 }}>
+      <Container maxWidth="md" style={{ marginBottom: 100 }}>
         <div className={classes.root}>
           <Stepper
             alternativeLabel
             activeStep={activeStep}
             connector={<QontoConnector />}
           >
-            {steps.map((label) => (
+            {steps.map((label, index) => (
               <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}>{label}</StepLabel>
+                <StepLabel StepIconComponent={QontoStepIcon}>
+                  <StepButton onClick={handleStep(index)}>{label}</StepButton>
+                </StepLabel>
               </Step>
             ))}
           </Stepper>

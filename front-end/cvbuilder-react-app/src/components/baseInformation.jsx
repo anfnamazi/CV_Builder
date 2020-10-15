@@ -71,21 +71,21 @@ const BaseInfo = () => {
           </Grid>
           <Grid item md={10} style={{ width: "100%" }}>
             <Grid container spacing={2}>
-              <Grid xs={4} item>
+              <Grid xs={6} sm={4} item>
                 <TextField
                   className={classes.formControl}
                   label="نام"
                   name="firstName"
                 />
               </Grid>
-              <Grid xs={4} item>
+              <Grid xs={6} sm={4} item>
                 <TextField
                   className={classes.formControl}
                   label="نام خانوادگی"
                   name="lastName"
                 />
               </Grid>
-              <Grid xs={4} item>
+              <Grid xs={6} sm={4} item>
                 <TextField
                   className={classes.formControl}
                   label="عوان شغلی"
@@ -94,7 +94,7 @@ const BaseInfo = () => {
               </Grid>
             </Grid>
             <Grid container spacing={2} style={{ marginTop: 20 }}>
-              <Grid xs={2} item>
+              <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>جنسیت</InputLabel>
                   <Select name="gender">
@@ -103,7 +103,7 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid xs={2} item>
+              <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
                   <Select name="marital">
@@ -112,7 +112,7 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid xs={3} item>
+              <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت سربازی</InputLabel>
                   <Select name="military">
@@ -128,10 +128,10 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={5}>
+              <Grid item xs={6} sm={5}>
                 <InputLabel>تاریخ تولد</InputLabel>
                 <Grid container spacing={1}>
-                  <Grid item xs={3}>
+                  <Grid item xs={6} sm={3}>
                     <Select
                       name="birthDay"
                       className={classes.formControl}
@@ -142,7 +142,7 @@ const BaseInfo = () => {
                       </MenuItem>
                     </Select>
                   </Grid>
-                  <Grid item xs={6}>
+                  <Grid item xs={6} sm={6}>
                     <Select
                       name="birthMonth"
                       className={classes.formControl}
@@ -153,7 +153,7 @@ const BaseInfo = () => {
                       </MenuItem>
                     </Select>
                   </Grid>
-                  <Grid item xs={3}>
+                  <Grid item xs={6} sm={3}>
                     <TextField
                       className={classes.formControl}
                       name="birthYear"
@@ -172,7 +172,7 @@ const BaseInfo = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               label="ایمیل"
@@ -182,7 +182,7 @@ const BaseInfo = () => {
               placeholder="example@domain.com"
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               label="موبایل"
@@ -192,7 +192,7 @@ const BaseInfo = () => {
               placeholder="09123456789"
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               label="تلفن"
@@ -202,7 +202,7 @@ const BaseInfo = () => {
               placeholder="02188888888"
             />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               label="وب سایت"
@@ -213,8 +213,8 @@ const BaseInfo = () => {
             />
           </Grid>
         </Grid>
-        <Grid container spacing={2}>
-          <Grid item xs={2}>
+        <Grid container style={{ marginTop: 20 }} spacing={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="کشور"
@@ -222,7 +222,7 @@ const BaseInfo = () => {
               defaultValue="ایران"
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="استان"
@@ -230,7 +230,7 @@ const BaseInfo = () => {
               defaultValue="تهران"
             />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="شهر"
@@ -238,7 +238,7 @@ const BaseInfo = () => {
               defaultValue="تهران"
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={6} sm={6}>
             <TextField
               className={classes.formControl}
               label="آدرس"

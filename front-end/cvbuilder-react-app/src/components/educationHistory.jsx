@@ -23,49 +23,55 @@ const EducationHistory = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <FormControl className={classes.formControl}>
               <InputLabel>مقطع</InputLabel>
               <Select name="sectionEdu"></Select>
             </FormControl>
           </Grid>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <TextField
               className={classes.formControl}
               label="رشته تحصیلی"
               name="fieldEdu"
             />
           </Grid>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <TextField
               className={classes.formControl}
               label="گرایش/تخصص"
               name="orientationEdu"
             />
           </Grid>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع موسسه</InputLabel>
               <Select name="uniType"></Select>
             </FormControl>
           </Grid>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <TextField
               className={classes.formControl}
               label="عنوان موسسه"
               name="uniName"
             />
           </Grid>
-          <Grid sm={2} item>
+          <Grid xs={6} sm={2} item>
             <TextField
               className={classes.formControl}
               label="معدل"
               name="averageEdu"
+              type="number"
             />
           </Grid>
         </Grid>
-        <Grid container alignItems="flex-end" spacing={2}>
-          <Grid item sm={2}>
+        <Grid
+          container
+          style={{ marginTop: 20 }}
+          alignItems="flex-end"
+          spacing={2}
+        >
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="کشور"
@@ -73,7 +79,7 @@ const EducationHistory = () => {
               defaultValue="ایران"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="استان"
@@ -81,7 +87,7 @@ const EducationHistory = () => {
               defaultValue="تهران"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="شهر"
@@ -89,23 +95,27 @@ const EducationHistory = () => {
               defaultValue="تهران"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="ورود"
               name="startEdu"
+              placeholder="سال"
+              type="number"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="فراغت از تحصیل"
               name="endEdu"
               value={inEdu ? "" : null}
               disabled={inEdu}
+              placeholder="سال"
+              type="number"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <FormControlLabel
               control={
                 <Checkbox

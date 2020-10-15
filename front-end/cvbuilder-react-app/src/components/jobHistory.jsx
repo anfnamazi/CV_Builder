@@ -24,28 +24,28 @@ const JobHistory = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               name="jobTitle"
               label="سمت شغلی"
             />
           </Grid>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               name="jobGroup"
               label="گروه شغلی"
             />
           </Grid>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               name="jobCenter"
               label="مرکز شغلی"
             />
           </Grid>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <TextField
               className={classes.formControl}
               name="titleCenter"
@@ -54,19 +54,19 @@ const JobHistory = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2}>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
               <Select name="cooperateType"></Select>
             </FormControl>
           </Grid>
-          <Grid item sm={3}>
+          <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>سطح ارشدیت</InputLabel>
               <Select name="seniorLevel"></Select>
             </FormControl>
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="کشور"
@@ -74,7 +74,7 @@ const JobHistory = () => {
               defaultValue="ایران"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="استان"
@@ -82,7 +82,7 @@ const JobHistory = () => {
               defaultValue="تهران"
             />
           </Grid>
-          <Grid item sm={2}>
+          <Grid item xs={6} sm={2}>
             <TextField
               className={classes.formControl}
               label="شهر"
@@ -97,10 +97,10 @@ const JobHistory = () => {
           spacing={2}
           style={{ marginTop: 20 }}
         >
-          <Grid item sm={4}>
+          <Grid item xs={6} sm={4}>
             <InputLabel>شروع</InputLabel>
             <Grid container spacing={1}>
-              <Grid item sm={7}>
+              <Grid item xs={6} sm={7}>
                 <Select
                   name="startJobMonth"
                   className={classes.formControl}
@@ -111,7 +111,7 @@ const JobHistory = () => {
                   </MenuItem>
                 </Select>
               </Grid>
-              <Grid item sm={5}>
+              <Grid item xs={6} sm={5}>
                 <TextField
                   className={classes.formControl}
                   name="startJobYear"
@@ -121,10 +121,10 @@ const JobHistory = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item sm={4}>
+          <Grid item xs={6} sm={4}>
             <InputLabel>اتمام</InputLabel>
             <Grid container spacing={1}>
-              <Grid item sm={7}>
+              <Grid item xs={6} sm={7}>
                 <Select
                   name="endJobMonth"
                   className={classes.formControl}
@@ -137,7 +137,7 @@ const JobHistory = () => {
                   </MenuItem>
                 </Select>
               </Grid>
-              <Grid item sm={5}>
+              <Grid item xs={6} sm={5}>
                 <TextField
                   className={classes.formControl}
                   name="endJobYear"
@@ -149,7 +149,7 @@ const JobHistory = () => {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item sm={4}>
+          <Grid item xs={6} sm={4}>
             <FormControlLabel
               control={
                 <Checkbox
