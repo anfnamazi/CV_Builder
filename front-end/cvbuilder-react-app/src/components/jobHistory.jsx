@@ -22,6 +22,10 @@ const JobHistory = () => {
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق شغلی
       </Typography>
+      <Typography variant="caption" style={{ color: "gray" }} gutterBottom>
+        برای نوشتن سوابق شغلی ترتیب زمانی معکوس را رعایت کنید و از آخرین شغلی که
+        داشتید یا دارید، شروع به نوشتن کنید.
+      </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={6} sm={3}>
@@ -53,7 +57,7 @@ const JobHistory = () => {
             />
           </Grid>
         </Grid>
-        <Grid container justify="center" spacing={2}>
+        <Grid container justify="center" style={{ marginTop: 20 }} spacing={2}>
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
@@ -163,7 +167,7 @@ const JobHistory = () => {
         </Grid>
         <Typography
           style={{ marginTop: 20 }}
-          variant="h6"
+          variant="body1"
           display="block"
           gutterBottom
         >

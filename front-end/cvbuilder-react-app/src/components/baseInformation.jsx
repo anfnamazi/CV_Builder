@@ -88,8 +88,9 @@ const BaseInfo = () => {
               <Grid xs={6} sm={4} item>
                 <TextField
                   className={classes.formControl}
-                  label="عوان شغلی"
+                  label="عنوان شغلی"
                   name="job"
+                  placeholder="مثال: برنامه نویس وب یا ..."
                 />
               </Grid>
             </Grid>
@@ -262,6 +263,30 @@ const BaseInfo = () => {
           />
         </Grid>
       </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        شبکه اجتماعی
+      </Typography>
+      <Grid container spacing={1}>
+        <Grid item spacing={3} xs={12} sm={6}>
+          <Paper style={{ padding: "25px 30px" }}>
+            <Grid container justify="center" spacing={2}>
+              <Grid xs={6} item>
+                <FormControl className={classes.formControl}>
+                  <InputLabel>شبکه اجتماعی</InputLabel>
+                  <Select name="socialMedia"></Select>
+                </FormControl>
+              </Grid>
+              <Grid xs={6} item>
+                <TextField
+                  label="آی دی مرتبط"
+                  name="socialMediaId"
+                  className={classes.formControl}
+                />
+              </Grid>
+            </Grid>
+          </Paper>
+        </Grid>
+      </Grid>
     </form>
   );
 };

@@ -9,6 +9,7 @@ import {
   StepLabel,
   Stepper,
   Typography,
+  Hidden,
 } from "@material-ui/core";
 import {
   ArrowForward,
@@ -171,7 +172,7 @@ const ResumeForm = () => {
                   size="medium"
                 >
                   <SkipNext className={classes.extendedIcon} />
-                  مرحله قبل
+                  <Hidden xsDown>مرحله قبل</Hidden>
                 </Fab>
                 <Fab
                   style={{
@@ -185,7 +186,7 @@ const ResumeForm = () => {
                   onClick={handleNext}
                   size="medium"
                 >
-                  ذخیره و ادامه
+                  <Hidden xsDown>ذخیره و ادامه</Hidden>
                   <SkipPrevious className={classes.extendedIcon} />
                 </Fab>
               </div>

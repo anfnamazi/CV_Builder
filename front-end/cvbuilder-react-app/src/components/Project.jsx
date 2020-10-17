@@ -20,13 +20,13 @@ const Project = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={3} item>
+          <Grid xs={6} sm={3} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع اثر</InputLabel>
               <Select name="researchType"></Select>
             </FormControl>
           </Grid>
-          <Grid sm={9} item>
+          <Grid xs={6} sm={9} item>
             <TextField
               label="عنوان"
               name="researchTitle"
@@ -35,21 +35,21 @@ const Project = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2} style={{ marginTop: 20 }}>
-          <Grid sm={3} item>
+          <Grid xs={6} sm={3} item>
             <TextField
               label="ناشر"
               name="publisher"
               className={classes.formControl}
             />
           </Grid>
-          <Grid sm={5} item>
+          <Grid xs={6} sm={5} item>
             <TextField
               label="لینک مرتبط"
               name="researchHyperlink"
               className={classes.formControl}
             />
           </Grid>
-          <Grid sm={4} item>
+          <Grid xs={6} sm={4} item>
             <InputLabel>تاریخ</InputLabel>
             <Grid container spacing={1}>
               <Grid item xs={6}>
@@ -88,14 +88,14 @@ const Project = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid sm={8} item>
+          <Grid xs={6} sm={8} item>
             <TextField
               label="عنوان"
               name="projectTitle"
               className={classes.formControl}
             />
           </Grid>
-          <Grid sm={4} item>
+          <Grid xs={6} sm={4} item>
             <TextField
               label="کارفرما/درخواست کننده"
               name="projectEmployer"
@@ -104,14 +104,14 @@ const Project = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2} style={{ marginTop: 20 }}>
-          <Grid sm={8} item>
+          <Grid xs={6} sm={8} item>
             <TextField
               label="لینک مرتبط"
               name="projectHyperlink"
               className={classes.formControl}
             />
           </Grid>
-          <Grid sm={4} item>
+          <Grid xs={6} sm={4} item>
             <InputLabel>تاریخ</InputLabel>
             <Grid container spacing={1}>
               <Grid item xs={6}>

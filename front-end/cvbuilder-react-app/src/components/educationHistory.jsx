@@ -21,6 +21,10 @@ const EducationHistory = () => {
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق تحصیلی
       </Typography>
+      <Typography variant="caption" style={{ color: "gray" }} gutterBottom>
+        برای نوشتن سوابق تحصیلی در رزومه، همیشه از بالاترین مدرک خود شروع به
+        نوشتن کنید.
+      </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
           <Grid xs={6} sm={2} item>

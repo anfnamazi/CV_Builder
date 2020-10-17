@@ -22,7 +22,7 @@ const Skill = () => {
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
-          <Grid md={3} item>
+          <Grid md={4} item>
             <TextField
               className={classes.formControl}
               label="نام زبان"
@@ -62,10 +62,10 @@ const Skill = () => {
         <Grid item spacing={3} xs={12} sm={6}>
           <Paper style={{ padding: "25px 30px" }}>
             <Grid container justify="center" spacing={2}>
-              <Grid md={7} item>
+              <Grid xs={6} item>
                 <TextField label="نام مهارت" name="experienceSkillTitle" />
               </Grid>
-              <Grid md={5} item>
+              <Grid xs={6} item>
                 <Box component="fieldset" borderColor="transparent">
                   <Typography component="legend">سطح</Typography>
                   <Rating size="small" name="experienceSkillLevel" />
