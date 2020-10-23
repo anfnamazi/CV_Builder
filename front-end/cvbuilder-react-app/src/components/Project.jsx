@@ -8,10 +8,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { useStyles } from "../utils/styles";
 
 const Project = () => {
+  const [researchType, setresearchType] = useState();
+  const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "سایر"];
+  const articleTypeList = ["داخلی", "ISI"];
+
   const classes = useStyles();
   return (
     <form>
@@ -23,15 +27,35 @@ const Project = () => {
           <Grid xs={6} sm={3} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع اثر</InputLabel>
-              <Select name="researchType"></Select>
+              <Select
+                name="researchType"
+                onChange={(e) => setresearchType(e.target.value)}
+              >
+                {researchTypeList.map((type) => (
+                  <MenuItem value={type}>{type}</MenuItem>
+                ))}
+              </Select>
             </FormControl>
           </Grid>
-          <Grid xs={6} sm={9} item>
+          <Grid xs={6} sm={6} item>
             <TextField
               label="عنوان"
               name="researchTitle"
               className={classes.formControl}
             />
+          </Grid>
+          <Grid xs={6} sm={3} item>
+            <FormControl className={classes.formControl}>
+              <InputLabel>نوع مقاله</InputLabel>
+              <Select
+                name="articleType"
+                disabled={researchType === "مقاله" ? false : true}
+              >
+                {articleTypeList.map((type) => (
+                  <MenuItem value={type}>{type}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2} style={{ marginTop: 20 }}>
@@ -47,6 +71,7 @@ const Project = () => {
               label="لینک مرتبط"
               name="researchHyperlink"
               className={classes.formControl}
+              style={{ direction: "ltr" }}
             />
           </Grid>
           <Grid xs={6} sm={4} item>
@@ -104,19 +129,20 @@ const Project = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" spacing={2} style={{ marginTop: 20 }}>
-          <Grid xs={6} sm={8} item>
+          <Grid xs={6} sm={4} item>
             <TextField
               label="لینک مرتبط"
               name="projectHyperlink"
               className={classes.formControl}
+              style={{ direction: "ltr" }}
             />
           </Grid>
           <Grid xs={6} sm={4} item>
-            <InputLabel>تاریخ</InputLabel>
+            <InputLabel>شروع</InputLabel>
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Select
-                  name="projectMonth"
+                  name="startProjectMonth"
                   className={classes.formControl}
                   defaultValue="def"
                 >
@@ -127,7 +153,31 @@ const Project = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  name="projectYear"
+                  name="startProjectYear"
+                  type="number"
+                  placeholder="سال"
+                  className={classes.formControl}
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid xs={6} sm={4} item>
+            <InputLabel>اتمام</InputLabel>
+            <Grid container spacing={1}>
+              <Grid item xs={6}>
+                <Select
+                  name="endProjectMonth"
+                  className={classes.formControl}
+                  defaultValue="def"
+                >
+                  <MenuItem disabled value="def">
+                    ماه
+                  </MenuItem>
+                </Select>
+              </Grid>
+              <Grid item xs={6}>
+                <TextField
+                  name="endProjectYear"
                   type="number"
                   placeholder="سال"
                   className={classes.formControl}

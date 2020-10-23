@@ -8,13 +8,16 @@ import {
   Paper,
   Select,
   TextField,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import { Help } from "@material-ui/icons";
+import React, { Fragment, useState } from "react";
 import { useStyles } from "../utils/styles";
 
 const JobHistory = () => {
   const [inJob, setinJob] = useState(false);
+  const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
 
   const classes = useStyles();
   return (
@@ -29,18 +32,30 @@ const JobHistory = () => {
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={6} sm={3}>
-            <TextField
-              className={classes.formControl}
-              name="jobTitle"
-              label="سمت شغلی"
-            />
+            <Tooltip title="لورم ایپسوم">
+              <TextField
+                className={classes.formControl}
+                name="jobTitle"
+                label={
+                  <Fragment>
+                    سمت شغلی{" "}
+                    <Help
+                      style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                    />
+                  </Fragment>
+                }
+              />
+            </Tooltip>
           </Grid>
           <Grid item xs={6} sm={3}>
-            <TextField
-              className={classes.formControl}
-              name="jobGroup"
-              label="گروه شغلی"
-            />
+            <FormControl className={classes.formControl}>
+              <InputLabel>گروه شغلی</InputLabel>
+              <Select name="jobGroup">
+                {jobGroups.map((group) => (
+                  <MenuItem value={group}>{group}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Grid>
           <Grid item xs={6} sm={3}>
             <TextField
@@ -162,6 +177,31 @@ const JobHistory = () => {
                 />
               }
               label="مشغول به فعالیت"
+            />
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          alignItems="flex-end"
+          spacing={2}
+          style={{ marginTop: 20 }}
+        >
+          <Grid item xs={6} sm={4}>
+            <TextField
+              label="میزان درآمد"
+              name="income"
+              type="number"
+              placeholder="4000000 تومان"
+              className={classes.formControl}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4}>
+            <TextField
+              label="شماره تماس"
+              type="number"
+              placeholder="02188888888"
+              name="phoneNumber"
+              className={classes.formControl}
             />
           </Grid>
         </Grid>

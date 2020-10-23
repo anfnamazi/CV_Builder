@@ -9,11 +9,20 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
+import { CastForEducation } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
-import React from "react";
+import React, { useState } from "react";
 import { useStyles } from "../utils/styles";
 
 const Skill = () => {
+  const [evidence, setevidence] = useState(
+    "لطفا مدرک مربوطه را بارگذاری کنید."
+  );
+
+  const onChangeEvidence = (event) => {
+    setevidence(event.target.files[0].name);
+  };
+
   const classes = useStyles();
   return (
     <form>
@@ -79,19 +88,33 @@ const Skill = () => {
         دوره ها و گواهینامه
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
-        <Grid container justify="center" spacing={2}>
-          <Grid xs={4} item>
+        <Grid container justify="center" alignItems="center" spacing={2}>
+          <Grid xs={4} md={3} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع گواهینامه</InputLabel>
               <Select name="certificateType"></Select>
             </FormControl>
           </Grid>
-          <Grid xs={8} item>
+          <Grid xs={8} md={3} item>
             <TextField
               label="عنوان"
               name="certificateTitle"
               className={classes.formControl}
             />
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div class="file-drop-area">
+              <span class="fake-btn">
+                <CastForEducation />
+              </span>
+              <span class="file-msg">{evidence}</span>
+              <input
+                class="file-input"
+                type="file"
+                name="evidence"
+                onChange={onChangeEvidence}
+              />
+            </div>
           </Grid>
         </Grid>
       </Paper>

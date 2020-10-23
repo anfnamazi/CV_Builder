@@ -7,9 +7,11 @@ import {
   Paper,
   Select,
   TextField,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import { Help } from "@material-ui/icons";
+import React, { Fragment, useState } from "react";
 import { useStyles } from "../utils/styles";
 
 const EducationHistory = () => {
@@ -120,15 +122,24 @@ const EducationHistory = () => {
             />
           </Grid>
           <Grid item xs={6} sm={2}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={inEdu}
-                  onChange={(e) => setinEdu(e.target.checked)}
-                />
-              }
-              label="درحال تحصیل"
-            />
+            <Tooltip title="لورم ایپسوم">
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={inEdu}
+                    onChange={(e) => setinEdu(e.target.checked)}
+                  />
+                }
+                label={
+                  <Fragment>
+                    درحال تحصیل{" "}
+                    <Help
+                      style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                    />
+                  </Fragment>
+                }
+              />
+            </Tooltip>
           </Grid>
         </Grid>
       </Paper>

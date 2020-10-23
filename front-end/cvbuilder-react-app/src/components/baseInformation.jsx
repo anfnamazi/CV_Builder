@@ -7,14 +7,24 @@ import {
   Paper,
   Select,
   TextField,
+  Tooltip,
   Typography,
 } from "@material-ui/core";
-import { PhotoCamera } from "@material-ui/icons";
-import React, { useState } from "react";
+import {
+  CastForEducation,
+  Help,
+  PhotoCamera,
+  RecentActors,
+} from "@material-ui/icons";
+import React, { Fragment, useState } from "react";
 import { useStyles } from "../utils/styles";
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
+  const [idCard, setidCard] = useState("لطفا کارت ملی خود را بارگذاری کنید.");
+  const [evidence, setevidence] = useState(
+    "لطفا مدرک تحصیلی خود را بارگذاری کنید."
+  );
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -24,6 +34,14 @@ const BaseInfo = () => {
       };
       reader.readAsDataURL(event.target.files[0]);
     }
+  };
+
+  const onChangeIdCard = (event) => {
+    setidCard(event.target.files[0].name);
+  };
+
+  const onChangeEvidence = (event) => {
+    setevidence(event.target.files[0].name);
   };
 
   const saveBaseInfo = (event) => {
@@ -86,12 +104,21 @@ const BaseInfo = () => {
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
-                <TextField
-                  className={classes.formControl}
-                  label="عنوان شغلی"
-                  name="job"
-                  placeholder="مثال: برنامه نویس وب یا ..."
-                />
+                <Tooltip title="لورم ایپسوم">
+                  <TextField
+                    className={classes.formControl}
+                    label={
+                      <Fragment>
+                        عنوان شغلی{" "}
+                        <Help
+                          style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                        />
+                      </Fragment>
+                    }
+                    name="job"
+                    placeholder="مثال: برنامه نویس وب یا ..."
+                  />
+                </Tooltip>
               </Grid>
             </Grid>
             <Grid container spacing={2} style={{ marginTop: 20 }}>
@@ -169,7 +196,7 @@ const BaseInfo = () => {
         </Grid>
       </Paper>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
-        اطلاعات پایه
+        اطلاعات تماس
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
@@ -245,6 +272,41 @@ const BaseInfo = () => {
               label="آدرس"
               name="address"
             />
+          </Grid>
+        </Grid>
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        مدارک
+      </Typography>
+      <Paper style={{ padding: "25px 30px" }}>
+        <Grid container justify="center" spacing={2}>
+          <Grid item xs={12} sm={6}>
+            <div class="file-drop-area">
+              <span class="fake-btn">
+                <RecentActors />
+              </span>
+              <span class="file-msg">{idCard}</span>
+              <input
+                class="file-input"
+                type="file"
+                name="idCard"
+                onChange={onChangeIdCard}
+              />
+            </div>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <div class="file-drop-area">
+              <span class="fake-btn">
+                <CastForEducation />
+              </span>
+              <span class="file-msg">{evidence}</span>
+              <input
+                class="file-input"
+                type="file"
+                name="evidence"
+                onChange={onChangeEvidence}
+              />
+            </div>
           </Grid>
         </Grid>
       </Paper>
