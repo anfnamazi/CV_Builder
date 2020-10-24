@@ -22,12 +22,12 @@ import clsx from "clsx";
 import React, { Fragment, useState } from "react";
 import { useStyles } from "../utils/styles";
 import { QontoConnector, useQontoStepIconStyles } from "../utils/uiUtils";
-import BaseInfo from "./baseInformation";
+import BaseInfo from "../components/baseInformation";
 import PropTypes from "prop-types";
-import EducationHistory from "./educationHistory";
-import JobHistory from "./jobHistory";
-import Skill from "./skill";
-import Project from "./Project";
+import EducationHistory from "../components/educationHistory";
+import JobHistory from "../components/jobHistory";
+import Skill from "../components/skill";
+import Project from "../components/Project";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
