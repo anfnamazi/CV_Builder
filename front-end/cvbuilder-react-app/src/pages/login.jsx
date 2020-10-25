@@ -8,7 +8,12 @@ import {
   TextField,
   useTheme,
 } from "@material-ui/core";
-import { PhonelinkRing, PermPhoneMsg, AccountCircle } from "@material-ui/icons";
+import {
+  PhonelinkRing,
+  PermPhoneMsg,
+  AccountCircle,
+  Lock,
+} from "@material-ui/icons";
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import TabPanel from "../components/tabPanel";
@@ -168,7 +173,7 @@ const Login = () => {
                       alignItems="flex-end"
                     >
                       <Grid item>
-                        <PermPhoneMsg fontSize="large" />
+                        <Lock fontSize="large" />
                       </Grid>
                       <Grid xs item>
                         <TextField
