@@ -1,6 +1,5 @@
 import {
   Button,
-  Container,
   CssBaseline,
   Fab,
   Grid,
@@ -99,101 +98,99 @@ const ResumeForm = () => {
   return (
     <Fragment>
       <CssBaseline />
-      <Container maxWidth="md" style={{ marginBottom: 100 }}>
-        <div className={classes.root}>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<QontoConnector />}
-          >
-            {steps.map((label, index) => (
-              <Step key={label}>
-                <StepLabel StepIconComponent={QontoStepIcon}>
-                  <StepButton onClick={handleStep(index)}>{label}</StepButton>
-                </StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-          <div>
-            {activeStep === steps.length ? (
-              <div>
-                <Typography
-                  component="h3"
-                  style={{ textAlign: "center", marginTop: 40 }}
-                  className={classes.instructions}
-                >
-                  اتمام فرآیند باتشکر
-                </Typography>
-                <Grid
-                  container
-                  spacing={5}
-                  style={{ marginTop: 20, padding: 20 }}
-                >
-                  <Grid item xs>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={handleReset}
-                      startIcon={<ArrowForward />}
-                    >
-                      بازگشت به صفحه اول
-                    </Button>
-                  </Grid>
-                  <Grid item>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      endIcon={<Send style={{ transform: "rotate(180deg)" }} />}
-                    >
-                      ارسال
-                    </Button>
-                  </Grid>
+      <div className={classes.root} style={{ marginBottom: 100 }}>
+        <Stepper
+          alternativeLabel
+          activeStep={activeStep}
+          connector={<QontoConnector />}
+        >
+          {steps.map((label, index) => (
+            <Step key={label}>
+              <StepLabel StepIconComponent={QontoStepIcon}>
+                <StepButton onClick={handleStep(index)}>{label}</StepButton>
+              </StepLabel>
+            </Step>
+          ))}
+        </Stepper>
+        <div>
+          {activeStep === steps.length ? (
+            <div>
+              <Typography
+                component="h3"
+                style={{ textAlign: "center", marginTop: 40 }}
+                className={classes.instructions}
+              >
+                اتمام فرآیند باتشکر
+              </Typography>
+              <Grid
+                container
+                spacing={5}
+                style={{ marginTop: 20, padding: 20 }}
+              >
+                <Grid item xs>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleReset}
+                    startIcon={<ArrowForward />}
+                  >
+                    بازگشت به صفحه اول
+                  </Button>
                 </Grid>
-              </div>
-            ) : (
-              <div>
-                <Typography className={classes.instructions}>
-                  {getStepContent(activeStep)}
-                </Typography>
-                <Fab
-                  style={
-                    activeStep === 0
-                      ? { display: "none" }
-                      : {
-                          position: "fixed",
-                          bottom: 50,
-                          right: 50,
-                        }
-                  }
-                  onClick={handleBack}
-                  className={classes.backButton}
-                  variant="contained"
-                  color="secondary"
-                  size="medium"
-                >
-                  <SkipNext className={classes.extendedIcon} />
-                  <Hidden xsDown>مرحله قبل</Hidden>
-                </Fab>
-                <Fab
-                  style={{
-                    position: "fixed",
-                    bottom: 50,
-                    left: 50,
-                  }}
-                  variant="contained"
-                  color="primary"
-                  type="submit"
-                  onClick={handleNext}
-                  size="medium"
-                >
-                  <Hidden xsDown>ذخیره و ادامه</Hidden>
-                  <SkipPrevious className={classes.extendedIcon} />
-                </Fab>
-              </div>
-            )}
-          </div>
+                <Grid item>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    endIcon={<Send style={{ transform: "rotate(180deg)" }} />}
+                  >
+                    ارسال
+                  </Button>
+                </Grid>
+              </Grid>
+            </div>
+          ) : (
+            <div>
+              <Typography className={classes.instructions}>
+                {getStepContent(activeStep)}
+              </Typography>
+              <Fab
+                style={
+                  activeStep === 0
+                    ? { display: "none" }
+                    : {
+                        position: "fixed",
+                        bottom: 50,
+                        right: 50,
+                      }
+                }
+                onClick={handleBack}
+                className={classes.backButton}
+                variant="contained"
+                color="secondary"
+                size="medium"
+              >
+                <SkipNext className={classes.extendedIcon} />
+                <Hidden xsDown>مرحله قبل</Hidden>
+              </Fab>
+              <Fab
+                style={{
+                  position: "fixed",
+                  bottom: 50,
+                  left: 50,
+                }}
+                variant="contained"
+                color="primary"
+                type="submit"
+                onClick={handleNext}
+                size="medium"
+              >
+                <Hidden xsDown>ذخیره و ادامه</Hidden>
+                <SkipPrevious className={classes.extendedIcon} />
+              </Fab>
+            </div>
+          )}
         </div>
-      </Container>
+      </div>
     </Fragment>
   );
 };
