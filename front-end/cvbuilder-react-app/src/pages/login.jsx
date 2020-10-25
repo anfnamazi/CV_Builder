@@ -203,11 +203,13 @@ const Login = () => {
         <Hidden xsDown>
           <Grid xs={12} sm={5} md={7} item>
             <div class="myRightCtn">
-              <img
-                style={{ width: "100%", height: "100%" }}
-                src={require("../assets/images/loginImg.svg")}
-                alt=""
-              />
+              <div style={{ width: "100%", height: "100%", padding: 50 }}>
+                <img
+                  style={{ width: "100%", height: "100%" }}
+                  src={require("../assets/images/loginImg.svg")}
+                  alt=""
+                />
+              </div>
             </div>
           </Grid>
         </Hidden>
