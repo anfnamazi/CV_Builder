@@ -1,0 +1,363 @@
+swagger: '2.0'
+info:
+  description: The CV-Builder
+  version: 1.0.1
+  title: The CV-Builder
+  # put the contact info for your development or API team
+  contact:
+    email: you@your-company.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls - with jwt (barier token)
+- name: users
+  description: Secured Registered users - with jwt (barier token)
+- name: public
+  description: any user without token can call 
+
+paths:
+  /users:
+    get:
+      tags:
+      - admins
+      summary: list of users with some of user fields
+      operationId: listOfUsers
+      description: |
+        You can get a list of users for the user list 
+        of admin panel
+      produces:
+      - application/json
+      
+      responses:
+        200:
+          description: user list
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/UserListItem'
+        400:
+          description: bad request
+        403:
+          description: the user is not admin or no jwt token mentioned
+    post:
+      tags:
+      - admins
+      summary:  admin can add a new user
+      operationId: addUser
+      description: |
+        You can send user info and register a new user
+      produces:
+      - application/json
+      parameters:
+      - in: query
+        name: phone
+        description: the user's phone number - it should be Iran Locale
+        type: string
+        format: phone
+        required: true
+
+      - in: query
+        name: name
+        description: pass the user's name
+        required: false
+        type: string
+      
+      responses:
+        200:
+          description: new user
+          schema:
+            $ref: '#/definitions/UserRegisterAdminItem'
+        400:
+          description: bad request
+        403:
+          description: the user is not admin or no jwt token mentioned
+  /users/{id}/base:
+    get:
+      tags:
+      - users
+      summary: user or admin can see base info of a user with id
+      operationId: getBaseInfo
+      description: |
+        a user can only get base info of himself
+        but an admin can get base info of any user
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: User ID
+        type: integer
+        required: true
+      responses:
+        200:
+          description: base information
+          schema:
+            $ref: '#/definitions/BaseInformationsItem'
+        400:
+          description: bad request
+        403:
+          description: access deny
+    post:
+      tags:
+      - users
+      summary: user or admin can add base info for user with id
+      operationId: addBaseInfo
+      description: |
+        a user can only add base info of himself
+        but an admin can add base info of any user
+      produces:
+      - application/json
+      consumes:
+      - multipart/form-data
+      parameters:
+      - name: id
+        in: path
+        description: User ID to add base info for
+        type: integer
+        required: true
+      - in: query
+        name: firstName
+        type: string
+      - in: query
+        name: lastName
+        type: string
+      - in: formData
+        name: image
+        type: file
+        description: The user's image to upload.
+      - in: query
+        name: job
+        type: string
+      - in: query
+        name: gender
+        type: string
+        enum: ['زن','مرد']
+      - in: query
+        name: marital
+        type: string
+        enum: ['مجرد', 'متاهل']
+      - in: query
+        name: military
+        type: string
+        enum: [
+          'مشمول',
+          'در حال خدمت',
+          'پایان خدمت',
+          'معاف',
+          'معافیت تحصیلی',
+          'معافیت غیر پزشکی',
+          'معافیت پزشکی'
+        ]
+      - in: query
+        name: birthDay
+        format: date-time
+        type: string
+      - in: query
+        name: description
+        type: string
+
+      
+      responses:
+        200:
+          description: base information
+          schema:
+            $ref: '#/definitions/BaseInformationsItem'
+        400:
+          description: bad request
+        403:
+          description: access deny
+  /sendSMS:
+    post:
+      tags:
+      - public
+      summary: register new user or ask for verification code
+      operationId: sendSMS
+      description: |
+        if phone number exists, sends verification SMS
+        if not, registers new user and sends verification SMS
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - in: formData
+        name: phone
+        format: phone
+        type: string
+        required: true
+      responses:
+        201:
+          description: new user Registered and verification SMS sent
+          schema: 
+            $ref: '#/definitions/UserRegisterItem'
+        202:
+          description: user already exists and verification SMS sent
+        400:
+          description: bad request
+  /verify:
+    post:
+      tags:
+      - public
+      summary: verify the verification code, sent by sms
+      operationId: verifyPhone
+      produces:
+      - application/json
+      consumes:
+      - application/x-www-form-urlencoded
+      parameters:
+      - in: formData
+        name: phone
+        format: phone
+        type: string
+        required: true
+      - in: formData
+        name: code
+        type: string
+        required: true
+      responses:
+        200:
+          description: verified
+          schema:
+            $ref: '#/definitions/UserVerified'
+        400:
+          description: bad request
+        406:
+          description: verification code is not correct
+
+definitions:
+  BaseInformationsItem:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - image 
+    - job
+    - gender
+    - marital
+    - military
+    - birthDay
+    - description
+    properties:
+      firstName:
+        type: string
+        example: محمد
+      lastName:
+        type: string
+        example: قربانی
+      image:
+        type: string
+        example: media/llasd90uasdonva.jpg
+      job:
+        type: string
+        example: برنامه نویس
+      gender:
+        type: string
+        example: مرد
+      military:
+        type: string
+        example: معافیت تحصیلی
+      birthDay:
+        type: string
+        format: date-time
+        example: 1996-08-29
+      description:
+        type: string
+        example: توضیحات کوتاه درباره من
+  UserRegisterAdminItem:
+    type: object
+    required:
+    - id
+    - name
+    - phone
+    - verified
+    - verification
+    - registrationDate
+    - token
+    properties:
+      id:
+        type: string
+        example: 5fa176704d8ad7cd2e33a3e5
+      name:
+        type: string
+        example: mohammad Ali
+      phone:
+        type: string
+        format: phone
+        example: +9891304356785
+      verified:
+        type: boolean
+        example: true
+      verification:
+        type: string
+        example: 23435
+      registrationDate:
+        type: string
+        format: date-time
+        example: 2016-08-29:12:33
+      token:
+        type: string
+        format: jwt-token
+        example: 5f4cb8f79913d6509505a85d1d09af1e80dd3fe52db81e03c53c350802382c2b357e11855e0553dae4c814e862316276ed4c994fe64b8d19ac6a53649f8ca39dffb2102361a2bf45a7e1df5157450186e5fee25b03fd8dbb6713a8f4dfcb85134a3c52033686231bfa14236f43fa45dae32b5824b4958feae6eb96e03f7b526ce7c102da0e23c9897ca391f175716c947f8f5c1e1a46dd3b36d799e07ad47c257e2351935d1dd3e79bf24a4cd44b43323f997fc549e9f25ecdd4c6efa54d9a0c
+  UserVerified:
+    type: object
+    required:
+    - id
+    - phone
+    - verified
+    - token
+    properties:
+      id:
+        type: string
+        example: 5fa176704d8ad7cd2e33a3e5
+      phone:
+        type: string
+        format: phone
+        example: +9891304356785
+      verified:
+        type: boolean
+        example: true
+      token:
+        type: string
+        format: jwt-token
+        example: 5f4cb8f79913d6509505a85d1d09af1e80dd3fe52db81e03c53c350802382c2b357e11855e0553dae4c814e862316276ed4c994fe64b8d19ac6a53649f8ca39dffb2102361a2bf45a7e1df5157450186e5fee25b03fd8dbb6713a8f4dfcb85134a3c52033686231bfa14236f43fa45dae32b5824b4958feae6eb96e03f7b526ce7c102da0e23c9897ca391f175716c947f8f5c1e1a46dd3b36d799e07ad47c257e2351935d1dd3e79bf24a4cd44b43323f997fc549e9f25ecdd4c6efa54d9a0c
+  
+  UserListItem:
+    type: object
+    required:
+    - id
+    - name
+    - phone
+    - registrationDate
+    properties:
+      id:
+        type: string
+        example: 5fa176704d8ad7cd2e33a3e5
+      name:
+        type: string
+        example: mohammad Ali
+      phone:
+        type: string
+        format: phone
+        example: +9891304356785
+      registrationDate:
+        type: string
+        format: date-time
+        example: 2016-08-29:12:33
+  UserRegisterItem:
+    type: object
+    required:
+    - id
+    - phone
+    properties:
+      id:
+        type: string
+        example: 5fa176704d8ad7cd2e33a3e5
+      phone:
+        type: string
+        format: phone
+        example: +9891304356785
