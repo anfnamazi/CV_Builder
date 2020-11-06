@@ -7,6 +7,8 @@ const { addFileNameToReq } = require('./addFileNameToReq')
 const { createDocInDB } = require('./createDocInDB')
 const { createEducationHistoryInDB } = require('./createEducationHistoryInDB')
 const { createJobHistoryInDB } = require('./createJobHistoryInDB')
+const { createProjectInDB } = require('./createProjectInDB')
+const { createResearchInDB } = require('./createResearchInDB')
 
 module.exports = {
   createItemInDb,
@@ -17,5 +19,7 @@ module.exports = {
   addFileNameToReq,
   createDocInDB,
   createEducationHistoryInDB,
-  createJobHistoryInDB
+  createJobHistoryInDB,
+  createProjectInDB,
+  createResearchInDB
 }

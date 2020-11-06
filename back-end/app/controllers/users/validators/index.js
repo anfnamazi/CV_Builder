@@ -14,6 +14,10 @@ const {
 } = require('./validateAddEducationHistoryUser')
 const { validateAddJobHistory } = require('./validateAddJobHistory')
 const { validateAddJobHistoryUser } = require('./validateAddJobHistoryUser')
+const { validateAddProject } = require('./validateAddProject')
+const { validateAddProjectUser } = require('./validateAddProjectUser')
+const { validateAddResearch } = require('./validateAddResearch')
+const { validateAddResearchUser } = require('./validateAddResearchUser')
 
 module.exports = {
   validateAddBaseInfo,
@@ -29,5 +33,9 @@ module.exports = {
   validateAddEducationHistory,
   validateAddEducationHistoryUser,
   validateAddJobHistory,
-  validateAddJobHistoryUser
+  validateAddJobHistoryUser,
+  validateAddProject,
+  validateAddProjectUser,
+  validateAddResearch,
+  validateAddResearchUser
 }

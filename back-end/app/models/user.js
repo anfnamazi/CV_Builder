@@ -75,6 +75,18 @@ const UserSchema = new mongoose.Schema(
         ref: 'JobHistory'
       }
     ],
+    researchs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Research'
+      }
+    ],
+    projects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+      }
+    ],
     docs: [
       {
         type: Schema.Types.ObjectId,

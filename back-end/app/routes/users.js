@@ -32,6 +32,8 @@ router.use(require('./userData/contactInfo'))
 router.use(require('./userData/docs'))
 router.use(require('./userData/educationHistories'))
 router.use(require('./userData/jobHistories'))
+router.use(require('./userData/projects'))
+router.use(require('./userData/researchs'))
 
 /*
  * Get items route

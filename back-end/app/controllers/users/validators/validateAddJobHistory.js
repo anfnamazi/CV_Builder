@@ -12,7 +12,10 @@ const validateAddJobHistory = [
     .isEmpty()
     .withMessage('IS_EMPTY'),
   check('jobTitle').optional(),
-  check('jobGroup').optional().isIn(['موسیقی', 'تئاتر', ' فیلم', 'کتاب']),
+  check('jobGroup')
+    .optional()
+    .isIn(['موسیقی', 'تئاتر', ' فیلم', 'کتاب'])
+    .withMessage('VALID_VALUES: [موسیقی, تئاتر,  فیلم, کتاب]'),
   check('jobCenter').optional(),
   check('titleCenter').optional(),
   check('cooperateType')
@@ -23,8 +26,14 @@ const validateAddJobHistory = [
       'رسمی یا پیمانی',
       'ساعتی',
       'بدون قرارداد'
-    ]),
-  check('seniorLevel').optional().isIn(['تازه کار', 'کارشناس', 'خبره']),
+    ])
+    .withMessage(
+      'VALID_VALUES: [فراردادی تمام وقت,قراردادی پاره وقت,رسمی یا پیمانی,ساعتی,بدون قرارداد]'
+    ),
+  check('seniorLevel')
+    .optional()
+    .isIn(['تازه کار', 'کارشناس', 'خبره'])
+    .withMessage('VALID_VALUES: [تازه کار, کارشناس, خبره]'),
   check('jobCountry').optional(),
   check('jobProvince').optional(),
   check('jobCity').optional(),

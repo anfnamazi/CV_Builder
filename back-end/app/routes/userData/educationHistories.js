@@ -11,7 +11,7 @@ const { findUserById } = require('../../controllers/auth/helpers')
 
 const {
   createEducationHistoryUser,
-  updateEducationHistoryUser
+  updateSimpleItem
 } = require('../../controllers/users')
 
 const {
@@ -67,13 +67,13 @@ router.post(
   async (req, res) => {
     try {
       if (req.user.role == 'admin') {
-        await updateEducationHistoryUser(req, res)
+        await updateSimpleItem(req, res, EducationHistory)
         return
       }
       const id = req.params.id || ''
       if (Array.isArray(req.user.educationHistories)) {
         if (req.user.educationHistories.includes(id)) {
-          await updateEducationHistoryUser(req, res)
+          await updateSimpleItem(req, res, EducationHistory)
           return
         }
       }
@@ -116,13 +116,11 @@ router.get(
   trimRequest.all,
   async (req, res) => {
     try {
-      res
-        .status(201)
-        .json(
-          await getItems(req, EducationHistory, {
-            _id: { $in: req.user.educationHistories }
-          })
-        )
+      res.status(201).json(
+        await getItems(req, EducationHistory, {
+          _id: { $in: req.user.educationHistories }
+        })
+      )
     } catch (err) {
       handleError(res, err)
     }

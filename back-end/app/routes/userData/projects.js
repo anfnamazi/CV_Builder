@@ -10,13 +10,13 @@ const { roleAuthorization } = require('../../controllers/auth')
 const { findUserById } = require('../../controllers/auth/helpers')
 
 const {
-  createJobHistoryUser,
+  createProjectUser,
   updateSimpleItem
 } = require('../../controllers/users')
 
 const {
-  validateAddJobHistory,
-  validateAddJobHistoryUser
+  validateAddProject,
+  validateAddProjectUser
 } = require('../../controllers/users/validators')
 const { getItem, getItems } = require('../../middleware/db')
 const {
@@ -24,23 +24,23 @@ const {
   isIDGood,
   buildErrObject
 } = require('../../middleware/utils')
-const JobHistory = require('../../models/jobHistory')
+const Project = require('../../models/project')
 
 /*
  * add or edit BaseInfo of user, by Admin
  */
 router.post(
-  '/:id/jobs',
+  '/:id/projects',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
-  validateAddJobHistory,
+  validateAddProject,
   async (req, res) => {
     try {
       let id = req.params.id || ''
       id = isIDGood(id)
       req.user = findUserById(id)
-      await createJobHistoryUser(req, res)
+      await createProjectUser(req, res)
     } catch (err) {
       handleError(res, err)
     }
@@ -50,30 +50,30 @@ router.post(
  * add or edit BaseInfo of user, by himself
  */
 router.post(
-  '/jobs',
+  '/projects',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
-  validateAddJobHistoryUser,
-  createJobHistoryUser
+  validateAddProjectUser,
+  createProjectUser
 )
 
 router.post(
-  '/jobs/:id',
+  '/projects/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
-  validateAddJobHistoryUser,
+  validateAddProjectUser,
   async (req, res) => {
     try {
       if (req.user.role == 'admin') {
-        await updateSimpleItem(req, res, JobHistory)
+        await updateSimpleItem(req, res, Project)
         return
       }
       const id = req.params.id || ''
-      if (Array.isArray(req.user.jobHistories)) {
-        if (req.user.jobHistories.includes(id)) {
-          await updateSimpleItem(req, res, JobHistory)
+      if (Array.isArray(req.user.projects)) {
+        if (req.user.projects.includes(id)) {
+          await updateSimpleItem(req, res, Project)
           return
         }
       }
@@ -87,7 +87,7 @@ router.post(
  * get BaseInfo of user, by Admin
  */
 router.get(
-  '/:id/jobs',
+  '/:id/projects',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
@@ -97,8 +97,8 @@ router.get(
       id = isIDGood(id)
       let user = findUserById(id)
       res.status(201).json(
-        await getItems(req, JobHistory, {
-          _id: { $in: user.jobHistories }
+        await getItems(req, Project, {
+          _id: { $in: user.projects }
         })
       )
     } catch (err) {
@@ -110,15 +110,15 @@ router.get(
  * get BaseInfo of user, by himself
  */
 router.get(
-  '/jobs',
+  '/projects',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
   async (req, res) => {
     try {
       res.status(201).json(
-        await getItems(req, JobHistory, {
-          _id: { $in: req.user.jobHistories }
+        await getItems(req, Project, {
+          _id: { $in: req.user.projects }
         })
       )
     } catch (err) {
@@ -127,7 +127,7 @@ router.get(
   }
 )
 router.get(
-  '/jobs/:id',
+  '/projects/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
@@ -135,12 +135,12 @@ router.get(
     try {
       const id = req.params.id || ''
       if (req.user.role == 'admin') {
-        res.status(201).json(await getItem(id, JobHistory))
+        res.status(201).json(await getItem(id, Project))
         return
       }
-      if (Array.isArray(req.user.jobHistories)) {
-        if (req.user.jobHistories.includes(id)) {
-          res.status(201).json(await getItem(id, JobHistory))
+      if (Array.isArray(req.user.projects)) {
+        if (req.user.projects.includes(id)) {
+          res.status(201).json(await getItem(id, Project))
           return
         }
       }

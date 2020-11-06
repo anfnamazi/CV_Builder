@@ -1,6 +1,5 @@
 const { matchedData } = require('express-validator')
 const { handleError, isIDGood } = require('../../middleware/utils')
-const EducationHistory = require('../../models/educationHistory')
 const { updateItem } = require('../../middleware/db')
 
 /**
@@ -8,16 +7,16 @@ const { updateItem } = require('../../middleware/db')
  * @param {Object} req - request object
  * @param {Object} res - response object
  */
-const updateEducationHistoryUser = async (req, res) => {
+const updateSimpleItem = async (req, res, model = {}) => {
   try {
     let id = req.params.id || ''
     id = await isIDGood(id)
     req = matchedData(req)
-    let item = await updateItem(id, EducationHistory, req)
+    let item = await updateItem(id, model, req)
     res.status(200).json(item)
   } catch (error) {
     handleError(res, error)
   }
 }
 
-module.exports = { updateEducationHistoryUser }
+module.exports = { updateSimpleItem }
