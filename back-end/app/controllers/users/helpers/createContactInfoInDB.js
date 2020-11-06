@@ -14,7 +14,9 @@ const createContactInfoInDB = (
     country = '',
     province = '',
     city = '',
-    address = ''
+    address = '',
+    socialMediaName = '',
+    socialMediaId = ''
   },
   userId
 ) => {
@@ -28,6 +30,8 @@ const createContactInfoInDB = (
       province,
       city,
       address,
+      socialMediaName,
+      socialMediaId,
       user: userId
     })
     ContactInfo.save((err, item) => {

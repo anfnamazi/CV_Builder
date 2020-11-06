@@ -16,6 +16,8 @@ const validateAddContactInfoUser = [
   check('province').optional(),
   check('city').optional(),
   check('address').optional(),
+  check('socialMediaName').optional(),
+  check('socialMediaId').optional(),
   (req, res, next) => {
     validateResult(req, res, next)
   }

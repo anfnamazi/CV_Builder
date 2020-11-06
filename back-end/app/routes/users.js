@@ -27,13 +27,13 @@ const {
 /*
  * Users routes
  */
-router.use(require('./userData/baseInfo'))
-router.use(require('./userData/contactInfo'))
-router.use(require('./userData/docs'))
-router.use(require('./userData/educationHistories'))
-router.use(require('./userData/jobHistories'))
-router.use(require('./userData/projects'))
-router.use(require('./userData/researchs'))
+router.use(require('./userData/baseInfo')) // base
+router.use(require('./userData/contactInfo')) // contactInfo
+router.use(require('./userData/docs')) // docs
+router.use(require('./userData/educationHistories')) //edus
+router.use(require('./userData/jobHistories')) // jobs
+router.use(require('./userData/projects')) // projects
+router.use(require('./userData/researchs')) // researchs
 
 /*
  * Get items route
