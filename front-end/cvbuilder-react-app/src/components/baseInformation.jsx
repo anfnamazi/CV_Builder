@@ -25,6 +25,20 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
+  const months = [
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
+  ];
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -179,6 +193,9 @@ const BaseInfo = () => {
                       <MenuItem disabled value="def">
                         ماه
                       </MenuItem>
+                      {months.map((v, k) => (
+                        <MenuItem value={k}>{v}</MenuItem>
+                      ))}
                     </Select>
                   </Grid>
                   <Grid item xs={6} sm={3}>

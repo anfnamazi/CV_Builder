@@ -14,8 +14,21 @@ import { useStyles } from "../utils/styles";
 const Project = () => {
   const [researchType, setresearchType] = useState();
   const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "سایر"];
-  const articleTypeList = ["داخلی", "ISI"];
-
+  const articleTypeList = ["داخلی", "خارجی"];
+  const months = [
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
+  ];
   const classes = useStyles();
   return (
     <form>
@@ -86,6 +99,9 @@ const Project = () => {
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
+                  {months.map((v, k) => (
+                    <MenuItem value={k}>{v}</MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
@@ -149,6 +165,9 @@ const Project = () => {
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
+                  {months.map((v, k) => (
+                    <MenuItem value={k}>{v}</MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
@@ -173,6 +192,9 @@ const Project = () => {
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
+                  {months.map((v, k) => (
+                    <MenuItem value={k}>{v}</MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>

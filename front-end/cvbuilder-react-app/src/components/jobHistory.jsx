@@ -18,6 +18,28 @@ import { useStyles } from "../utils/styles";
 const JobHistory = () => {
   const [inJob, setinJob] = useState(false);
   const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
+  const cooperateTypes = [
+    "فراردادی تمام وقت",
+    "قراردادی پاره وقت",
+    "رسمی یا پیمانی",
+    "ساعتی",
+    "بدون قرارداد",
+  ];
+  const months = [
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
+  ];
+  const seniorLevels = ["تازه کار", "کارشناس", "خبره"];
 
   const classes = useStyles();
   return (
@@ -76,13 +98,21 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
-              <Select name="cooperateType"></Select>
+              <Select name="cooperateType">
+                {cooperateTypes.map((group) => (
+                  <MenuItem value={group}>{group}</MenuItem>
+                ))}
+              </Select>
             </FormControl>
           </Grid>
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>سطح ارشدیت</InputLabel>
-              <Select name="seniorLevel"></Select>
+              <Select name="seniorLevel">
+                {seniorLevels.map((group) => (
+                  <MenuItem value={group}>{group}</MenuItem>
+                ))}
+              </Select>
             </FormControl>
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -128,6 +158,9 @@ const JobHistory = () => {
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
+                  {months.map((v, k) => (
+                    <MenuItem value={k}>{v}</MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6} sm={5}>
@@ -154,6 +187,9 @@ const JobHistory = () => {
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
+                  {months.map((v, k) => (
+                    <MenuItem value={k}>{v}</MenuItem>
+                  ))}
                 </Select>
               </Grid>
               <Grid item xs={6} sm={5}>
