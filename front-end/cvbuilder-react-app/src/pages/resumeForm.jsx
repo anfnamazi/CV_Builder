@@ -10,15 +10,9 @@ import {
   Typography,
   Hidden,
 } from "@material-ui/core";
-import {
-  ArrowForward,
-  Check,
-  Send,
-  SkipNext,
-  SkipPrevious,
-} from "@material-ui/icons";
+import { ArrowForward, Check, Send, SkipNext } from "@material-ui/icons";
 import clsx from "clsx";
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { useStyles } from "../utils/styles";
 import { QontoConnector, useQontoStepIconStyles } from "../utils/uiUtils";
 import BaseInfo from "../components/baseInformation";
@@ -27,6 +21,7 @@ import EducationHistory from "../components/educationHistory";
 import JobHistory from "../components/jobHistory";
 import Skill from "../components/skill";
 import Project from "../components/Project";
+import ResumeContext from "../context/resumeContext";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -96,7 +91,7 @@ const ResumeForm = () => {
   };
 
   return (
-    <Fragment>
+    <ResumeContext.Provider value={{ activeStep, setActiveStep, handleNext }}>
       <CssBaseline />
       <div className={classes.root} style={{ marginBottom: 100 }}>
         <Stepper
@@ -172,26 +167,11 @@ const ResumeForm = () => {
                 <SkipNext className={classes.extendedIcon} />
                 <Hidden xsDown>مرحله قبل</Hidden>
               </Fab>
-              <Fab
-                style={{
-                  position: "fixed",
-                  bottom: 50,
-                  left: 50,
-                }}
-                variant="contained"
-                color="primary"
-                type="submit"
-                onClick={handleNext}
-                size="medium"
-              >
-                <Hidden xsDown>ذخیره و ادامه</Hidden>
-                <SkipPrevious className={classes.extendedIcon} />
-              </Fab>
             </div>
           )}
         </div>
       </div>
-    </Fragment>
+    </ResumeContext.Provider>
   );
 };
 

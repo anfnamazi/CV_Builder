@@ -1,6 +1,9 @@
+import DateFnsUtils from "@date-io/date-fns";
 import {
+  Fab,
   FormControl,
   Grid,
+  Hidden,
   IconButton,
   InputLabel,
   MenuItem,
@@ -15,9 +18,16 @@ import {
   Help,
   PhotoCamera,
   RecentActors,
+  SkipPrevious,
 } from "@material-ui/icons";
-import React, { Fragment, useState } from "react";
+import {
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import React, { Fragment, useContext, useState } from "react";
+import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
+import { saveBaseInfo } from "../services/resumeService";
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
@@ -25,6 +35,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
+  const [birthDay, setbirthDay] = useState(new Date());
   const months = [
     "فروردین",
     "اردیبهشت",
@@ -39,6 +50,8 @@ const BaseInfo = () => {
     "بهمن",
     "اسفند",
   ];
+
+  const context = useContext(ResumeContext);
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -58,20 +71,34 @@ const BaseInfo = () => {
     setevidence(event.target.files[0].name);
   };
 
-  const saveBaseInfo = (event) => {
+  const handleSaveBaseInfo = async (event) => {
     event.preventDefault();
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const job = event.target.job.value;
     const gender = event.target.gender.value;
     const marital = event.target.marital.value;
-    console.log(firstName, lastName, job, gender, marital);
+    const image = event.target.image.files[0];
+    const birth = birthDay.toLocaleDateString("en-CA");
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("job", job);
+    formData.append("gender", gender);
+    formData.append("marital", marital);
+    formData.append("image", image);
+    formData.append("birthDay", birth);
+    const response = await saveBaseInfo(formData);
+    console.log(response);
+    if (response.status === 200 || response.status === 201) {
+      context.handleNext();
+    }
   };
 
   const classes = useStyles();
 
   return (
-    <form onSubmit={saveBaseInfo}>
+    <form onSubmit={handleSaveBaseInfo}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>
@@ -89,6 +116,8 @@ const BaseInfo = () => {
               onChange={onImageChange}
               id="icon-button-file"
               type="file"
+              name="image"
+              required
             />
             <label htmlFor="icon-button-file">
               <IconButton
@@ -108,6 +137,7 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام"
                   name="firstName"
+                  required
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
@@ -115,6 +145,7 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام خانوادگی"
                   name="lastName"
+                  required
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
@@ -125,12 +156,16 @@ const BaseInfo = () => {
                       <Fragment>
                         عنوان شغلی{" "}
                         <Help
-                          style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                          style={{
+                            fontSize: 14,
+                            transform: "rotateY(180deg)",
+                          }}
                         />
                       </Fragment>
                     }
                     name="job"
                     placeholder="مثال: برنامه نویس وب یا ..."
+                    required
                   />
                 </Tooltip>
               </Grid>
@@ -139,7 +174,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>جنسیت</InputLabel>
-                  <Select name="gender">
+                  <Select name="gender" required>
                     <MenuItem value={"مرد"}>مرد</MenuItem>
                     <MenuItem value={"زن"}>زن</MenuItem>
                   </Select>
@@ -148,7 +183,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
-                  <Select name="marital">
+                  <Select name="marital" required>
                     <MenuItem value={"مجرد"}>مجرد</MenuItem>
                     <MenuItem value={"متاهل"}>متاهل</MenuItem>
                   </Select>
@@ -157,7 +192,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت سربازی</InputLabel>
-                  <Select name="military">
+                  <Select name="military" required>
                     <MenuItem value={"مشمول"}>مشمول</MenuItem>
                     <MenuItem value={"در حال خدمت"}>در حال خدمت</MenuItem>
                     <MenuItem value={"پایان خدمت"}>پایان خدمت</MenuItem>
@@ -170,8 +205,9 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={5}>
-                <InputLabel>تاریخ تولد</InputLabel>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <Grid item xs={6} sm={5}>
+                  {/* <InputLabel>تاریخ تولد</InputLabel>
                 <Grid container spacing={1}>
                   <Grid item xs={6} sm={3}>
                     <Select
@@ -206,8 +242,18 @@ const BaseInfo = () => {
                       placeholder="سال"
                     />
                   </Grid>
+                </Grid> */}
+                  <KeyboardDatePicker
+                    className={classes.formControl}
+                    id="date-picker-dialog"
+                    label="تاریخ تولد"
+                    format="MM/dd/yyyy"
+                    name="birthDay"
+                    value={birthDay}
+                    onChange={(date) => setbirthDay(date)}
+                  />
                 </Grid>
-              </Grid>
+              </MuiPickersUtilsProvider>
             </Grid>
           </Grid>
         </Grid>
@@ -366,6 +412,21 @@ const BaseInfo = () => {
           </Paper>
         </Grid>
       </Grid>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        type="submit"
+        // onClick={}
+        size="medium"
+      >
+        <Hidden xsDown>ذخیره و ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </form>
   );
 };
