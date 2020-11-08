@@ -17,6 +17,7 @@ import {
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import TabPanel from "../components/tabPanel";
+import { loginUser, sendSms } from "../services/userService";
 import { useStyles } from "../utils/styles";
 
 function a11yProps(index) {
@@ -29,6 +30,8 @@ function a11yProps(index) {
 const Login = () => {
   const theme = useTheme();
   const [currentTab, setcurrentTab] = useState(0);
+  const [showverify, setshowverify] = useState(false);
+  const [phone, setphone] = useState();
 
   const handleChangeTab = (event, newTab) => {
     setcurrentTab(newTab);
@@ -38,12 +41,27 @@ const Login = () => {
     setcurrentTab(index);
   };
 
-  const handleLoginUser = (event) => {
+  const handleLoginUser = async (event) => {
     event.preventDefault();
+    const id = event.target.verify.value;
+    const request = { phone, id };
+    const result = await loginUser(request);
+    if (result.status === 200) {
+      localStorage.setItem("token", result.data.token);
+      window.location.replace("/");
+    }
   };
 
   const handleLoginAdmin = (event) => {
     event.preventDefault();
+  };
+
+  const handleGetVerify = async () => {
+    const request = { phone };
+    const result = await sendSms(request);
+    if (result.status === 201 || result.status === 202) {
+      setshowverify(true);
+    }
   };
 
   const classes = useStyles();
@@ -78,64 +96,82 @@ const Login = () => {
                     autoComplete="off"
                   >
                     <header style={{ marginBottom: 20 }}>ورود کاربر</header>
-                    <Grid
-                      container
-                      style={{ marginBottom: 20 }}
-                      spacing={1}
-                      alignItems="flex-end"
-                    >
-                      <Grid item>
-                        <PhonelinkRing fontSize="large" />
+
+                    <div style={{ display: !showverify ? "block" : "none" }}>
+                      <Grid
+                        container
+                        style={{ marginBottom: 20 }}
+                        spacing={1}
+                        alignItems="flex-end"
+                      >
+                        <Grid item>
+                          <PhonelinkRing fontSize="large" />
+                        </Grid>
+                        <Grid xs item>
+                          <TextField
+                            type="number"
+                            label="تلفن همراه"
+                            className={classes.formControl}
+                            name="phone"
+                            onChange={(e) => setphone(e.target.value)}
+                            style={{ direction: "ltr" }}
+                            placeholder="09123456789"
+                            required
+                          />
+                        </Grid>
                       </Grid>
-                      <Grid xs item>
-                        <TextField
-                          type="number"
-                          label="تلفن همراه"
-                          className={classes.formControl}
-                          name="phoneNumber"
-                          style={{ direction: "ltr" }}
-                          placeholder="09123456789"
-                          required
-                        />
+                      <Fab
+                        variant="contained"
+                        style={{ marginBottom: 50 }}
+                        color="primary"
+                        size="medium"
+                        type="button"
+                        onClick={handleGetVerify}
+                      >
+                        دریافت کد تایید
+                      </Fab>
+                    </div>
+                    <div style={{ display: showverify ? "block" : "none" }}>
+                      <Grid
+                        container
+                        style={{ marginBottom: 20 }}
+                        spacing={1}
+                        alignItems="flex-end"
+                      >
+                        <Grid item>
+                          <PermPhoneMsg fontSize="large" />
+                        </Grid>
+                        <Grid xs item>
+                          <TextField
+                            type="number"
+                            label="کد تایید"
+                            style={{ direction: "ltr" }}
+                            className={classes.formControl}
+                            name="verify"
+                            placeholder="******"
+                            required
+                          />
+                        </Grid>
                       </Grid>
-                    </Grid>
-                    <Fab
-                      variant="contained"
-                      style={{ marginBottom: 50 }}
-                      color="primary"
-                      size="medium"
-                      type="button"
-                    >
-                      دریافت کد تایید
-                    </Fab>
-                    <Grid
-                      container
-                      style={{ marginBottom: 20 }}
-                      spacing={1}
-                      alignItems="flex-end"
-                    >
-                      <Grid item>
-                        <PermPhoneMsg fontSize="large" />
-                      </Grid>
-                      <Grid xs item>
-                        <TextField
-                          type="number"
-                          label="کد تایید"
-                          style={{ direction: "ltr" }}
-                          className={classes.formControl}
-                          name="confirmationCode"
-                          placeholder="******"
-                          required
-                        />
-                      </Grid>
-                    </Grid>
-                    <button
-                      type="submit"
-                      style={{ marginBottom: 20 }}
-                      class="butt"
-                    >
-                      ورود
-                    </button>
+                      <button
+                        type="submit"
+                        style={{ marginBottom: 20 }}
+                        class="butt"
+                      >
+                        ورود
+                      </button>
+                      <div>
+                        <Fab
+                          variant="contained"
+                          color="secondary"
+                          size="medium"
+                          type="button"
+                          onClick={() => setshowverify(false)}
+                        >
+                          برگشت
+                        </Fab>
+                      </div>
+                    </div>
                   </form>
                 </TabPanel>
                 <TabPanel value={currentTab} index={1} dir={theme.direction}>
