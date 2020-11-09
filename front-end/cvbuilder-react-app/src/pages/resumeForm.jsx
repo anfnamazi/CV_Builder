@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { ArrowForward, Check, Send, SkipNext } from "@material-ui/icons";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStyles } from "../utils/styles";
 import { QontoConnector, useQontoStepIconStyles } from "../utils/uiUtils";
 import BaseInfo from "../components/baseInformation";
@@ -22,6 +22,7 @@ import JobHistory from "../components/jobHistory";
 import Skill from "../components/skill";
 import Project from "../components/Project";
 import ResumeContext from "../context/resumeContext";
+import { getBaseInfo, getContactInfo } from "../services/resumeService";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -71,27 +72,69 @@ QontoStepIcon.propTypes = {
 
 const ResumeForm = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setactiveStep] = useState(0);
+  const [baseInfo, setbaseInfo] = useState({
+    birthDay: "",
+    description: "",
+    firstName: "",
+    gender: "",
+    image: "",
+    job: "",
+    lastName: "",
+    marital: "",
+    military: "",
+  });
+  const [contactInfo, setcontactInfo] = useState({
+    email: "",
+    phone: "",
+    tel: "",
+    webPage: "",
+    country: "",
+    province: "",
+    city: "",
+    address: "",
+  });
   const steps = getSteps();
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setactiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setactiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
-    setActiveStep(0);
+    setactiveStep(0);
   };
 
   const handleStep = (step) => () => {
-    setActiveStep(step);
+    setactiveStep(step);
   };
 
+  useEffect(async () => {
+    const response = await getBaseInfo();
+    if (response.status < 210) {
+      setbaseInfo({ ...response.data });
+    }
+    const response2 = await getContactInfo();
+    if (response2.status < 210) {
+      setcontactInfo({ ...response.data });
+    }
+  }, []);
+
   return (
-    <ResumeContext.Provider value={{ activeStep, setActiveStep, handleNext }}>
+    <ResumeContext.Provider
+      value={{
+        activeStep,
+        setactiveStep,
+        handleNext,
+        baseInfo,
+        setbaseInfo,
+        contactInfo,
+        setcontactInfo,
+      }}
+    >
       <CssBaseline />
       <div className={classes.root} style={{ marginBottom: 100 }}>
         <Stepper

@@ -27,7 +27,7 @@ import {
 import React, { Fragment, useContext, useState } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
-import { saveBaseInfo } from "../services/resumeService";
+import { saveBaseInfo, saveContactInfo } from "../services/resumeService";
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
@@ -35,7 +35,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birthDay, setbirthDay] = useState(new Date());
+  const [birth, setbirth] = useState(new Date());
   const months = [
     "فروردین",
     "اردیبهشت",
@@ -52,6 +52,28 @@ const BaseInfo = () => {
   ];
 
   const context = useContext(ResumeContext);
+
+  const {
+    firstName,
+    lastName,
+    job,
+    birthDay,
+    gender,
+    marital,
+    military,
+    description,
+  } = context.baseInfo;
+
+  const {
+    email,
+    phone,
+    tel,
+    webPage,
+    country,
+    province,
+    city,
+    address,
+  } = context.contactInfo;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -78,19 +100,44 @@ const BaseInfo = () => {
     const job = event.target.job.value;
     const gender = event.target.gender.value;
     const marital = event.target.marital.value;
+    const description = event.target.description.value;
     const image = event.target.image.files[0];
-    const birth = birthDay.toLocaleDateString("en-CA");
+    const birthDay = birth.toLocaleDateString("en-CA");
+    
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+    const tel = event.target.tel.value;
+    const webPage = event.target.webPage.value;
+    const country = event.target.country.value;
+    const province = event.target.province.value;
+    const city = event.target.city.value;
+    const address = event.target.province.value;
+
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     formData.append("job", job);
     formData.append("gender", gender);
     formData.append("marital", marital);
+    formData.append("description", description);
     formData.append("image", image);
-    formData.append("birthDay", birth);
+    formData.append("birthDay", birthDay);
     const response = await saveBaseInfo(formData);
     console.log(response);
-    if (response.status === 200 || response.status === 201) {
+
+    const formData2 = new FormData();
+    formData2.append("email", email);
+    formData2.append("phone", phone);
+    formData2.append("tel", tel);
+    formData2.append("webPage", webPage);
+    formData2.append("country", country);
+    formData2.append("province", province);
+    formData2.append("city", city);
+    formData2.append("address", address);
+    const response2 = await saveContactInfo(formData2);
+    
+    console.log(response2);
+    if (response.status < 210 && response2.status < 210) {
       context.handleNext();
     }
   };
@@ -137,6 +184,7 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام"
                   name="firstName"
+                  defaultValue={firstName}
                   required
                 />
               </Grid>
@@ -145,6 +193,7 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام خانوادگی"
                   name="lastName"
+                  defaultValue={lastName}
                   required
                 />
               </Grid>
@@ -164,6 +213,7 @@ const BaseInfo = () => {
                       </Fragment>
                     }
                     name="job"
+                    defaultValue={job}
                     placeholder="مثال: برنامه نویس وب یا ..."
                     required
                   />
@@ -174,7 +224,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>جنسیت</InputLabel>
-                  <Select name="gender" required>
+                  <Select name="gender" defaultValue={gender} required>
                     <MenuItem value={"مرد"}>مرد</MenuItem>
                     <MenuItem value={"زن"}>زن</MenuItem>
                   </Select>
@@ -183,7 +233,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
-                  <Select name="marital" required>
+                  <Select name="marital" defaultValue={marital} required>
                     <MenuItem value={"مجرد"}>مجرد</MenuItem>
                     <MenuItem value={"متاهل"}>متاهل</MenuItem>
                   </Select>
@@ -192,7 +242,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت سربازی</InputLabel>
-                  <Select name="military" required>
+                  <Select name="military" defaultValue={military} required>
                     <MenuItem value={"مشمول"}>مشمول</MenuItem>
                     <MenuItem value={"در حال خدمت"}>در حال خدمت</MenuItem>
                     <MenuItem value={"پایان خدمت"}>پایان خدمت</MenuItem>
@@ -207,50 +257,15 @@ const BaseInfo = () => {
               </Grid>
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <Grid item xs={6} sm={5}>
-                  {/* <InputLabel>تاریخ تولد</InputLabel>
-                <Grid container spacing={1}>
-                  <Grid item xs={6} sm={3}>
-                    <Select
-                      name="birthDay"
-                      className={classes.formControl}
-                      defaultValue="def"
-                    >
-                      <MenuItem disabled value="def">
-                        روز
-                      </MenuItem>
-                    </Select>
-                  </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Select
-                      name="birthMonth"
-                      className={classes.formControl}
-                      defaultValue="def"
-                    >
-                      <MenuItem disabled value="def">
-                        ماه
-                      </MenuItem>
-                      {months.map((v, k) => (
-                        <MenuItem value={k}>{v}</MenuItem>
-                      ))}
-                    </Select>
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <TextField
-                      className={classes.formControl}
-                      name="birthYear"
-                      type="number"
-                      placeholder="سال"
-                    />
-                  </Grid>
-                </Grid> */}
                   <KeyboardDatePicker
                     className={classes.formControl}
                     id="date-picker-dialog"
                     label="تاریخ تولد"
                     format="MM/dd/yyyy"
                     name="birthDay"
-                    value={birthDay}
-                    onChange={(date) => setbirthDay(date)}
+                    value={birth}
+                    defaultValue={birthDay}
+                    onChange={(date) => setbirth(date)}
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
@@ -268,9 +283,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="ایمیل"
               name="email"
-              type="email"
+              defaultValue={email}
               style={{ direction: "ltr" }}
               placeholder="example@domain.com"
+              // inputMode="email"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -278,9 +295,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="موبایل"
               name="phone"
+              defaultValue={phone}
               type="number"
               style={{ direction: "ltr" }}
               placeholder="09123456789"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -288,9 +307,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="تلفن"
               name="tel"
+              defaultValue={tel}
               type="number"
               style={{ direction: "ltr" }}
               placeholder="02188888888"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -298,6 +319,7 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="وب سایت"
               name="webPage"
+              defaultValue={webPage}
               type="text"
               placeholder="www."
               style={{ direction: "ltr" }}
@@ -310,7 +332,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="کشور"
               name="country"
-              defaultValue="ایران"
+              defaultValue={country}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -318,7 +341,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="استان"
               name="province"
-              defaultValue="تهران"
+              defaultValue={province}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -326,7 +350,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="شهر"
               name="city"
-              defaultValue="تهران"
+              defaultValue={city}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={6}>
@@ -334,6 +359,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="آدرس"
               name="address"
+              defaultValue={address}
+              required
             />
           </Grid>
         </Grid>
@@ -381,6 +408,7 @@ const BaseInfo = () => {
           <TextField
             className={classes.formControl}
             name="description"
+            value={description}
             multiline
             label="توصیف خلاصه"
             placeholder="برای مثال : 
