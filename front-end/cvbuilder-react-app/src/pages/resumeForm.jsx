@@ -22,7 +22,11 @@ import JobHistory from "../components/jobHistory";
 import Skill from "../components/skill";
 import Project from "../components/Project";
 import ResumeContext from "../context/resumeContext";
-import { getBaseInfo, getContactInfo } from "../services/resumeService";
+import {
+  getBaseInfo,
+  getContactInfo,
+  getDocsInfo,
+} from "../services/resumeService";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -94,6 +98,10 @@ const ResumeForm = () => {
     city: "",
     address: "",
   });
+  const [docs, setdocs] = useState([
+    { _id: "", file: null },
+    { _id: "", file: null },
+  ]);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -112,27 +120,32 @@ const ResumeForm = () => {
     setactiveStep(step);
   };
 
-  useEffect(async () => {
+  useEffect(() => {
+    initializeData();
+  }, [activeStep]);
+
+  const initializeData = async () => {
     const response = await getBaseInfo();
-    if (response.status < 210) {
-      setbaseInfo({ ...response.data });
-    }
     const response2 = await getContactInfo();
-    if (response2.status < 210) {
-      setcontactInfo({ ...response.data });
+    const response3 = await getDocsInfo();
+    if (
+      response.status < 210 &&
+      response2.status < 210 &&
+      response3.status < 210
+    ) {
+      setbaseInfo({ ...response.data });
+      setcontactInfo({ ...response2.data });
+      setdocs({ ...response3.data.docs });
     }
-  }, []);
+  };
 
   return (
     <ResumeContext.Provider
       value={{
-        activeStep,
-        setactiveStep,
         handleNext,
         baseInfo,
-        setbaseInfo,
         contactInfo,
-        setcontactInfo,
+        docs,
       }}
     >
       <CssBaseline />

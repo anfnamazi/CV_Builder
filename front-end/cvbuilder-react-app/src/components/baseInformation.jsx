@@ -27,7 +27,11 @@ import {
 import React, { Fragment, useContext, useState } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
-import { saveBaseInfo, saveContactInfo } from "../services/resumeService";
+import {
+  saveBaseInfo,
+  saveContactInfo,
+  saveDocsInfo,
+} from "../services/resumeService";
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
@@ -36,19 +40,14 @@ const BaseInfo = () => {
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
   const [birth, setbirth] = useState(new Date());
-  const months = [
-    "فروردین",
-    "اردیبهشت",
-    "خرداد",
-    "تیر",
-    "مرداد",
-    "شهریور",
-    "مهر",
-    "آبان",
-    "آذر",
-    "دی",
-    "بهمن",
-    "اسفند",
+  const socialMediaList = [
+    "تلگرام",
+    "واتساپ",
+    "اینستاگرام",
+    "توییتر",
+    "فیس بوک",
+    "سروش",
+    "ایتا",
   ];
 
   const context = useContext(ResumeContext);
@@ -73,7 +72,10 @@ const BaseInfo = () => {
     province,
     city,
     address,
+    socialMediaName,
+    socialMediaId,
   } = context.contactInfo;
+  const docs = context.docs;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -100,10 +102,11 @@ const BaseInfo = () => {
     const job = event.target.job.value;
     const gender = event.target.gender.value;
     const marital = event.target.marital.value;
+    const military = event.target.military.value;
     const description = event.target.description.value;
     const image = event.target.image.files[0];
     const birthDay = birth.toLocaleDateString("en-CA");
-    
+
     const email = event.target.email.value;
     const phone = event.target.phone.value;
     const tel = event.target.tel.value;
@@ -111,7 +114,12 @@ const BaseInfo = () => {
     const country = event.target.country.value;
     const province = event.target.province.value;
     const city = event.target.city.value;
-    const address = event.target.province.value;
+    const address = event.target.address.value;
+    const socialMediaName = event.target.socialMediaName.value;
+    const socialMediaId = event.target.socialMediaId.value;
+
+    const nationalCard = event.target.nationalCard.files[0];
+    const eduCertif = event.target.eduCertif.files[0];
 
     const formData = new FormData();
     formData.append("firstName", firstName);
@@ -119,25 +127,45 @@ const BaseInfo = () => {
     formData.append("job", job);
     formData.append("gender", gender);
     formData.append("marital", marital);
+    formData.append("military", military);
     formData.append("description", description);
     formData.append("image", image);
     formData.append("birthDay", birthDay);
-    const response = await saveBaseInfo(formData);
-    console.log(response);
 
-    const formData2 = new FormData();
-    formData2.append("email", email);
-    formData2.append("phone", phone);
-    formData2.append("tel", tel);
-    formData2.append("webPage", webPage);
-    formData2.append("country", country);
-    formData2.append("province", province);
-    formData2.append("city", city);
-    formData2.append("address", address);
-    const response2 = await saveContactInfo(formData2);
-    
-    console.log(response2);
-    if (response.status < 210 && response2.status < 210) {
+    const nationalCardFormData = new FormData();
+    nationalCardFormData.append("docType", "nationalCard");
+    nationalCardFormData.append("file", nationalCard);
+
+    const eduCertifFormData = new FormData();
+    eduCertifFormData.append("docType", "eduCertif");
+    eduCertifFormData.append("file", eduCertif);
+
+    const contactForm = {
+      email,
+      phone,
+      tel,
+      webPage,
+      country,
+      province,
+      city,
+      address,
+      socialMediaName,
+      socialMediaId,
+    };
+
+    const response = await saveBaseInfo(formData);
+
+    const response2 = await saveContactInfo(contactForm);
+
+    const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
+    const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
+
+    if (
+      response.status < 210 &&
+      response2.status < 210 &&
+      response3.status < 210 &&
+      response4.status < 210
+    ) {
       context.handleNext();
     }
   };
@@ -286,7 +314,7 @@ const BaseInfo = () => {
               defaultValue={email}
               style={{ direction: "ltr" }}
               placeholder="example@domain.com"
-              // inputMode="email"
+              inputMode="email"
               required
             />
           </Grid>
@@ -379,8 +407,10 @@ const BaseInfo = () => {
               <input
                 class="file-input"
                 type="file"
-                name="idCard"
+                name="nationalCard"
+                // defaultValue={docs[0].file}
                 onChange={onChangeIdCard}
+                required
               />
             </div>
           </Grid>
@@ -393,8 +423,9 @@ const BaseInfo = () => {
               <input
                 class="file-input"
                 type="file"
-                name="evidence"
+                name="eduCertif"
                 onChange={onChangeEvidence}
+                required
               />
             </div>
           </Grid>
@@ -408,7 +439,7 @@ const BaseInfo = () => {
           <TextField
             className={classes.formControl}
             name="description"
-            value={description}
+            defaultValue={description}
             multiline
             label="توصیف خلاصه"
             placeholder="برای مثال : 
@@ -426,13 +457,18 @@ const BaseInfo = () => {
               <Grid xs={6} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>شبکه اجتماعی</InputLabel>
-                  <Select name="socialMedia"></Select>
+                  <Select name="socialMediaName" defaultValue={socialMediaName}>
+                    {socialMediaList.map((socialMedia) => (
+                      <MenuItem value={socialMedia}>{socialMedia}</MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
               </Grid>
               <Grid xs={6} item>
                 <TextField
                   label="آی دی مرتبط"
                   name="socialMediaId"
+                  defaultValue={socialMediaId}
                   className={classes.formControl}
                 />
               </Grid>
