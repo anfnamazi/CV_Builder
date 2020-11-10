@@ -32,6 +32,7 @@ import {
   saveContactInfo,
   saveDocsInfo,
 } from "../services/resumeService";
+import { useEffect } from "react";
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
@@ -169,6 +170,10 @@ const BaseInfo = () => {
       context.handleNext();
     }
   };
+
+  useEffect(() => {
+    setbirth(birthDay);
+  }, []);
 
   const classes = useStyles();
 

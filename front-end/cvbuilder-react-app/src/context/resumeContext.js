@@ -5,6 +5,8 @@ const ResumeContext = createContext({
     baseInfo: {},
     contactInfo: {},
     docs: [],
+    edus: [],
+    jobs: []
 })
 
 export default ResumeContext;

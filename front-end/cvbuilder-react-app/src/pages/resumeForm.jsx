@@ -26,7 +26,10 @@ import {
   getBaseInfo,
   getContactInfo,
   getDocsInfo,
+  getEducationHistories,
+  getJobHistories,
 } from "../services/resumeService";
+import { Redirect } from "react-router-dom";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -78,7 +81,7 @@ const ResumeForm = () => {
   const classes = useStyles();
   const [activeStep, setactiveStep] = useState(0);
   const [baseInfo, setbaseInfo] = useState({
-    birthDay: "",
+    birthDay: new Date(),
     description: "",
     firstName: "",
     gender: "",
@@ -93,15 +96,17 @@ const ResumeForm = () => {
     phone: "",
     tel: "",
     webPage: "",
-    country: "",
-    province: "",
-    city: "",
+    country: "ایران",
+    province: "تهران",
+    city: "تهران",
     address: "",
   });
   const [docs, setdocs] = useState([
     { _id: "", file: null },
     { _id: "", file: null },
   ]);
+  const [edus, setedus] = useState([]);
+  const [jobs, setjobs] = useState([]);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -128,16 +133,26 @@ const ResumeForm = () => {
     const response = await getBaseInfo();
     const response2 = await getContactInfo();
     const response3 = await getDocsInfo();
+    const responseEdus = await getEducationHistories();
+    const responseJobs = await getJobHistories();
     if (
       response.status < 210 &&
       response2.status < 210 &&
-      response3.status < 210
+      response3.status < 210 &&
+      responseEdus.status < 210 &&
+      responseJobs.status < 210
     ) {
       setbaseInfo({ ...response.data });
       setcontactInfo({ ...response2.data });
-      setdocs({ ...response3.data.docs });
+      setdocs([...response3.data.docs]);
+      setedus([...responseEdus.data.docs]);
+      setjobs([...responseJobs.data.docs]);
     }
   };
+
+  if (!localStorage.getItem("token")) {
+    return <Redirect to="/login" />;
+  }
 
   return (
     <ResumeContext.Provider
@@ -146,6 +161,8 @@ const ResumeForm = () => {
         baseInfo,
         contactInfo,
         docs,
+        edus,
+        jobs,
       }}
     >
       <CssBaseline />
