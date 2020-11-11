@@ -8,60 +8,35 @@ import {
   TableBody,
   IconButton,
 } from "@material-ui/core";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getallUsers } from "../services/adminService";
 import { useStyles } from "../utils/styles";
 
-function createData(index, user, date, download) {
-  return { index, user, date, download };
-}
+// function createData(index, user, date, download) {
+//   return { index, user, date, download };
+// }
 
-const rows = [
-  createData(
-    1,
-    "amin_amini",
-    "1399-04-04 15:40",
-    <div className="download-icon-container">
-      <IconButton>
-        <img
-          className="download-icon"
-          src={require("../assets/images/excelIcon.svg")}
-          alt=""
-        />
-      </IconButton>
-      <IconButton>
-        <img
-          className="download-icon"
-          src={require("../assets/images/pdfIcon.svg")}
-          alt=""
-        />
-      </IconButton>
-    </div>
-  ),
-  createData(
-    2,
-    "reza_rezaei",
-    "1399-04-04 15:50",
-    <div className="download-icon-container">
-      <IconButton>
-        <img
-          className="download-icon"
-          src={require("../assets/images/excelIcon.svg")}
-          alt=""
-        />
-      </IconButton>
-      <IconButton>
-        <img
-          className="download-icon"
-          src={require("../assets/images/pdfIcon.svg")}
-          alt=""
-        />
-      </IconButton>
-    </div>
-  ),
-];
+// const rows = [
+//   createData(1, "amin_amini", "1399-04-04 15:40"),
+//   createData(2, "reza_rezaei", "1399-04-04 15:50"),
+// ];
 
 const AdminPanel = () => {
+  const [users, setusers] = useState([]);
   const classes = useStyles();
+
+  const handleGetUsers = async () => {
+    const getUsers = await getallUsers();
+    if (getUsers.status < 210) {
+      setusers([...getUsers.data.docs]);
+    }
+  };
+
+  useEffect(() => {
+    handleGetUsers();
+  }, []);
+
   return (
     <TableContainer component={Paper} style={{ marginTop: 20 }}>
       <Table className={classes.table} aria-label="simple table">
@@ -74,14 +49,33 @@ const AdminPanel = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.user}>
-              <TableCell align="left">{row.index}</TableCell>
+          {users.map((user, index) => (
+            <TableRow key={user.phone}>
+              <TableCell align="left">{index + 1}</TableCell>
               <TableCell component="th" scope="row">
-                {row.user}
+                {user.phone}
               </TableCell>
-              <TableCell align="left">{row.date}</TableCell>
-              <TableCell align="left">{row.download}</TableCell>
+              <TableCell align="left">
+                {new Date(user.updatedAt).toLocaleString()}
+              </TableCell>
+              <TableCell align="left">
+                <IconButton>
+                  <img
+                    className="download-icon"
+                    src={require("../assets/images/excelIcon.svg")}
+                    alt=""
+                  />
+                </IconButton>
+                <Link to={`/admin/${user._id}`}>
+                  <IconButton>
+                    <img
+                      className="download-icon"
+                      src={require("../assets/images/pdfIcon.svg")}
+                      alt=""
+                    />
+                  </IconButton>
+                </Link>
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>

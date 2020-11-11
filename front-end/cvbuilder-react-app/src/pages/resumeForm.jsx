@@ -105,8 +105,8 @@ const ResumeForm = () => {
     { _id: "", file: null },
     { _id: "", file: null },
   ]);
-  const [edus, setedus] = useState([]);
-  const [jobs, setjobs] = useState([]);
+  const [edus, setedus] = useState([{}]);
+  const [jobs, setjobs] = useState([{}]);
   const steps = getSteps();
 
   const handleNext = () => {

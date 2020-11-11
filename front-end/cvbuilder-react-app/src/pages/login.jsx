@@ -17,7 +17,7 @@ import {
 import React, { useState } from "react";
 import SwipeableViews from "react-swipeable-views";
 import TabPanel from "../components/tabPanel";
-import { loginUser, sendSms } from "../services/userService";
+import { loginAdmin, loginUser, sendSms } from "../services/userService";
 import { useStyles } from "../utils/styles";
 
 function a11yProps(index) {
@@ -52,24 +52,32 @@ const Login = () => {
     }
   };
 
-  const handleLoginAdmin = (event) => {
+  const handleLoginAdmin = async (event) => {
     event.preventDefault();
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+    const admin = { email, password };
+    const result = await loginAdmin(admin);
+    if (result.status === 200) {
+      localStorage.setItem("token", result.data.token);
+      window.location.replace("/admin");
+    }
   };
 
   const handleGetVerify = async () => {
     const request = { phone };
     const result = await sendSms(request);
-    if (result.status === 201 || result.status === 202) {
+    if (result.status < 210) {
       setshowverify(true);
     }
   };
 
   const classes = useStyles();
   return (
-    <div class="myCard">
+    <div className="myCard">
       <Grid container spacing={0}>
         <Grid xs={12} sm={7} md={5} item>
-          <div class="myLeftCtn">
+          <div className="myLeftCtn">
             <div className={classes.root}>
               <AppBar position="static" color="transparent">
                 <Tabs
@@ -91,7 +99,7 @@ const Login = () => {
               >
                 <TabPanel value={currentTab} index={0} dir={theme.direction}>
                   <form
-                    class="myForm"
+                    className="myForm"
                     onSubmit={handleLoginUser}
                     autoComplete="off"
                   >
@@ -156,7 +164,7 @@ const Login = () => {
                       <button
                         type="submit"
                         style={{ marginBottom: 20 }}
-                        class="butt"
+                        className="butt"
                       >
                         ورود
                       </button>
@@ -176,7 +184,7 @@ const Login = () => {
                 </TabPanel>
                 <TabPanel value={currentTab} index={1} dir={theme.direction}>
                   <form
-                    class="myForm"
+                    className="myForm"
                     onSubmit={handleLoginAdmin}
                     autoComplete="off"
                   >
@@ -193,9 +201,9 @@ const Login = () => {
                       <Grid xs item>
                         <TextField
                           type="text"
-                          label="نام کاربری"
+                          label="ایمیل"
                           className={classes.formControl}
-                          name="userName"
+                          name="email"
                           style={{ direction: "ltr" }}
                           placeholder="user name"
                           required
@@ -226,7 +234,7 @@ const Login = () => {
                     <button
                       type="submit"
                       style={{ marginBottom: 20 }}
-                      class="butt"
+                      className="butt"
                     >
                       ورود
                     </button>
@@ -238,7 +246,7 @@ const Login = () => {
         </Grid>
         <Hidden xsDown>
           <Grid xs={12} sm={5} md={7} item>
-            <div class="myRightCtn">
+            <div className="myRightCtn">
               <div style={{ width: "100%", height: "100%", padding: 50 }}>
                 <img
                   style={{ width: "100%", height: "100%" }}

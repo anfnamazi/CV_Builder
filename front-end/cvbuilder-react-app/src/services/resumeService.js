@@ -1,6 +1,6 @@
 import http from "./httpService";
 import config from "../config.json"
-import qs from 'querystring'
+import qs from 'querystring';
 
 export const saveBaseInfo = baseForm => {
     return http.post(`${config.local_api}/users/base`, baseForm, {
