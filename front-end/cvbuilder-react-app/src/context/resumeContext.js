@@ -6,7 +6,9 @@ const ResumeContext = createContext({
     contactInfo: {},
     docs: [],
     edus: [],
-    jobs: []
+    jobs: [],
+    researches: [],
+    projects: []
 })
 
 export default ResumeContext;

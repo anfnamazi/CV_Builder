@@ -28,6 +28,8 @@ import {
   getDocsInfo,
   getEducationHistories,
   getJobHistories,
+  getProjects,
+  getResearches,
 } from "../services/resumeService";
 import { Redirect } from "react-router-dom";
 
@@ -107,6 +109,8 @@ const ResumeForm = () => {
   ]);
   const [edus, setedus] = useState([{}]);
   const [jobs, setjobs] = useState([{}]);
+  const [researches, setresearches] = useState([{}]);
+  const [projects, setprojects] = useState([{}]);
   const steps = getSteps();
 
   const handleNext = () => {
@@ -135,18 +139,24 @@ const ResumeForm = () => {
     const response3 = await getDocsInfo();
     const responseEdus = await getEducationHistories();
     const responseJobs = await getJobHistories();
+    const responseResearches = await getResearches();
+    const responseProjects = await getProjects();
     if (
       response.status < 210 &&
       response2.status < 210 &&
       response3.status < 210 &&
       responseEdus.status < 210 &&
-      responseJobs.status < 210
+      responseJobs.status < 210 &&
+      responseResearches.status < 210 &&
+      responseProjects.status < 210
     ) {
       setbaseInfo({ ...response.data });
       setcontactInfo({ ...response2.data });
       setdocs([...response3.data.docs]);
       setedus([...responseEdus.data.docs]);
       setjobs([...responseJobs.data.docs]);
+      setresearches([...responseResearches.data.docs]);
+      setprojects([...responseProjects.data.docs]);
     }
   };
 
@@ -163,6 +173,8 @@ const ResumeForm = () => {
         docs,
         edus,
         jobs,
+        researches,
+        projects,
       }}
     >
       <CssBaseline />
@@ -205,7 +217,7 @@ const ResumeForm = () => {
                     بازگشت به صفحه اول
                   </Button>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Button
                     variant="contained"
                     color="primary"
@@ -213,7 +225,7 @@ const ResumeForm = () => {
                   >
                     ارسال
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
             </div>
           ) : (

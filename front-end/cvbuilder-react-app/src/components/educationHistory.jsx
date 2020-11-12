@@ -37,7 +37,7 @@ const EducationHistory = () => {
     startEdu,
     endEdu,
     stillStudying,
-  } = context.edus[0];
+  } = context.edus.length ? context.edus[0] : [{}];
 
   useEffect(() => {
     setinEdu(stillStudying);

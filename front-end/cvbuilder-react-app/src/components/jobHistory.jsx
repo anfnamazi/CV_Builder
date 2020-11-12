@@ -43,7 +43,7 @@ const JobHistory = () => {
     number,
     jobDescription,
     stillWorking,
-  } = context.jobs[0];
+  } = context.jobs.length ? context.jobs[0] : [{}];
 
   useEffect(() => {
     setinJob(stillWorking);

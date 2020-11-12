@@ -38,8 +38,8 @@ export const getDocsInfo = () => {
     return http.get(`${config.local_api}/users/docs`)
 }
 
-export const saveEducationHistories = eduHistroiesForm => {
-    return http.post(`${config.local_api}/users/edus`, qs.stringify(eduHistroiesForm), {
+export const saveEducationHistories = eduHistoryForm => {
+    return http.post(`${config.local_api}/users/edus`, qs.stringify(eduHistoryForm), {
         headers: {
             'content-type': 'application/x-www-form-urlencoded'
         }
@@ -50,8 +50,8 @@ export const getEducationHistories = () => {
     return http.get(`${config.local_api}/users/edus`)
 }
 
-export const saveJobHistories = jobHistroiesForm => {
-    return http.post(`${config.local_api}/users/jobs`, qs.stringify(jobHistroiesForm), {
+export const saveJobHistories = jobHistoryForm => {
+    return http.post(`${config.local_api}/users/jobs`, qs.stringify(jobHistoryForm), {
         headers: {
             'content-type': 'application/x-www-form-urlencoded'
         }
@@ -60,4 +60,28 @@ export const saveJobHistories = jobHistroiesForm => {
 
 export const getJobHistories = () => {
     return http.get(`${config.local_api}/users/jobs`)
+}
+
+export const saveResearches = researchForm => {
+    return http.post(`${config.local_api}/users/researchs`, qs.stringify(researchForm), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const getResearches = () => {
+    return http.get(`${config.local_api}/users/researchs`)
+}
+
+export const saveProjects = projectForm => {
+    return http.post(`${config.local_api}/users/projects`, qs.stringify(projectForm), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const getProjects = () => {
+    return http.get(`${config.local_api}/users/projects`)
 }

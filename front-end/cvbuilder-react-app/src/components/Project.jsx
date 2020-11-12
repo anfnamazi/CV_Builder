@@ -1,6 +1,8 @@
 import {
+  Fab,
   FormControl,
   Grid,
+  Hidden,
   InputLabel,
   MenuItem,
   Paper,
@@ -8,11 +10,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import { SkipPrevious } from "@material-ui/icons";
+import React, { useContext, useEffect, useState } from "react";
+import ResumeContext from "../context/resumeContext";
+import { saveResearches, saveProjects } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
 
 const Project = () => {
-  const [researchType, setresearchType] = useState();
+  const [researchTypeState, setresearchTypeState] = useState();
   const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "سایر"];
   const articleTypeList = ["داخلی", "خارجی"];
   const months = [
@@ -29,9 +34,86 @@ const Project = () => {
     "بهمن",
     "اسفند",
   ];
+
+  const context = useContext(ResumeContext);
+
+  const {
+    researchType,
+    researchTitle,
+    articleType,
+    publisher,
+    researchHyperlink,
+    researchMonth,
+    researchYear,
+    researchDescription,
+  } = context.researches.length ? context.researches[0] : [{}];
+
+  const {
+    projectTitle,
+    projectEmployer,
+    projectHyperlink,
+    startProjectMonth,
+    startProjectYear,
+    endProjectMonth,
+    endProjectYear,
+    projectDescription,
+  } = context.projects.length ? context.projects[0] : [{}];
+
+  useEffect(() => {
+    setresearchTypeState(researchType);
+  }, []);
+
+  const handleSaveResearches = async (event) => {
+    event.preventDefault();
+    const researchType = event.target.researchType.value;
+    const researchTitle = event.target.researchTitle.value;
+    const articleType = event.target.articleType.value;
+    const publisher = event.target.publisher.value;
+    const researchHyperlink = event.target.researchHyperlink.value;
+    const researchMonth = event.target.researchMonth.value;
+    const researchYear = event.target.researchYear.value;
+    const researchDescription = event.target.researchDescription.value;
+    const researchForm = {
+      researchType,
+      researchTitle,
+      articleType,
+      publisher,
+      researchHyperlink,
+      researchMonth,
+      researchYear,
+      researchDescription,
+    };
+
+    const projectTitle = event.target.projectTitle.value;
+    const projectEmployer = event.target.projectEmployer.value;
+    const projectHyperlink = event.target.projectHyperlink.value;
+    const startProjectMonth = event.target.startProjectMonth.value;
+    const startProjectYear = event.target.startProjectYear.value;
+    const endProjectMonth = event.target.endProjectMonth.value;
+    const endProjectYear = event.target.endProjectYear.value;
+    const projectDescription = event.target.projectDescription.value;
+    const projectForm = {
+      projectTitle,
+      projectEmployer,
+      projectHyperlink,
+      startProjectMonth,
+      startProjectYear,
+      endProjectMonth,
+      endProjectYear,
+      projectDescription,
+    };
+
+    const responseResearch = await saveResearches(researchForm);
+
+    const responseProject = await saveProjects(projectForm);
+    if (responseResearch.status < 210 && responseProject.status < 210) {
+      context.handleNext();
+    }
+  };
+
   const classes = useStyles();
   return (
-    <form>
+    <form onSubmit={handleSaveResearches}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         تحقیقات و مقالات
       </Typography>
@@ -42,7 +124,7 @@ const Project = () => {
               <InputLabel>نوع اثر</InputLabel>
               <Select
                 name="researchType"
-                onChange={(e) => setresearchType(e.target.value)}
+                onChange={(e) => setresearchTypeState(e.target.value)}
               >
                 {researchTypeList.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>
@@ -54,6 +136,7 @@ const Project = () => {
             <TextField
               label="عنوان"
               name="researchTitle"
+              defaultValue={researchTitle}
               className={classes.formControl}
             />
           </Grid>
@@ -62,7 +145,8 @@ const Project = () => {
               <InputLabel>نوع مقاله</InputLabel>
               <Select
                 name="articleType"
-                disabled={researchType === "مقاله" ? false : true}
+                defaultValue={articleType}
+                disabled={researchTypeState === "مقاله" ? false : true}
               >
                 {articleTypeList.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>
@@ -76,6 +160,7 @@ const Project = () => {
             <TextField
               label="ناشر"
               name="publisher"
+              defaultValue={publisher}
               className={classes.formControl}
             />
           </Grid>
@@ -83,6 +168,7 @@ const Project = () => {
             <TextField
               label="لینک مرتبط"
               name="researchHyperlink"
+              defaultValue={researchHyperlink}
               className={classes.formControl}
               style={{ direction: "ltr" }}
             />
@@ -93,6 +179,7 @@ const Project = () => {
               <Grid item xs={6}>
                 <Select
                   name="researchMonth"
+                  defaultValue={researchMonth}
                   className={classes.formControl}
                   defaultValue="def"
                 >
@@ -100,13 +187,14 @@ const Project = () => {
                     ماه
                   </MenuItem>
                   {months.map((v, k) => (
-                    <MenuItem value={k}>{v}</MenuItem>
+                    <MenuItem value={k + 1}>{v}</MenuItem>
                   ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   name="researchYear"
+                  defaultValue={researchYear}
                   type="number"
                   placeholder="سال"
                   className={classes.formControl}
@@ -119,6 +207,7 @@ const Project = () => {
           <TextField
             className={classes.formControl}
             name="researchDescription"
+            defaultValue={researchDescription}
             multiline
             label="توضیحات"
           />
@@ -133,6 +222,7 @@ const Project = () => {
             <TextField
               label="عنوان"
               name="projectTitle"
+              defaultValue={projectTitle}
               className={classes.formControl}
             />
           </Grid>
@@ -140,6 +230,7 @@ const Project = () => {
             <TextField
               label="کارفرما/درخواست کننده"
               name="projectEmployer"
+              defaultValue={projectEmployer}
               className={classes.formControl}
             />
           </Grid>
@@ -149,6 +240,7 @@ const Project = () => {
             <TextField
               label="لینک مرتبط"
               name="projectHyperlink"
+              defaultValue={projectHyperlink}
               className={classes.formControl}
               style={{ direction: "ltr" }}
             />
@@ -159,6 +251,7 @@ const Project = () => {
               <Grid item xs={6}>
                 <Select
                   name="startProjectMonth"
+                  defaultValue={startProjectMonth}
                   className={classes.formControl}
                   defaultValue="def"
                 >
@@ -166,13 +259,14 @@ const Project = () => {
                     ماه
                   </MenuItem>
                   {months.map((v, k) => (
-                    <MenuItem value={k}>{v}</MenuItem>
+                    <MenuItem value={k + 1}>{v}</MenuItem>
                   ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   name="startProjectYear"
+                  defaultValue={startProjectYear}
                   type="number"
                   placeholder="سال"
                   className={classes.formControl}
@@ -186,6 +280,7 @@ const Project = () => {
               <Grid item xs={6}>
                 <Select
                   name="endProjectMonth"
+                  defaultValue={endProjectMonth}
                   className={classes.formControl}
                   defaultValue="def"
                 >
@@ -193,13 +288,14 @@ const Project = () => {
                     ماه
                   </MenuItem>
                   {months.map((v, k) => (
-                    <MenuItem value={k}>{v}</MenuItem>
+                    <MenuItem value={k + 1}>{v}</MenuItem>
                   ))}
                 </Select>
               </Grid>
               <Grid item xs={6}>
                 <TextField
                   name="endProjectYear"
+                  defaultValue={endProjectYear}
                   type="number"
                   placeholder="سال"
                   className={classes.formControl}
@@ -212,11 +308,27 @@ const Project = () => {
           <TextField
             className={classes.formControl}
             name="projectDescription"
+            defaultValue={projectDescription}
             multiline
             label="توضیحات"
           />
         </Grid>
       </Paper>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        type="submit"
+        // onClick={}
+        size="medium"
+      >
+        <Hidden xsDown>ذخیره و ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </form>
   );
 };
