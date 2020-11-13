@@ -82,27 +82,8 @@ QontoStepIcon.propTypes = {
 const ResumeForm = () => {
   const classes = useStyles();
   const [activeStep, setactiveStep] = useState(0);
-  const [baseInfo, setbaseInfo] = useState({
-    birthDay: new Date(),
-    description: "",
-    firstName: "",
-    gender: "",
-    image: "",
-    job: "",
-    lastName: "",
-    marital: "",
-    military: "",
-  });
-  const [contactInfo, setcontactInfo] = useState({
-    email: "",
-    phone: "",
-    tel: "",
-    webPage: "",
-    country: "ایران",
-    province: "تهران",
-    city: "تهران",
-    address: "",
-  });
+  const [baseInfo, setbaseInfo] = useState({});
+  const [contactInfo, setcontactInfo] = useState({});
   const [docs, setdocs] = useState([
     { _id: "", file: null },
     { _id: "", file: null },

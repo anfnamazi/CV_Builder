@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import { SkipPrevious } from "@material-ui/icons";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import ResumeContext from "../context/resumeContext";
 import { saveResearches, saveProjects } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
@@ -58,10 +58,6 @@ const Project = () => {
     endProjectYear,
     projectDescription,
   } = context.projects.length ? context.projects[0] : [{}];
-
-  useEffect(() => {
-    setresearchTypeState(researchType);
-  }, []);
 
   const handleSaveResearches = async (event) => {
     event.preventDefault();
@@ -125,6 +121,7 @@ const Project = () => {
               <Select
                 name="researchType"
                 onChange={(e) => setresearchTypeState(e.target.value)}
+                defaultValue={researchType}
               >
                 {researchTypeList.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>
@@ -181,7 +178,7 @@ const Project = () => {
                   name="researchMonth"
                   defaultValue={researchMonth}
                   className={classes.formControl}
-                  defaultValue="def"
+                  // defaultValue="def"
                 >
                   <MenuItem disabled value="def">
                     ماه
@@ -253,7 +250,7 @@ const Project = () => {
                   name="startProjectMonth"
                   defaultValue={startProjectMonth}
                   className={classes.formControl}
-                  defaultValue="def"
+                  // defaultValue="def"
                 >
                   <MenuItem disabled value="def">
                     ماه
@@ -282,7 +279,7 @@ const Project = () => {
                   name="endProjectMonth"
                   defaultValue={endProjectMonth}
                   className={classes.formControl}
-                  defaultValue="def"
+                  // defaultValue="def"
                 >
                   <MenuItem disabled value="def">
                     ماه
