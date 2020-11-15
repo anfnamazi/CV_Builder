@@ -1,7 +1,9 @@
 import {
   Box,
+  Fab,
   FormControl,
   Grid,
+  Hidden,
   InputLabel,
   MenuItem,
   Paper,
@@ -9,7 +11,7 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { CastForEducation } from "@material-ui/icons";
+import { CastForEducation, SkipPrevious } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import React, { useState } from "react";
 import { useStyles } from "../utils/styles";
@@ -23,9 +25,15 @@ const Skill = () => {
     setevidence(event.target.files[0].name);
   };
 
+  const handleSaveSkills = (event) => {
+    event.preventDefault();
+    const readSkill = event.target.readSkill.value;
+    console.log(readSkill);
+  };
+
   const classes = useStyles();
   return (
-    <form>
+    <form onSubmit={handleSaveSkills}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         زبان
       </Typography>
@@ -157,6 +165,21 @@ const Skill = () => {
           </Grid>
         </Grid>
       </Paper>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        type="submit"
+        // onClick={}
+        size="medium"
+      >
+        <Hidden xsDown>ذخیره و ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </form>
   );
 };

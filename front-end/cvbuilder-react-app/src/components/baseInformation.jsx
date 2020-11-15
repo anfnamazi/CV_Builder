@@ -1,4 +1,6 @@
-import DateFnsUtils from "@date-io/date-fns";
+import moment from "moment";
+import jMoment from "moment-jalaali";
+import JalaliUtils from "@date-io/jalaali";
 import {
   Fab,
   FormControl,
@@ -20,10 +22,7 @@ import {
   RecentActors,
   SkipPrevious,
 } from "@material-ui/icons";
-import {
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import React, { Fragment, useContext, useState } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
@@ -34,13 +33,15 @@ import {
 } from "../services/resumeService";
 import { useEffect } from "react";
 
+jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
+
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
   const [idCard, setidCard] = useState("لطفا کارت ملی خود را بارگذاری کنید.");
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birth, setbirth] = useState(new Date());
+  const [birth, setbirth] = useState(moment());
   const socialMediaList = [
     "تلگرام",
     "واتساپ",
@@ -106,7 +107,7 @@ const BaseInfo = () => {
     const military = event.target.military.value;
     const description = event.target.description.value;
     const image = event.target.image.files[0];
-    const birthDay = birth.toLocaleDateString("en-CA");
+    const birthDay = birth._d.toLocaleDateString("en-CA");
 
     const email = event.target.email.value;
     const phone = event.target.phone.value;
@@ -168,6 +169,7 @@ const BaseInfo = () => {
       response4.status < 210
     ) {
       context.handleNext();
+      context.initializeData();
     }
   };
 
@@ -288,16 +290,21 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
                 <Grid item xs={6} sm={5}>
-                  <KeyboardDatePicker
+                  <DatePicker
                     className={classes.formControl}
-                    id="date-picker-dialog"
                     label="تاریخ تولد"
-                    format="MM/dd/yyyy"
                     name="birthDay"
                     value={birth}
                     defaultValue={birthDay}
+                    clearable
+                    okLabel="تأیید"
+                    cancelLabel="لغو"
+                    clearLabel="پاک کردن"
+                    labelFunc={(date) =>
+                      date ? date.format("jYYYY/jMM/jDD") : ""
+                    }
                     onChange={(date) => setbirth(date)}
                   />
                 </Grid>

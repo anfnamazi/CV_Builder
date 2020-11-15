@@ -8,7 +8,8 @@ const ResumeContext = createContext({
     edus: [],
     jobs: [],
     researches: [],
-    projects: []
+    projects: [],
+    initializeData: () => { }
 })
 
 export default ResumeContext;

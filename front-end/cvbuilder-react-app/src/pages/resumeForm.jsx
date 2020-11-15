@@ -112,7 +112,7 @@ const ResumeForm = () => {
 
   useEffect(() => {
     initializeData();
-  }, [activeStep]);
+  }, []);
 
   const initializeData = async () => {
     const response = await getBaseInfo();
@@ -156,6 +156,7 @@ const ResumeForm = () => {
         jobs,
         researches,
         projects,
+        initializeData,
       }}
     >
       <CssBaseline />
