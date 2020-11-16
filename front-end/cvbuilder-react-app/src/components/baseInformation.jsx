@@ -22,7 +22,7 @@ import {
   SkipPrevious,
 } from "@material-ui/icons";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
-import React, { Fragment, useContext, useState } from "react";
+import React, { Fragment, useContext, useState, useEffect } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
 import {
@@ -30,7 +30,8 @@ import {
   saveContactInfo,
   saveDocsInfo,
 } from "../services/resumeService";
-import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
@@ -106,7 +107,7 @@ const BaseInfo = () => {
     const military = event.target.military.value;
     const description = event.target.description.value;
     const image = event.target.image.files[0];
-    const birthDay = birth._d.toLocaleDateString("en-CA");
+    const birthDay = birth.toLocaleDateString("en-CA");
 
     const email = event.target.email.value;
     const phone = event.target.phone.value;
@@ -174,7 +175,7 @@ const BaseInfo = () => {
 
   useEffect(() => {
     if (birthDay) {
-      setbirth(birthDay);
+      setbirth(new Date(birthDay));
     }
   }, []);
 
@@ -182,6 +183,7 @@ const BaseInfo = () => {
 
   return (
     <form onSubmit={handleSaveBaseInfo}>
+      <ToastContainer />
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>
@@ -195,7 +197,7 @@ const BaseInfo = () => {
             />
             <input
               accept="image/*"
-              className={classes.displayNone}
+              style={{ opacity: 0, width: 1, height: 1 }}
               onChange={onImageChange}
               id="icon-button-file"
               type="file"

@@ -31,7 +31,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "react-swipeable-views": "^0.13.9",
-    "react-to-pdf": "^0.0.13"
+    "react-to-pdf": "^0.0.13",
+    "react-toastify": "^6.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
