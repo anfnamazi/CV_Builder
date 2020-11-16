@@ -8,6 +8,7 @@ import './assets/scss/main.scss';
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './pages/login';
 import AdminPanel from './pages/adminPanel';
+import Pdf from './pages/pdf';
 
 
 const App = () => {
@@ -27,7 +28,8 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={ResumeForm} />
             <Route path="/login" component={Login} />
-            <Route path="/admin" component={AdminPanel} />
+            <Route exact path="/admin" component={AdminPanel} />
+            <Route path="/admin/:id" component={Pdf} />
           </Switch>
         </BrowserRouter>
       </Container>

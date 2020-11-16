@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "5fa176704d8ad7cd2e33a3e5",
+      "name": "mohammad Ali",
+      "phone": 9891304356785,
+      "registrationDate": "2016-08-29:12:33"
+    },
+    {
+      "email": "olivier@mail.com",
+      "password": "$2a$10$Ma9Mz4T6.oaWRZpEL/LSIe9HxFN6jFgmc6GnrduI1Y6dorszycDSS",
+      "id": "3rcTgy8"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

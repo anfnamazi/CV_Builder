@@ -1,6 +1,11 @@
+import moment from "moment";
+import jMoment from "moment-jalaali";
+import JalaliUtils from "@date-io/jalaali";
 import {
+  Fab,
   FormControl,
   Grid,
+  Hidden,
   IconButton,
   InputLabel,
   MenuItem,
@@ -15,9 +20,20 @@ import {
   Help,
   PhotoCamera,
   RecentActors,
+  SkipPrevious,
 } from "@material-ui/icons";
-import React, { Fragment, useState } from "react";
+import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import React, { Fragment, useContext, useState } from "react";
+import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
+import {
+  saveBaseInfo,
+  saveContactInfo,
+  saveDocsInfo,
+} from "../services/resumeService";
+import { useEffect } from "react";
+
+jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 const BaseInfo = () => {
   const [image, setimage] = useState(require("../assets/images/person.png"));
@@ -25,20 +41,43 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const months = [
-    "فروردین",
-    "اردیبهشت",
-    "خرداد",
-    "تیر",
-    "مرداد",
-    "شهریور",
-    "مهر",
-    "آبان",
-    "آذر",
-    "دی",
-    "بهمن",
-    "اسفند",
+  const [birth, setbirth] = useState(moment());
+  const socialMediaList = [
+    "تلگرام",
+    "واتساپ",
+    "اینستاگرام",
+    "توییتر",
+    "فیس بوک",
+    "سروش",
+    "ایتا",
   ];
+
+  const context = useContext(ResumeContext);
+
+  const {
+    firstName,
+    lastName,
+    job,
+    birthDay,
+    gender,
+    marital,
+    military,
+    description,
+  } = context.baseInfo;
+
+  const {
+    email,
+    phone,
+    tel,
+    webPage,
+    country,
+    province,
+    city,
+    address,
+    socialMediaName,
+    socialMediaId,
+  } = context.contactInfo;
+  const docs = context.docs;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -58,20 +97,90 @@ const BaseInfo = () => {
     setevidence(event.target.files[0].name);
   };
 
-  const saveBaseInfo = (event) => {
+  const handleSaveBaseInfo = async (event) => {
     event.preventDefault();
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
     const job = event.target.job.value;
     const gender = event.target.gender.value;
     const marital = event.target.marital.value;
-    console.log(firstName, lastName, job, gender, marital);
+    const military = event.target.military.value;
+    const description = event.target.description.value;
+    const image = event.target.image.files[0];
+    const birthDay = birth._d.toLocaleDateString("en-CA");
+
+    const email = event.target.email.value;
+    const phone = event.target.phone.value;
+    const tel = event.target.tel.value;
+    const webPage = event.target.webPage.value;
+    const country = event.target.country.value;
+    const province = event.target.province.value;
+    const city = event.target.city.value;
+    const address = event.target.address.value;
+    const socialMediaName = event.target.socialMediaName.value;
+    const socialMediaId = event.target.socialMediaId.value;
+
+    const nationalCard = event.target.nationalCard.files[0];
+    const eduCertif = event.target.eduCertif.files[0];
+
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("job", job);
+    formData.append("gender", gender);
+    formData.append("marital", marital);
+    formData.append("military", military);
+    formData.append("description", description);
+    formData.append("image", image);
+    formData.append("birthDay", birthDay);
+
+    const nationalCardFormData = new FormData();
+    nationalCardFormData.append("docType", "nationalCard");
+    nationalCardFormData.append("file", nationalCard);
+
+    const eduCertifFormData = new FormData();
+    eduCertifFormData.append("docType", "eduCertif");
+    eduCertifFormData.append("file", eduCertif);
+
+    const contactForm = {
+      email,
+      phone,
+      tel,
+      webPage,
+      country,
+      province,
+      city,
+      address,
+      socialMediaName,
+      socialMediaId,
+    };
+
+    const response = await saveBaseInfo(formData);
+
+    const response2 = await saveContactInfo(contactForm);
+
+    const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
+    const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
+
+    if (
+      response.status < 210 &&
+      response2.status < 210 &&
+      response3.status < 210 &&
+      response4.status < 210
+    ) {
+      context.handleNext();
+      context.initializeData();
+    }
   };
+
+  useEffect(() => {
+    setbirth(birthDay);
+  }, []);
 
   const classes = useStyles();
 
   return (
-    <form onSubmit={saveBaseInfo}>
+    <form onSubmit={handleSaveBaseInfo}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>
@@ -89,6 +198,8 @@ const BaseInfo = () => {
               onChange={onImageChange}
               id="icon-button-file"
               type="file"
+              name="image"
+              required
             />
             <label htmlFor="icon-button-file">
               <IconButton
@@ -108,6 +219,8 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام"
                   name="firstName"
+                  defaultValue={firstName}
+                  required
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
@@ -115,6 +228,8 @@ const BaseInfo = () => {
                   className={classes.formControl}
                   label="نام خانوادگی"
                   name="lastName"
+                  defaultValue={lastName}
+                  required
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
@@ -125,12 +240,17 @@ const BaseInfo = () => {
                       <Fragment>
                         عنوان شغلی{" "}
                         <Help
-                          style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                          style={{
+                            fontSize: 14,
+                            transform: "rotateY(180deg)",
+                          }}
                         />
                       </Fragment>
                     }
                     name="job"
+                    defaultValue={job}
                     placeholder="مثال: برنامه نویس وب یا ..."
+                    required
                   />
                 </Tooltip>
               </Grid>
@@ -139,7 +259,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>جنسیت</InputLabel>
-                  <Select name="gender">
+                  <Select name="gender" defaultValue={gender} required>
                     <MenuItem value={"مرد"}>مرد</MenuItem>
                     <MenuItem value={"زن"}>زن</MenuItem>
                   </Select>
@@ -148,7 +268,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={2} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
-                  <Select name="marital">
+                  <Select name="marital" defaultValue={marital} required>
                     <MenuItem value={"مجرد"}>مجرد</MenuItem>
                     <MenuItem value={"متاهل"}>متاهل</MenuItem>
                   </Select>
@@ -157,7 +277,7 @@ const BaseInfo = () => {
               <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت سربازی</InputLabel>
-                  <Select name="military">
+                  <Select name="military" defaultValue={military} required>
                     <MenuItem value={"مشمول"}>مشمول</MenuItem>
                     <MenuItem value={"در حال خدمت"}>در حال خدمت</MenuItem>
                     <MenuItem value={"پایان خدمت"}>پایان خدمت</MenuItem>
@@ -170,44 +290,25 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid item xs={6} sm={5}>
-                <InputLabel>تاریخ تولد</InputLabel>
-                <Grid container spacing={1}>
-                  <Grid item xs={6} sm={3}>
-                    <Select
-                      name="birthDay"
-                      className={classes.formControl}
-                      defaultValue="def"
-                    >
-                      <MenuItem disabled value="def">
-                        روز
-                      </MenuItem>
-                    </Select>
-                  </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Select
-                      name="birthMonth"
-                      className={classes.formControl}
-                      defaultValue="def"
-                    >
-                      <MenuItem disabled value="def">
-                        ماه
-                      </MenuItem>
-                      {months.map((v, k) => (
-                        <MenuItem value={k}>{v}</MenuItem>
-                      ))}
-                    </Select>
-                  </Grid>
-                  <Grid item xs={6} sm={3}>
-                    <TextField
-                      className={classes.formControl}
-                      name="birthYear"
-                      type="number"
-                      placeholder="سال"
-                    />
-                  </Grid>
+              <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+                <Grid item xs={6} sm={5}>
+                  <DatePicker
+                    className={classes.formControl}
+                    label="تاریخ تولد"
+                    name="birthDay"
+                    value={birth}
+                    defaultValue={birthDay}
+                    clearable
+                    okLabel="تأیید"
+                    cancelLabel="لغو"
+                    clearLabel="پاک کردن"
+                    labelFunc={(date) =>
+                      date ? date.format("jYYYY/jMM/jDD") : ""
+                    }
+                    onChange={(date) => setbirth(date)}
+                  />
                 </Grid>
-              </Grid>
+              </MuiPickersUtilsProvider>
             </Grid>
           </Grid>
         </Grid>
@@ -222,9 +323,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="ایمیل"
               name="email"
-              type="email"
+              defaultValue={email}
               style={{ direction: "ltr" }}
               placeholder="example@domain.com"
+              inputMode="email"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -232,9 +335,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="موبایل"
               name="phone"
+              defaultValue={phone}
               type="number"
               style={{ direction: "ltr" }}
               placeholder="09123456789"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -242,9 +347,11 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="تلفن"
               name="tel"
+              defaultValue={tel}
               type="number"
               style={{ direction: "ltr" }}
               placeholder="02188888888"
+              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -252,6 +359,7 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="وب سایت"
               name="webPage"
+              defaultValue={webPage}
               type="text"
               placeholder="www."
               style={{ direction: "ltr" }}
@@ -264,7 +372,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="کشور"
               name="country"
-              defaultValue="ایران"
+              defaultValue={country}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -272,7 +381,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="استان"
               name="province"
-              defaultValue="تهران"
+              defaultValue={province}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -280,7 +390,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="شهر"
               name="city"
-              defaultValue="تهران"
+              defaultValue={city}
+              required
             />
           </Grid>
           <Grid item xs={6} sm={6}>
@@ -288,6 +399,8 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="آدرس"
               name="address"
+              defaultValue={address}
+              required
             />
           </Grid>
         </Grid>
@@ -306,8 +419,10 @@ const BaseInfo = () => {
               <input
                 class="file-input"
                 type="file"
-                name="idCard"
+                name="nationalCard"
+                // defaultValue={docs[0].file}
                 onChange={onChangeIdCard}
+                required
               />
             </div>
           </Grid>
@@ -320,8 +435,9 @@ const BaseInfo = () => {
               <input
                 class="file-input"
                 type="file"
-                name="evidence"
+                name="eduCertif"
                 onChange={onChangeEvidence}
+                required
               />
             </div>
           </Grid>
@@ -335,6 +451,7 @@ const BaseInfo = () => {
           <TextField
             className={classes.formControl}
             name="description"
+            defaultValue={description}
             multiline
             label="توصیف خلاصه"
             placeholder="برای مثال : 
@@ -352,13 +469,18 @@ const BaseInfo = () => {
               <Grid xs={6} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>شبکه اجتماعی</InputLabel>
-                  <Select name="socialMedia"></Select>
+                  <Select name="socialMediaName" defaultValue={socialMediaName}>
+                    {socialMediaList.map((socialMedia) => (
+                      <MenuItem value={socialMedia}>{socialMedia}</MenuItem>
+                    ))}
+                  </Select>
                 </FormControl>
               </Grid>
               <Grid xs={6} item>
                 <TextField
                   label="آی دی مرتبط"
                   name="socialMediaId"
+                  defaultValue={socialMediaId}
                   className={classes.formControl}
                 />
               </Grid>
@@ -366,6 +488,21 @@ const BaseInfo = () => {
           </Paper>
         </Grid>
       </Grid>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        type="submit"
+        // onClick={}
+        size="medium"
+      >
+        <Hidden xsDown>ذخیره و ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </form>
   );
 };

@@ -10,15 +10,9 @@ import {
   Typography,
   Hidden,
 } from "@material-ui/core";
-import {
-  ArrowForward,
-  Check,
-  Send,
-  SkipNext,
-  SkipPrevious,
-} from "@material-ui/icons";
+import { ArrowForward, Check, Send, SkipNext } from "@material-ui/icons";
 import clsx from "clsx";
-import React, { Fragment, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useStyles } from "../utils/styles";
 import { QontoConnector, useQontoStepIconStyles } from "../utils/uiUtils";
 import BaseInfo from "../components/baseInformation";
@@ -27,6 +21,17 @@ import EducationHistory from "../components/educationHistory";
 import JobHistory from "../components/jobHistory";
 import Skill from "../components/skill";
 import Project from "../components/Project";
+import ResumeContext from "../context/resumeContext";
+import {
+  getBaseInfo,
+  getContactInfo,
+  getDocsInfo,
+  getEducationHistories,
+  getJobHistories,
+  getProjects,
+  getResearches,
+} from "../services/resumeService";
+import { Redirect } from "react-router-dom";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -76,27 +81,84 @@ QontoStepIcon.propTypes = {
 
 const ResumeForm = () => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = useState(0);
+  const [activeStep, setactiveStep] = useState(0);
+  const [baseInfo, setbaseInfo] = useState({});
+  const [contactInfo, setcontactInfo] = useState({});
+  const [docs, setdocs] = useState([
+    { _id: "", file: null },
+    { _id: "", file: null },
+  ]);
+  const [edus, setedus] = useState([{}]);
+  const [jobs, setjobs] = useState([{}]);
+  const [researches, setresearches] = useState([{}]);
+  const [projects, setprojects] = useState([{}]);
   const steps = getSteps();
 
   const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setactiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    setactiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleReset = () => {
-    setActiveStep(0);
+    setactiveStep(0);
   };
 
   const handleStep = (step) => () => {
-    setActiveStep(step);
+    setactiveStep(step);
   };
 
+  useEffect(() => {
+    initializeData();
+  }, []);
+
+  const initializeData = async () => {
+    const response = await getBaseInfo();
+    const response2 = await getContactInfo();
+    const response3 = await getDocsInfo();
+    const responseEdus = await getEducationHistories();
+    const responseJobs = await getJobHistories();
+    const responseResearches = await getResearches();
+    const responseProjects = await getProjects();
+    if (
+      response.status < 210 &&
+      response2.status < 210 &&
+      response3.status < 210 &&
+      responseEdus.status < 210 &&
+      responseJobs.status < 210 &&
+      responseResearches.status < 210 &&
+      responseProjects.status < 210
+    ) {
+      setbaseInfo({ ...response.data });
+      setcontactInfo({ ...response2.data });
+      setdocs([...response3.data.docs]);
+      setedus([...responseEdus.data.docs]);
+      setjobs([...responseJobs.data.docs]);
+      setresearches([...responseResearches.data.docs]);
+      setprojects([...responseProjects.data.docs]);
+    }
+  };
+
+  if (!localStorage.getItem("token")) {
+    return <Redirect to="/login" />;
+  }
+
   return (
-    <Fragment>
+    <ResumeContext.Provider
+      value={{
+        handleNext,
+        baseInfo,
+        contactInfo,
+        docs,
+        edus,
+        jobs,
+        researches,
+        projects,
+        initializeData,
+      }}
+    >
       <CssBaseline />
       <div className={classes.root} style={{ marginBottom: 100 }}>
         <Stepper
@@ -137,7 +199,7 @@ const ResumeForm = () => {
                     بازگشت به صفحه اول
                   </Button>
                 </Grid>
-                <Grid item>
+                {/* <Grid item>
                   <Button
                     variant="contained"
                     color="primary"
@@ -145,7 +207,7 @@ const ResumeForm = () => {
                   >
                     ارسال
                   </Button>
-                </Grid>
+                </Grid> */}
               </Grid>
             </div>
           ) : (
@@ -172,26 +234,11 @@ const ResumeForm = () => {
                 <SkipNext className={classes.extendedIcon} />
                 <Hidden xsDown>مرحله قبل</Hidden>
               </Fab>
-              <Fab
-                style={{
-                  position: "fixed",
-                  bottom: 50,
-                  left: 50,
-                }}
-                variant="contained"
-                color="primary"
-                type="submit"
-                onClick={handleNext}
-                size="medium"
-              >
-                <Hidden xsDown>ذخیره و ادامه</Hidden>
-                <SkipPrevious className={classes.extendedIcon} />
-              </Fab>
             </div>
           )}
         </div>
       </div>
-    </Fragment>
+    </ResumeContext.Provider>
   );
 };
 

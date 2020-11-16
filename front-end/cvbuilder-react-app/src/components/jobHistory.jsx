@@ -1,8 +1,10 @@
 import {
   Checkbox,
+  Fab,
   FormControl,
   FormControlLabel,
   Grid,
+  Hidden,
   InputLabel,
   MenuItem,
   Paper,
@@ -11,12 +13,42 @@ import {
   Tooltip,
   Typography,
 } from "@material-ui/core";
-import { Help } from "@material-ui/icons";
-import React, { Fragment, useState } from "react";
+import { Help, SkipPrevious } from "@material-ui/icons";
+import React, { Fragment, useContext, useState } from "react";
+import { useEffect } from "react";
+import ResumeContext from "../context/resumeContext";
+import { saveJobHistories } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
 
 const JobHistory = () => {
   const [inJob, setinJob] = useState(false);
+
+  const context = useContext(ResumeContext);
+
+  const {
+    jobTitle,
+    jobGroup,
+    jobCenter,
+    titleCenter,
+    cooperateType,
+    seniorLevel,
+    jobCountry,
+    jobProvince,
+    jobCity,
+    startJobMonth,
+    startJobYear,
+    endJobMonth,
+    endJobYear,
+    income,
+    number,
+    jobDescription,
+    stillWorking,
+  } = context.jobs.length ? context.jobs[0] : [{}];
+
+  useEffect(() => {
+    setinJob(stillWorking);
+  }, []);
+
   const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
   const cooperateTypes = [
     "فراردادی تمام وقت",
@@ -41,9 +73,55 @@ const JobHistory = () => {
   ];
   const seniorLevels = ["تازه کار", "کارشناس", "خبره"];
 
+  const handleSaveJobHistories = async (event) => {
+    event.preventDefault();
+    const jobTitle = event.target.jobTitle.value;
+    const jobGroup = event.target.jobGroup.value;
+    const jobCenter = event.target.jobCenter.value;
+    const titleCenter = event.target.titleCenter.value;
+    const cooperateType = event.target.cooperateType.value;
+    const seniorLevel = event.target.seniorLevel.value;
+    const jobCountry = event.target.jobCountry.value;
+    const jobProvince = event.target.jobProvince.value;
+    const jobCity = event.target.jobCity.value;
+    const startJobMonth = event.target.startJobMonth.value;
+    const startJobYear = event.target.startJobYear.value;
+    const endJobMonth = event.target.endJobMonth.value;
+    const endJobYear = event.target.endJobYear.value;
+    const income = event.target.income.value;
+    const number = event.target.phoneNumber.value;
+    const jobDescription = event.target.jobDescription.value;
+    const stillWorking = inJob;
+
+    const jobsForm = {
+      jobTitle,
+      jobGroup,
+      jobCenter,
+      titleCenter,
+      cooperateType,
+      seniorLevel,
+      jobCountry,
+      jobProvince,
+      jobCity,
+      startJobMonth,
+      startJobYear,
+      endJobMonth,
+      endJobYear,
+      income,
+      number,
+      jobDescription,
+      stillWorking,
+    };
+
+    const response = await saveJobHistories(jobsForm);
+    if (response.status < 210) {
+      context.handleNext();
+    }
+  };
+
   const classes = useStyles();
   return (
-    <form>
+    <form onSubmit={handleSaveJobHistories}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق شغلی
       </Typography>
@@ -58,6 +136,7 @@ const JobHistory = () => {
               <TextField
                 className={classes.formControl}
                 name="jobTitle"
+                defaultValue={jobTitle}
                 label={
                   <Fragment>
                     سمت شغلی{" "}
@@ -72,7 +151,7 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>گروه شغلی</InputLabel>
-              <Select name="jobGroup">
+              <Select name="jobGroup" defaultValue={jobGroup}>
                 {jobGroups.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -83,6 +162,7 @@ const JobHistory = () => {
             <TextField
               className={classes.formControl}
               name="jobCenter"
+              defaultValue={jobCenter}
               label="مرکز شغلی"
             />
           </Grid>
@@ -90,6 +170,7 @@ const JobHistory = () => {
             <TextField
               className={classes.formControl}
               name="titleCenter"
+              defaultValue={titleCenter}
               label="عنوان مرکز"
             />
           </Grid>
@@ -98,7 +179,7 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
-              <Select name="cooperateType">
+              <Select name="cooperateType" defaultValue={cooperateType}>
                 {cooperateTypes.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -108,7 +189,7 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>سطح ارشدیت</InputLabel>
-              <Select name="seniorLevel">
+              <Select name="seniorLevel" defaultValue={seniorLevel}>
                 {seniorLevels.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -120,7 +201,8 @@ const JobHistory = () => {
               className={classes.formControl}
               label="کشور"
               name="jobCountry"
-              defaultValue="ایران"
+              defaultValue={jobCountry}
+              // defaultValue="ایران"
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -128,7 +210,8 @@ const JobHistory = () => {
               className={classes.formControl}
               label="استان"
               name="jobProvince"
-              defaultValue="تهران"
+              defaultValue={jobProvince}
+              // defaultValue="تهران"
             />
           </Grid>
           <Grid item xs={6} sm={2}>
@@ -136,7 +219,8 @@ const JobHistory = () => {
               className={classes.formControl}
               label="شهر"
               name="jobCity"
-              defaultValue="تهران"
+              defaultValue={jobCity}
+              // defaultValue="تهران"
             />
           </Grid>
         </Grid>
@@ -152,14 +236,15 @@ const JobHistory = () => {
               <Grid item xs={6} sm={7}>
                 <Select
                   name="startJobMonth"
+                  defaultValue={startJobMonth}
                   className={classes.formControl}
-                  defaultValue="def"
+                  // defaultValue="def"
                 >
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
                   {months.map((v, k) => (
-                    <MenuItem value={k}>{v}</MenuItem>
+                    <MenuItem value={k + 1}>{v}</MenuItem>
                   ))}
                 </Select>
               </Grid>
@@ -167,6 +252,7 @@ const JobHistory = () => {
                 <TextField
                   className={classes.formControl}
                   name="startJobYear"
+                  defaultValue={startJobYear}
                   type="number"
                   placeholder="سال"
                 />
@@ -179,16 +265,17 @@ const JobHistory = () => {
               <Grid item xs={6} sm={7}>
                 <Select
                   name="endJobMonth"
+                  defaultValue={endJobMonth}
                   className={classes.formControl}
                   disabled={inJob}
-                  value={inJob ? "" : "def"}
-                  defaultValue="def"
+                  // value={inJob ? "" : "def"}
+                  // defaultValue="def"
                 >
                   <MenuItem disabled value="def">
                     ماه
                   </MenuItem>
                   {months.map((v, k) => (
-                    <MenuItem value={k}>{v}</MenuItem>
+                    <MenuItem value={k + 1}>{v}</MenuItem>
                   ))}
                 </Select>
               </Grid>
@@ -196,6 +283,7 @@ const JobHistory = () => {
                 <TextField
                   className={classes.formControl}
                   name="endJobYear"
+                  defaultValue={endJobYear}
                   type="number"
                   disabled={inJob}
                   value={inJob ? "" : null}
@@ -226,6 +314,7 @@ const JobHistory = () => {
             <TextField
               label="میزان درآمد"
               name="income"
+              defaultValue={income}
               type="number"
               placeholder="4000000 تومان"
               className={classes.formControl}
@@ -237,6 +326,7 @@ const JobHistory = () => {
               type="number"
               placeholder="02188888888"
               name="phoneNumber"
+              defaultValue={number}
               className={classes.formControl}
             />
           </Grid>
@@ -260,11 +350,27 @@ const JobHistory = () => {
           <TextField
             className={classes.formControl}
             name="jobDescription"
+            defaultValue={jobDescription}
             multiline
             label="وظایف و دستاوردها"
           />
         </Grid>
       </Paper>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        type="submit"
+        // onClick={}
+        size="medium"
+      >
+        <Hidden xsDown>ذخیره و ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </form>
   );
 };
