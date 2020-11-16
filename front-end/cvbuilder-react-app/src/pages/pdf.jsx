@@ -1,4 +1,5 @@
 import {
+  Button,
   Grid,
   List,
   ListItem,
@@ -7,6 +8,7 @@ import {
   Typography,
 } from "@material-ui/core";
 import React, { Fragment, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   getBaseInfoByAdmin,
   getContactInfoByAdmin,
@@ -50,6 +52,16 @@ const Pdf = ({ match }) => {
   }, []);
   return (
     <Fragment>
+      <Grid container style={{ marginTop: 10 }} justify="space-evenly">
+        <Button variant="contained" color="primary">
+          دانلود pdf
+        </Button>
+        <Link to="/admin">
+          <Button variant="contained" color="secondary">
+            بازگشت
+          </Button>
+        </Link>
+      </Grid>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>

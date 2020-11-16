@@ -1,4 +1,3 @@
-import moment from "moment";
 import jMoment from "moment-jalaali";
 import JalaliUtils from "@date-io/jalaali";
 import {
@@ -41,7 +40,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birth, setbirth] = useState(moment());
+  const [birth, setbirth] = useState(new Date());
   const socialMediaList = [
     "تلگرام",
     "واتساپ",
@@ -174,7 +173,9 @@ const BaseInfo = () => {
   };
 
   useEffect(() => {
-    setbirth(birthDay);
+    if (birthDay) {
+      setbirth(birthDay);
+    }
   }, []);
 
   const classes = useStyles();
