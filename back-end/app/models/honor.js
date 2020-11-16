@@ -2,20 +2,16 @@ const { Schema } = require('mongoose')
 const mongoose = require('mongoose')
 const mongoosePaginate = require('mongoose-paginate-v2')
 
-const DocSchema = new mongoose.Schema(
+const HonorSchema = new mongoose.Schema(
   {
-    file: {
-      type: String,
-      required: true
-    },
-    docType: {
-      type: String,
-      enum: ['nationalCard', 'eduCertif', 'certificate']
-    },
-    title: {
+    honorTitle: {
       type: String
     },
-    certificateType: {
+    honorMonth: {
+      type: Number,
+      max: 12
+    },
+    honorYear: {
       type: String
     },
     user: {
@@ -28,5 +24,5 @@ const DocSchema = new mongoose.Schema(
     timestamps: true
   }
 )
-DocSchema.plugin(mongoosePaginate)
-module.exports = mongoose.model('Doc', DocSchema)
+HonorSchema.plugin(mongoosePaginate)
+module.exports = mongoose.model('Honor', HonorSchema)

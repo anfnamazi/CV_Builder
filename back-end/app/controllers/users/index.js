@@ -18,6 +18,10 @@ const { updateJobHistoryUser } = require('./updateJobHistoryUser')
 const { createResearchUser } = require('./createResearchUser')
 const { createProjectUser } = require('./createProjectUser')
 const { updateSimpleItem } = require('./updateSimpleItem')
+const { createSkillUser } = require('./createSkillUser')
+const { updateSkillUser } = require('./updateSkillUser')
+const { createHonorUser } = require('./createHonorUser')
+const { updateHonorUser } = require('./updateHonorUser')
 
 module.exports = {
   createUser,
@@ -39,5 +43,9 @@ module.exports = {
   updateJobHistoryUser,
   createResearchUser,
   createProjectUser,
-  updateSimpleItem
+  updateSimpleItem,
+  createSkillUser,
+  updateSkillUser,
+  createHonorUser,
+  updateHonorUser
 }
