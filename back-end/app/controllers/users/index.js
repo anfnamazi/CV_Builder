@@ -1,6 +1,7 @@
 const { createUser } = require('./createUser')
 const { deleteUser } = require('./deleteUser')
 const { getUser } = require('./getUser')
+const { getUserPopulated } = require('./getUserPopulated')
 const { getUserCsv } = require('./getUserCsv')
 const { getUsers } = require('./getUsers')
 const { updateUser } = require('./updateUser')
@@ -22,6 +23,7 @@ module.exports = {
   createUser,
   deleteUser,
   getUser,
+  getUserPopulated,
   getUserCsv,
   getUsers,
   updateUser,

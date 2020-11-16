@@ -15,8 +15,10 @@ const { Parser, parse } = require('json2csv')
 const getUserCsv = async (req, res) => {
   try {
     let userId = req.user.id
+    let id = req.params.id
     req = matchedData(req)
-    let id = req.id || userId
+    id = id || userId
+    console.log(id)
     id = await isIDGood(id)
     let item = await User.findOne({ _id: id }).populate([
       'userBaseInfo',

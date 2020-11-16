@@ -13,6 +13,7 @@ const {
   getUsers,
   createUser,
   getUser,
+  getUserPopulated,
   getUserCsv,
   updateUser,
   deleteUser
@@ -58,6 +59,21 @@ router.get(
     }
   }
 )
+router.get(
+  '/populated',
+  requireAuth,
+  roleAuthorization(['user']),
+  trimRequest.all,
+  async (req, res) => {
+    try {
+      const id = req.user.id || ''
+      req.params.id = id
+      await getUserPopulated(req, res)
+    } catch (err) {
+      handleError(res, err)
+    }
+  }
+)
 
 router.get(
   '/csv',
@@ -77,6 +93,14 @@ router.get(
       handleError(res, err)
     }
   }
+)
+
+router.get(
+  '/:id/csv',
+  requireAuth,
+  roleAuthorization(['admin']),
+  trimRequest.all,
+  getUserCsv
 )
 
 /*
@@ -101,6 +125,14 @@ router.get(
   trimRequest.all,
   validateGetUser,
   getUser
+)
+router.get(
+  '/:id/populated',
+  requireAuth,
+  roleAuthorization(['admin']),
+  trimRequest.all,
+  validateGetUser,
+  getUserPopulated
 )
 
 /*
