@@ -6,13 +6,14 @@ const requireAuth = passport.authenticate('jwt', {
   session: false
 })
 const trimRequest = require('trim-request')
-
+const jsonexport = require('jsonexport')
 const { roleAuthorization } = require('../controllers/auth')
 
 const {
   getUsers,
   createUser,
   getUser,
+  getUserCsv,
   updateUser,
   deleteUser
 } = require('../controllers/users')
@@ -41,9 +42,41 @@ router.use(require('./userData/researchs')) // researchs
 router.get(
   '/',
   requireAuth,
-  roleAuthorization(['admin']),
+  roleAuthorization(['admin', 'user']),
   trimRequest.all,
-  getUsers
+  async (req, res) => {
+    try {
+      if (req.user.role == 'admin') {
+        await getUsers(req, res)
+        return
+      }
+      const id = req.user.id || ''
+      req.params.id = id
+      await getUser(req, res)
+    } catch (err) {
+      handleError(res, err)
+    }
+  }
+)
+
+router.get(
+  '/csv',
+  requireAuth,
+  roleAuthorization(['admin', 'user']),
+  trimRequest.all,
+  async (req, res) => {
+    try {
+      // if (req.user.role == 'admin') {
+      //   await getUsers(req, res)
+      //   return
+      // }
+      const id = req.user.id || ''
+      req.params.id = id
+      await getUserCsv(req, res)
+    } catch (err) {
+      handleError(res, err)
+    }
+  }
 )
 
 /*

@@ -1,7 +1,6 @@
 const User = require('../../models/user')
 const { matchedData } = require('express-validator')
 const { isIDGood, handleError } = require('../../middleware/utils')
-const { getItem } = require('../../middleware/db')
 
 /**
  * Get item function called by route
@@ -10,9 +9,20 @@ const { getItem } = require('../../middleware/db')
  */
 const getUser = async (req, res) => {
   try {
+    let userId = req.user.id
     req = matchedData(req)
-    const id = await isIDGood(req.id)
-    res.status(200).json(await getItem(id, User))
+    let id = req.id || userId
+    id = await isIDGood(id)
+    let item = await User.findOne({ _id: id }).populate([
+      'userBaseInfo',
+      'contactInfo',
+      'educationHistories',
+      'jobHistories',
+      'researchs',
+      'projects',
+      'docs'
+    ])
+    res.status(200).json(item)
   } catch (error) {
     handleError(res, error)
   }
