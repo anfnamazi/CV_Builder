@@ -9,14 +9,11 @@ const trimRequest = require('trim-request')
 const { roleAuthorization } = require('../../controllers/auth')
 const { findUserById } = require('../../controllers/auth/helpers')
 
-const {
-  createResearchUser,
-  updateSimpleItem
-} = require('../../controllers/users')
+const { createHonorUser, updateHonorUser } = require('../../controllers/users')
 
 const {
-  validateAddResearch,
-  validateAddResearchUser
+  validateAddHonorUser,
+  validateAddHonor
 } = require('../../controllers/users/validators')
 const { getItem, getItems } = require('../../middleware/db')
 const {
@@ -24,23 +21,23 @@ const {
   isIDGood,
   buildErrObject
 } = require('../../middleware/utils')
-const Research = require('../../models/research')
+const Honor = require('../../models/honor')
 
 /*
  * add or edit BaseInfo of user, by Admin
  */
 router.post(
-  '/:id/researchs',
+  '/:id/honors',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
-  validateAddResearch,
+  validateAddHonor,
   async (req, res) => {
     try {
       let id = req.params.id || ''
       id = isIDGood(id)
       req.user = findUserById(id)
-      await createResearchUser(req, res)
+      await createHonorUser(req, res)
     } catch (err) {
       handleError(res, err)
     }
@@ -50,30 +47,30 @@ router.post(
  * add or edit BaseInfo of user, by himself
  */
 router.post(
-  '/researchs',
+  '/honors',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
-  validateAddResearchUser,
-  createResearchUser
+  validateAddHonorUser,
+  createHonorUser
 )
 
 router.post(
-  '/researchs/:id',
+  '/honors/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
-  validateAddResearchUser,
+  validateAddHonorUser,
   async (req, res) => {
     try {
       if (req.user.role == 'admin') {
-        await updateSimpleItem(req, res, Research)
+        await updateHonorUser(req, res)
         return
       }
       const id = req.params.id || ''
-      if (Array.isArray(req.user.researchs)) {
-        if (req.user.researchs.includes(id)) {
-          await updateSimpleItem(req, res, Research)
+      if (Array.isArray(req.user.honors)) {
+        if (req.user.honors.includes(id)) {
+          await updateHonorUser(req, res)
           return
         }
       }
@@ -87,7 +84,7 @@ router.post(
  * get BaseInfo of user, by Admin
  */
 router.get(
-  '/:id/researchs',
+  '/:id/honors',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
@@ -96,11 +93,9 @@ router.get(
       let id = req.params.id || ''
       id = await isIDGood(id)
       let user = await findUserById(id)
-      res.status(201).json(
-        await getItems(req, Research, {
-          _id: { $in: user.researchs }
-        })
-      )
+      res
+        .status(201)
+        .json(await getItems(req, Honor, { _id: { $in: user.honors } }))
     } catch (err) {
       handleError(res, err)
     }
@@ -110,24 +105,22 @@ router.get(
  * get BaseInfo of user, by himself
  */
 router.get(
-  '/researchs',
+  '/honors',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
   async (req, res) => {
     try {
-      res.status(201).json(
-        await getItems(req, Research, {
-          _id: { $in: req.user.researchs }
-        })
-      )
+      res
+        .status(201)
+        .json(await getItems(req, Honor, { _id: { $in: req.user.honors } }))
     } catch (err) {
       handleError(res, err)
     }
   }
 )
 router.get(
-  '/researchs/:id',
+  '/honors/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
@@ -135,12 +128,12 @@ router.get(
     try {
       const id = req.params.id || ''
       if (req.user.role == 'admin') {
-        res.status(201).json(await getItem(id, Research))
+        res.status(201).json(await getItem(id, Honor))
         return
       }
-      if (Array.isArray(req.user.researchs)) {
-        if (req.user.researchs.includes(id)) {
-          res.status(201).json(await getItem(id, Research))
+      if (Array.isArray(req.user.honors)) {
+        if (req.user.honors.includes(id)) {
+          res.status(201).json(await getItem(id, Honor))
           return
         }
       }

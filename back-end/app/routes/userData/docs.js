@@ -113,8 +113,8 @@ router.get(
   async (req, res) => {
     try {
       let id = req.params.id || ''
-      id = isIDGood(id)
-      let user = findUserById(id)
+      id = await isIDGood(id)
+      let user = await findUserById(id)
       res
         .status(201)
         .json(await getItems(req, Doc, { _id: { $in: user.docs } }))

@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const DB_URL = process.env.MONGO_URI
 const loadModels = require('../app/models')
 
+console.log(DB_URL)
 module.exports = () => {
   const connect = () => {
     mongoose.Promise = global.Promise

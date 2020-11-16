@@ -65,8 +65,9 @@ router.get(
   async (req, res) => {
     try {
       let id = req.params.id || ''
-      id = isIDGood(id)
-      let user = findUserById(id)
+      id = await isIDGood(id)
+      let user = await findUserById(id)
+      // console.log(user)
       res.status(201).json(await getItem(user.userBaseInfo, UserBaseInfo))
     } catch (err) {
       handleError(res, err)

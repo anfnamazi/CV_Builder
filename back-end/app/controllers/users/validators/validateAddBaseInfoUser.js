@@ -32,6 +32,7 @@ const validateAddBaseInfoUser = [
   check('lastName').optional(),
   check('image').optional(),
   check('job').optional(),
+  check('description').optional(),
   (req, res, next) => {
     validateResult(req, res, next)
   }
