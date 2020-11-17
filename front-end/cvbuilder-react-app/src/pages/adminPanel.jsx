@@ -10,8 +10,10 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getallUsers } from "../services/adminService";
+import { getallUsers, getUserCSV  } from "../services/adminService";
 import { useStyles } from "../utils/styles";
+import fileDownload from 'js-file-download'
+
 
 // function createData(index, user, date, download) {
 //   return { index, user, date, download };
@@ -32,6 +34,19 @@ const AdminPanel = () => {
       setusers([...getUsers.data.docs]);
     }
   };
+
+  const handleDownlaodCSV = async (userId) => {
+    try {
+      const csvResult = await getUserCSV(userId)
+      if(csvResult.status === 200){
+        fileDownload(csvResult.data, 'filename.csv');
+      }
+    } catch (error) {
+      console.log(error)
+      
+    }
+   
+  }
 
   useEffect(() => {
     handleGetUsers();
@@ -59,7 +74,9 @@ const AdminPanel = () => {
                 {new Date(user.updatedAt).toLocaleString()}
               </TableCell>
               <TableCell align="left">
-                <IconButton>
+              <IconButton 
+                onClick={(e)=>handleDownlaodCSV(user._id)}
+                >
                   <img
                     className="download-icon"
                     src={require("../assets/images/excelIcon.svg")}
