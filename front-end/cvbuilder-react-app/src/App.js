@@ -9,6 +9,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Login from './pages/login';
 import AdminPanel from './pages/adminPanel';
 import Pdf from './pages/pdf';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const App = () => {
@@ -23,6 +25,7 @@ const App = () => {
 
   return (<ThemeProvider theme={theme}>
     <StylesProvider jss={jss}>
+      <ToastContainer />
       <Container maxWidth="md">
         <BrowserRouter>
           <Switch>

@@ -91,7 +91,7 @@ const JobHistory = () => {
     const income = event.target.income.value;
     const number = event.target.phoneNumber.value;
     const jobDescription = event.target.jobDescription.value;
-    const stillWorking = inJob;
+    const stillWorking = Boolean(inJob);
 
     const jobsForm = {
       jobTitle,
@@ -116,6 +116,7 @@ const JobHistory = () => {
     const response = await saveJobHistories(jobsForm);
     if (response.status < 210) {
       context.handleNext();
+      context.initializeData();
     }
   };
 

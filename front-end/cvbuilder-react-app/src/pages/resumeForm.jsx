@@ -10,7 +10,7 @@ import {
   Typography,
   Hidden,
 } from "@material-ui/core";
-import { ArrowForward, Check, Send, SkipNext } from "@material-ui/icons";
+import { ArrowForward, Check, SkipNext } from "@material-ui/icons";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useStyles } from "../utils/styles";
@@ -32,6 +32,7 @@ import {
   getResearches,
 } from "../services/resumeService";
 import { Redirect } from "react-router-dom";
+import FakePage from "../components/fakePage";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -47,7 +48,7 @@ function getStepContent(stepIndex) {
       return <Project />;
 
     default:
-      return "Unknown stepIndex";
+      return <FakePage />;
   }
 }
 
@@ -81,7 +82,7 @@ QontoStepIcon.propTypes = {
 
 const ResumeForm = () => {
   const classes = useStyles();
-  const [activeStep, setactiveStep] = useState(0);
+  const [activeStep, setactiveStep] = useState(-1);
   const [baseInfo, setbaseInfo] = useState({});
   const [contactInfo, setcontactInfo] = useState({});
   const [docs, setdocs] = useState([
@@ -217,7 +218,7 @@ const ResumeForm = () => {
               </Typography>
               <Fab
                 style={
-                  activeStep === 0
+                  activeStep <= 0
                     ? { display: "none" }
                     : {
                         position: "fixed",

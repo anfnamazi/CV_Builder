@@ -30,8 +30,6 @@ import {
   saveContactInfo,
   saveDocsInfo,
 } from "../services/resumeService";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
@@ -183,7 +181,6 @@ const BaseInfo = () => {
 
   return (
     <form onSubmit={handleSaveBaseInfo}>
-      <ToastContainer />
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>

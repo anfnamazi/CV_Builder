@@ -15,7 +15,7 @@ axios.interceptors.response.use(null, (error) => {
         // console.log(error);
         toast.error("مشکلی از سمت سرور رخ داده است");
     } else {
-        // error.response.data.errors.msg.map((err => toast.error(err.msg)))
+        error.response.data.errors.msg.map((err => toast.error(err.msg)))
     }
 
     return Promise.reject(error);

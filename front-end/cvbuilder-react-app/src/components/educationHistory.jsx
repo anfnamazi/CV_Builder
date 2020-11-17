@@ -59,7 +59,7 @@ const EducationHistory = () => {
     const uniCity = event.target.uniCity.value;
     const startEdu = event.target.startEdu.value;
     const endEdu = event.target.endEdu.value;
-    const stillStudying = inEdu;
+    const stillStudying = Boolean(inEdu);
 
     const eduHistroiesForm = {
       sectionEdu,
@@ -81,6 +81,7 @@ const EducationHistory = () => {
 
     if (response.status < 210) {
       context.handleNext();
+      context.initializeData();
     }
   };
 

@@ -104,6 +104,7 @@ const Project = () => {
     const responseProject = await saveProjects(projectForm);
     if (responseResearch.status < 210 && responseProject.status < 210) {
       context.handleNext();
+      context.initializeData();
     }
   };
 
