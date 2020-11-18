@@ -53,7 +53,9 @@ const Pdf = ({ match }) => {
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
-        <Button variant="contained" color="primary">
+        <Button
+        onClick={(e)=>window.print()}
+        variant="contained" color="primary">
           دانلود pdf
         </Button>
         <Link to="/admin">
