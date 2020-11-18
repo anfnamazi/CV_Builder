@@ -14,8 +14,12 @@ axios.interceptors.response.use(null, (error) => {
     if (!expectedErrors) {
         // console.log(error);
         toast.error("مشکلی از سمت سرور رخ داده است");
+    } else if (error.response.status === 401) {
+        window.location.replace("/login");
     } else {
-        error.response.data.errors.msg.map((err => toast.error(err.msg)))
+        if (error.response.data.errors) {
+            error.response.data.errors.msg.map((err => toast.error(err.msg)))
+        }
     }
 
     return Promise.reject(error);
