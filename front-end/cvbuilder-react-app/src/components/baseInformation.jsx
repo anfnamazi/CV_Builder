@@ -105,7 +105,7 @@ const BaseInfo = () => {
     const military = event.target.military.value;
     const description = event.target.description.value;
     const image = event.target.image.files[0];
-    const birthDay = birth.toLocaleDateString("en-CA");
+    const birthDay = birth._d.toLocaleDateString("en-CA");
 
     const email = event.target.email.value;
     const phone = event.target.phone.value;
@@ -305,7 +305,7 @@ const BaseInfo = () => {
                     labelFunc={(date) =>
                       date ? date.format("jYYYY/jMM/jDD") : ""
                     }
-                    onChange={(date) => setbirth(date)}
+                    onChange={setbirth}
                   />
                 </Grid>
               </MuiPickersUtilsProvider>
