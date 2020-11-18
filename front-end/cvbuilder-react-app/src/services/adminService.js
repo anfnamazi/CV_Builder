@@ -26,6 +26,10 @@ export const getJobHistoriesByAdmin = userId => {
     return http.get(`${config.local_api}/${userId}/jobs`)
 }
 
+export const getAllResumeByAdmin = userId => {
+    return http.get(`${config.local_api}/users/${userId}/populated`)
+}
+
 export const getUserCSV = userId => {
     return http.get(`${config.local_api}/users/${userId}/csv`)
 }

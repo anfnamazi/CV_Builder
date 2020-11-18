@@ -51,7 +51,7 @@ const JobHistory = () => {
 
   const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
   const cooperateTypes = [
-    "فراردادی تمام وقت",
+    "قراردادی تمام وقت",
     "قراردادی پاره وقت",
     "رسمی یا پیمانی",
     "ساعتی",
@@ -325,7 +325,7 @@ const JobHistory = () => {
             <TextField
               label="شماره تماس"
               type="number"
-              placeholder="02188888888"
+              placeholder="88888888"
               name="phoneNumber"
               defaultValue={number}
               className={classes.formControl}

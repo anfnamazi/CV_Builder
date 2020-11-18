@@ -17,7 +17,7 @@ import { saveResearches, saveProjects } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
 
 const Project = () => {
-  const [researchTypeState, setresearchTypeState] = useState();
+  // const [researchTypeState, setresearchTypeState] = useState();
   const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "سایر"];
   const articleTypeList = ["داخلی", "خارجی"];
   const months = [
@@ -121,7 +121,7 @@ const Project = () => {
               <InputLabel>نوع اثر</InputLabel>
               <Select
                 name="researchType"
-                onChange={(e) => setresearchTypeState(e.target.value)}
+                // onChange={(e) => setresearchTypeState(e.target.value)}
                 defaultValue={researchType}
               >
                 {researchTypeList.map((type) => (
@@ -144,7 +144,7 @@ const Project = () => {
               <Select
                 name="articleType"
                 defaultValue={articleType}
-                disabled={researchTypeState === "مقاله" ? false : true}
+                // disabled={researchTypeState === "مقاله" ? false : true}
               >
                 {articleTypeList.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>

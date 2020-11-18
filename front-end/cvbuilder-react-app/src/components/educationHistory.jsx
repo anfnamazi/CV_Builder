@@ -148,6 +148,7 @@ const EducationHistory = () => {
               name="averageEdu"
               defaultValue={averageEdu}
               type="number"
+              inputProps={{ step: "0.01" }}
             />
           </Grid>
         </Grid>

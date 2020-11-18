@@ -9,39 +9,128 @@ import {
 } from "@material-ui/core";
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  getBaseInfoByAdmin,
-  getContactInfoByAdmin,
-  getDocsInfoByAdmin,
-  getEducationHistoriesByAdmin,
-  getJobHistoriesByAdmin,
-} from "../services/adminService";
+import { getAllResumeByAdmin } from "../services/adminService";
 
 const Pdf = ({ match }) => {
-  const [baseInfo, setbaseInfo] = useState({});
-  const [contactInfo, setcontactInfo] = useState({});
-  const [docs, setdocs] = useState([]);
-  const [edus, setedus] = useState([]);
-  const [jobs, setjobs] = useState([]);
+  const [allInfo, setallInfo] = useState({
+    contactInfo: {},
+    educationHistories: [],
+    honors: [],
+    jobHistories: [],
+    projects: [],
+    researchs: [],
+    skills: [],
+    userBaseInfo: {},
+  });
+
+  const months = [
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
+  ];
+
+  const {
+    firstName,
+    lastName,
+    job,
+    birthDay,
+    gender,
+    marital,
+    military,
+    description,
+  } = allInfo.userBaseInfo;
+
+  const {
+    email,
+    phone,
+    tel,
+    webPage,
+    country,
+    province,
+    city,
+    address,
+    socialMediaName,
+    socialMediaId,
+  } = allInfo.contactInfo;
+
+  const {
+    sectionEdu,
+    fieldEdu,
+    orientationEdu,
+    uniType,
+    uniName,
+    averageEdu,
+    uniCountry,
+    uniProvince,
+    uniCity,
+    startEdu,
+    endEdu,
+    stillStudying,
+  } = allInfo.educationHistories.length
+    ? allInfo.educationHistories[allInfo.educationHistories.length - 1]
+    : [{}];
+
+  const {
+    jobTitle,
+    jobGroup,
+    jobCenter,
+    titleCenter,
+    cooperateType,
+    seniorLevel,
+    jobCountry,
+    jobProvince,
+    jobCity,
+    startJobMonth,
+    startJobYear,
+    endJobMonth,
+    endJobYear,
+    income,
+    number,
+    jobDescription,
+    stillWorking,
+  } = allInfo.jobHistories.length
+    ? allInfo.jobHistories[allInfo.jobHistories.length - 1]
+    : [{}];
+
+  const {
+    researchType,
+    researchTitle,
+    articleType,
+    publisher,
+    researchHyperlink,
+    researchMonth,
+    researchYear,
+    researchDescription,
+  } = allInfo.researchs.length
+    ? allInfo.researchs[allInfo.researchs.length - 1]
+    : [{}];
+
+  const {
+    projectTitle,
+    projectEmployer,
+    projectHyperlink,
+    startProjectMonth,
+    startProjectYear,
+    endProjectMonth,
+    endProjectYear,
+    projectDescription,
+  } = allInfo.projects.length
+    ? allInfo.projects[allInfo.projects.length - 1]
+    : [{}];
 
   const getAllInfo = async (userId) => {
-    const response = await getBaseInfoByAdmin(userId);
-    const response2 = await getContactInfoByAdmin(userId);
-    const response3 = await getDocsInfoByAdmin(userId);
-    const responseEdus = await getEducationHistoriesByAdmin(userId);
-    const responseJobs = await getJobHistoriesByAdmin(userId);
-    if (
-      response.status < 210 &&
-      response2.status < 210 &&
-      response3.status < 210 &&
-      responseEdus.status < 210 &&
-      responseJobs.status < 210
-    ) {
-      setbaseInfo({ ...response.data });
-      setcontactInfo({ ...response2.data });
-      setdocs([...response3.data.docs]);
-      setedus([...responseEdus.data.docs]);
-      setjobs([...responseJobs.data.docs]);
+    const response = await getAllResumeByAdmin(userId);
+    if (response.status < 210) {
+      setallInfo({ ...response.data });
     }
   };
 
@@ -54,8 +143,10 @@ const Pdf = ({ match }) => {
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
         <Button
-        onClick={(e)=>window.print()}
-        variant="contained" color="primary">
+          variant="contained"
+          color="primary"
+          onClick={() => window.print()}
+        >
           دانلود pdf
         </Button>
         <Link to="/admin">
@@ -73,35 +164,44 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="نام:" />
-                لورم ایپسوم
+                {firstName}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="نام خانوادگی:" />
+                {lastName}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="عنوان شغلی:" />
+                {job}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="جنسیت:" />
+                {gender}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="وضعیت تاهل:" />
+                {marital}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="وضعیت سربازی:" />
+                {military}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="تاریخ تولد:" />
+                {new Date(birthDay).toLocaleDateString("fa-IR")}
               </ListItem>
 
               <ListItem>
                 <ListItemText secondary="توصیف خلاصه:" />
+                {description}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="شبکه اجتماعی:" />
+                {socialMediaName}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="آی دی مرتبط:" />
+                {socialMediaId}
               </ListItem>
             </List>
           </Grid>
@@ -109,27 +209,35 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="ایمیل:" />
+                {email}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="موبایل:" />
+                {phone}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="تلفن:" />
+                {tel}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="وب سایت:" />
+                {webPage}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="کشور:" />
+                {country}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="استان:" />
+                {province}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="شهر:" />
+                {city}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="آدرس:" />
+                {address}
               </ListItem>
             </List>
           </Grid>
@@ -143,22 +251,28 @@ const Pdf = ({ match }) => {
           <Grid item xs={6}>
             <List>
               <ListItem>
+                <ListItemText secondary="مقطع:" />
+                {sectionEdu}
+              </ListItem>
+              <ListItem>
                 <ListItemText secondary="رشته تحصیلی:" />
+                {fieldEdu}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="گرایش/تخصص:" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="عنوان موسسه:" />
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="معدل:" />
+                {orientationEdu}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="نوع موسسه:" />
+                {uniType}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="عنوان موسسه:" />
+                {uniName}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="معدل:" />
+                {averageEdu}
               </ListItem>
             </List>
           </Grid>
@@ -166,21 +280,27 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="کشور:" />
+                {uniCountry}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="استان:" />
+                {uniProvince}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="شهر:" />
+                {uniCity}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="ورود:" />
+                {startEdu}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="فراغت از تحصیل:" />
+                {endEdu}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="در حال تحصیل:" />
+                {stillStudying}
               </ListItem>
             </List>
           </Grid>
@@ -195,30 +315,39 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="سمت شغلی:" />
+                {jobTitle}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="گروه شغلی:" />
+                {jobGroup}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="مرکز شغلی:" />
+                {jobCenter}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="عنوان مرکز:" />
+                {titleCenter}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="نحوه همکاری:" />
+                {cooperateType}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سطح ارشدیت:" />
+                {seniorLevel}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="کشور:" />
+                {jobCountry}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="استان:" />
+                {jobProvince}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="شهر:" />
+                {jobCity}
               </ListItem>
             </List>
           </Grid>
@@ -226,27 +355,35 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="ماه شروع:" />
+                {months[startJobMonth - 1]}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سال شروع:" />
+                {startJobYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="ماه اتمام:" />
+                {months[endJobMonth - 1]}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سال شروع:" />
+                {endJobYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="مشغول به فعالیت:" />
+                {stillWorking}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="میزان درآمد:" />
+                {income}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="شماره تماس:" />
+                {number}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="وظایف و دستاوردها:" />
+                {jobDescription}
               </ListItem>
             </List>
           </Grid>
@@ -261,27 +398,35 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="نوع اثر:" />
+                {researchType}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="عنوان:" />
+                {researchTitle}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="نوع مقاله:" />
+                {articleType}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="ناشر:" />
+                {publisher}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="لینک مرتبط:" />
+                {researchHyperlink}
               </ListItem>
               <ListItem>
-                <ListItemText secondary="تاریخ:" />
+                <ListItemText secondary="ماه:" />
+                {months[researchMonth - 1]}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سال:" />
+                {researchYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="توضیحات:" />
+                {researchDescription}
               </ListItem>
             </List>
           </Grid>
@@ -289,27 +434,35 @@ const Pdf = ({ match }) => {
             <List>
               <ListItem>
                 <ListItemText secondary="عنوان:" />
+                {projectTitle}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="کارفرما/درخواست کننده:" />
+                {projectEmployer}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="لینک مرتبط:" />
+                {projectHyperlink}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="ماه شروع:" />
+                {months[startProjectMonth - 1]}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سال شروع:" />
+                {startProjectYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="ماه اتمام:" />
+                {months[endProjectMonth - 1]}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سال اتمام:" />
+                {endProjectYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="توضیحات:" />
+                {projectDescription}
               </ListItem>
             </List>
           </Grid>

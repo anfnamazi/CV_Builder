@@ -30,11 +30,14 @@ import {
   saveContactInfo,
   saveDocsInfo,
 } from "../services/resumeService";
+import config from "../config.json";
 
 jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 const BaseInfo = () => {
-  const [image, setimage] = useState(require("../assets/images/person.png"));
+  const [personImage, setpersonImage] = useState(
+    require("../assets/images/person.png")
+  );
   const [idCard, setidCard] = useState("لطفا کارت ملی خود را بارگذاری کنید.");
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
@@ -61,6 +64,7 @@ const BaseInfo = () => {
     marital,
     military,
     description,
+    image,
   } = context.baseInfo;
 
   const {
@@ -81,7 +85,7 @@ const BaseInfo = () => {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = (e) => {
-        setimage(e.target.result);
+        setpersonImage(e.target.result);
       };
       reader.readAsDataURL(event.target.files[0]);
     }
@@ -174,6 +178,7 @@ const BaseInfo = () => {
   useEffect(() => {
     if (birthDay) {
       setbirth(new Date(birthDay));
+      setpersonImage(`${config.local_api}/img/${image}`);
     }
   }, []);
 
@@ -188,7 +193,7 @@ const BaseInfo = () => {
         <Grid container justify="center" spacing={2}>
           <Grid style={{ maxHeight: 300, textAlign: "center" }} md={2} item>
             <img
-              src={image}
+              src={personImage}
               style={{ height: 100, width: 100, borderRadius: "50%" }}
               alt=""
             />
@@ -199,7 +204,7 @@ const BaseInfo = () => {
               id="icon-button-file"
               type="file"
               name="image"
-              required
+              required={!Boolean(image)}
             />
             <label htmlFor="icon-button-file">
               <IconButton
@@ -351,7 +356,7 @@ const BaseInfo = () => {
               defaultValue={tel}
               type="number"
               style={{ direction: "ltr" }}
-              placeholder="02188888888"
+              placeholder="88888888"
               required
             />
           </Grid>
