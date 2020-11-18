@@ -39,7 +39,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birth, setbirth] = useState(new Date());
+  const [birth, setbirth] = useState(new Date().setFullYear(2002));
   const socialMediaList = [
     "تلگرام",
     "واتساپ",
@@ -302,6 +302,7 @@ const BaseInfo = () => {
                     okLabel="تأیید"
                     cancelLabel="لغو"
                     clearLabel="پاک کردن"
+                    maxDate={new Date()}
                     labelFunc={(date) =>
                       date ? date.format("jYYYY/jMM/jDD") : ""
                     }
