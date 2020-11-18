@@ -18,7 +18,11 @@ axios.interceptors.response.use(null, (error) => {
         window.location.replace("/login");
     } else {
         if (error.response.data.errors) {
-            error.response.data.errors.msg.map((err => toast.error(err.msg)))
+            if (typeof error.response.data.errors.msg === "object") {
+                error.response.data.errors.msg.map((err => toast.error(err.msg)))
+            } else {
+                toast.error(error.response.data.errors.msg)
+            }
         }
     }
 

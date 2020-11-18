@@ -39,7 +39,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birth, setbirth] = useState(new Date());
+  const [birth, setbirth] = useState(new Date().setFullYear(2002));
   const socialMediaList = [
     "تلگرام",
     "واتساپ",
@@ -105,7 +105,7 @@ const BaseInfo = () => {
     const military = event.target.military.value;
     const description = event.target.description.value;
     const image = event.target.image.files[0];
-    const birthDay = birth._d.toLocaleDateString("en-CA");
+    const birthDay = new Date(birth).toLocaleDateString("en-CA");
 
     const email = event.target.email.value;
     const phone = event.target.phone.value;
@@ -302,6 +302,7 @@ const BaseInfo = () => {
                     okLabel="تأیید"
                     cancelLabel="لغو"
                     clearLabel="پاک کردن"
+                    maxDate={new Date()}
                     labelFunc={(date) =>
                       date ? date.format("jYYYY/jMM/jDD") : ""
                     }
