@@ -85,3 +85,23 @@ export const saveProjects = projectForm => {
 export const getProjects = () => {
     return http.get(`${config.local_api}/users/projects`)
 }
+
+export const saveLanguageSkills = skillForm => {
+    return http.post(`${config.local_api}/users/skills`, qs.stringify(skillForm), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const saveHonores = honorForm => {
+    return http.post(`${config.local_api}/users/honors`, qs.stringify(honorForm), {
+        headers: {
+            'content-type': 'application/x-www-form-urlencoded'
+        }
+    })
+}
+
+export const getallResumeByUser = () => {
+    return http.get(`${config.local_api}/users/populated`)
+}

@@ -46,7 +46,9 @@ const Project = () => {
     researchMonth,
     researchYear,
     researchDescription,
-  } = context.researches.length ? context.researches[0] : [{}];
+  } = context.allResume.researchs.length
+    ? context.allResume.researchs[0]
+    : [{}];
 
   const {
     projectTitle,
@@ -57,7 +59,7 @@ const Project = () => {
     endProjectMonth,
     endProjectYear,
     projectDescription,
-  } = context.projects.length ? context.projects[0] : [{}];
+  } = context.allResume.projects.length ? context.allResume.projects[0] : [{}];
 
   const handleSaveResearches = async (event) => {
     event.preventDefault();

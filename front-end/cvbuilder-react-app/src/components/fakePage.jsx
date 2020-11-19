@@ -5,7 +5,7 @@ import ResumeContext from "../context/resumeContext";
 
 const FakePage = () => {
   const context = useContext(ResumeContext);
-  const { firstName } = context.baseInfo;
+  const { firstName } = context.allResume.userBaseInfo;
   return (
     <Fragment>
       <Grid
