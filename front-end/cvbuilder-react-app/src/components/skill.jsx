@@ -49,7 +49,7 @@ const Skill = () => {
     ? context.allResume.skills[1]
     : [{}];
 
-  const fieldEdu = context.allResume.skills.length
+  const language = context.allResume.skills.length
     ? context.allResume.skills[0].Name
     : "";
 
@@ -68,14 +68,14 @@ const Skill = () => {
   const handleSaveSkills = async (event) => {
     event.preventDefault();
     const readSkill = event.target.readSkill.value;
-    const fieldEdu = event.target.fieldEdu.value;
+    const language = event.target.language.value;
     const writeSkill = event.target.writeSkill.value;
     const hearSkill = event.target.hearSkill.value;
     const speakSkill = event.target.speakSkill.value;
 
     const languageForm = {
       readSkill,
-      Name: fieldEdu,
+      Name: language,
       writeSkill,
       hearSkill,
       speakSkill,
@@ -125,8 +125,8 @@ const Skill = () => {
             <TextField
               className={classes.formControl}
               label="نام زبان"
-              name="fieldEdu"
-              defaultValue={fieldEdu}
+              name="language"
+              defaultValue={language}
             />
           </Grid>
           <Grid md={2} item>
