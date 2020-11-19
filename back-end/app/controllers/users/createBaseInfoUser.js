@@ -12,10 +12,16 @@ const createBaseInfoUser = async (req, res) => {
   try {
     let user = req.user
     let userBaseInfoId = req.user.userBaseInfo
-    req = await addFileNameToReq(req, 'image')
-    const image = req.image
+    let image = undefined
+    if (req.file) {
+      req = await addFileNameToReq(req, 'image')
+      image = req.image
+    }
     req = matchedData(req)
-    req.image = image
+    if (image) {
+      req.image = image
+    }
+
     if (userBaseInfoId == null) {
       const item = await createBaseInfoInDB(req, user._id)
       user.userBaseInfo = item._id
