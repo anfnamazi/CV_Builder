@@ -12,7 +12,7 @@ const validateAddJobHistoryUser = [
   check('cooperateType')
     .optional()
     .isIn([
-      'فراردادی تمام وقت',
+      'قراردادی تمام وقت',
       'قراردادی پاره وقت',
       'رسمی یا پیمانی',
       'ساعتی',
