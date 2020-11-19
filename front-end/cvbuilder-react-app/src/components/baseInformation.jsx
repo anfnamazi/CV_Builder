@@ -133,18 +133,21 @@ const BaseInfo = () => {
     formData.append("marital", marital);
     formData.append("military", military);
     formData.append("description", description);
-    if(image){
+    if (image) {
       formData.append("image", image);
     }
     formData.append("birthDay", birthDay);
 
     const nationalCardFormData = new FormData();
-    nationalCardFormData.append("docType", "nationalCard");
-    nationalCardFormData.append("file", nationalCard);
-
     const eduCertifFormData = new FormData();
-    eduCertifFormData.append("docType", "eduCertif");
-    eduCertifFormData.append("file", eduCertif);
+    
+    if (nationalCard && eduCertif) {
+      nationalCardFormData.append("docType", "nationalCard");
+      nationalCardFormData.append("file", nationalCard);
+
+      eduCertifFormData.append("docType", "eduCertif");
+      eduCertifFormData.append("file", eduCertif);
+    }
 
     const contactForm = {
       email,
@@ -163,15 +166,17 @@ const BaseInfo = () => {
 
     const response2 = await saveContactInfo(contactForm);
 
-    const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
-    const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
+    if (nationalCard && eduCertif) {
+      if (docs[1]) {
+        const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
+        const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
+      } else {
+        const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
+        const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
+      }
+    }
 
-    if (
-      response.status < 210 &&
-      response2.status < 210 &&
-      response3.status < 210 &&
-      response4.status < 210
-    ) {
+    if (response.status < 210 && response2.status < 210) {
       context.handleNext();
       context.initializeData();
     }
@@ -430,7 +435,7 @@ const BaseInfo = () => {
                 name="nationalCard"
                 // defaultValue={docs[0].file}
                 onChange={onChangeIdCard}
-                required
+                required={!Boolean(docs[0])}
               />
             </div>
           </Grid>
@@ -445,7 +450,7 @@ const BaseInfo = () => {
                 type="file"
                 name="eduCertif"
                 onChange={onChangeEvidence}
-                required
+                required={!Boolean(docs[1])}
               />
             </div>
           </Grid>
