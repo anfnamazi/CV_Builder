@@ -5,6 +5,7 @@ import ResumeContext from "../context/resumeContext";
 
 const FakePage = () => {
   const context = useContext(ResumeContext);
+  const { firstName } = context.baseInfo;
   return (
     <Fragment>
       <Grid
@@ -20,7 +21,7 @@ const FakePage = () => {
           alt="resume img"
         />
         <Fab variant="contained" color="primary" onClick={context.handleNext}>
-          شروع فرآیند
+          {firstName ? "ویرایش اطلاعات" : "شروع فرآیند"}
         </Fab>
       </Grid>
     </Fragment>

@@ -100,7 +100,7 @@ const EducationHistory = () => {
           <Grid xs={6} sm={2} item>
             <FormControl className={classes.formControl}>
               <InputLabel>مقطع</InputLabel>
-              <Select name="sectionEdu" defaultValue={sectionEdu}>
+              <Select name="sectionEdu" defaultValue={sectionEdu} required>
                 {sectionEduList.map((section) => (
                   <MenuItem value={section}>{section}</MenuItem>
                 ))}
@@ -112,6 +112,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="رشته تحصیلی"
               name="fieldEdu"
+              required
               defaultValue={fieldEdu}
             />
           </Grid>
@@ -120,13 +121,14 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="گرایش/تخصص"
               name="orientationEdu"
+              required
               defaultValue={orientationEdu}
             />
           </Grid>
           <Grid xs={6} sm={2} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع موسسه</InputLabel>
-              <Select name="uniType" defaultValue={uniType}>
+              <Select name="uniType" required defaultValue={uniType}>
                 {uniTypeList.map((type) => (
                   <MenuItem value={type}>{type}</MenuItem>
                 ))}
@@ -138,6 +140,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="عنوان موسسه"
               name="uniName"
+              required
               defaultValue={uniName}
             />
           </Grid>
@@ -146,6 +149,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="معدل"
               name="averageEdu"
+              required
               defaultValue={averageEdu}
               type="number"
               inputProps={{ step: "0.01" }}
@@ -163,6 +167,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="کشور"
               name="uniCountry"
+              required
               defaultValue={uniCountry}
               // defaultValue="ایران"
             />
@@ -173,6 +178,7 @@ const EducationHistory = () => {
               label="استان"
               name="uniProvince"
               defaultValue={uniProvince}
+              required
               // defaultValue="تهران"
             />
           </Grid>
@@ -182,6 +188,7 @@ const EducationHistory = () => {
               label="شهر"
               name="uniCity"
               defaultValue={uniCity}
+              required
               // defaultValue="تهران"
             />
           </Grid>
@@ -190,6 +197,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="ورود"
               name="startEdu"
+              required
               defaultValue={startEdu}
               placeholder="سال"
               type="number"
@@ -200,6 +208,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="فراغت از تحصیل"
               name="endEdu"
+              required
               defaultValue={endEdu}
               value={inEdu ? "" : null}
               disabled={inEdu}

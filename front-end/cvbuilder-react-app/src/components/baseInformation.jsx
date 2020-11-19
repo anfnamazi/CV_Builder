@@ -133,7 +133,9 @@ const BaseInfo = () => {
     formData.append("marital", marital);
     formData.append("military", military);
     formData.append("description", description);
-    formData.append("image", image);
+    if (image) {
+      formData.append("image", image);
+    }
     formData.append("birthDay", birthDay);
 
     const nationalCardFormData = new FormData();
