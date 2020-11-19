@@ -137,6 +137,7 @@ const JobHistory = () => {
               <TextField
                 className={classes.formControl}
                 name="jobTitle"
+                required
                 defaultValue={jobTitle}
                 label={
                   <Fragment>
@@ -152,7 +153,7 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>گروه شغلی</InputLabel>
-              <Select name="jobGroup" defaultValue={jobGroup}>
+              <Select name="jobGroup" required defaultValue={jobGroup}>
                 {jobGroups.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -163,6 +164,7 @@ const JobHistory = () => {
             <TextField
               className={classes.formControl}
               name="jobCenter"
+              required
               defaultValue={jobCenter}
               label="مرکز شغلی"
             />
@@ -171,6 +173,7 @@ const JobHistory = () => {
             <TextField
               className={classes.formControl}
               name="titleCenter"
+              required
               defaultValue={titleCenter}
               label="عنوان مرکز"
             />
@@ -180,7 +183,11 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
-              <Select name="cooperateType" defaultValue={cooperateType}>
+              <Select
+                name="cooperateType"
+                required
+                defaultValue={cooperateType}
+              >
                 {cooperateTypes.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -190,7 +197,7 @@ const JobHistory = () => {
           <Grid item xs={6} sm={3}>
             <FormControl className={classes.formControl}>
               <InputLabel>سطح ارشدیت</InputLabel>
-              <Select name="seniorLevel" defaultValue={seniorLevel}>
+              <Select name="seniorLevel" required defaultValue={seniorLevel}>
                 {seniorLevels.map((group) => (
                   <MenuItem value={group}>{group}</MenuItem>
                 ))}
@@ -202,6 +209,7 @@ const JobHistory = () => {
               className={classes.formControl}
               label="کشور"
               name="jobCountry"
+              required
               defaultValue={jobCountry}
               // defaultValue="ایران"
             />
@@ -212,6 +220,7 @@ const JobHistory = () => {
               label="استان"
               name="jobProvince"
               defaultValue={jobProvince}
+              required
               // defaultValue="تهران"
             />
           </Grid>
@@ -221,6 +230,7 @@ const JobHistory = () => {
               label="شهر"
               name="jobCity"
               defaultValue={jobCity}
+              required
               // defaultValue="تهران"
             />
           </Grid>
@@ -238,6 +248,7 @@ const JobHistory = () => {
                 <Select
                   name="startJobMonth"
                   defaultValue={startJobMonth}
+                  required
                   className={classes.formControl}
                   // defaultValue="def"
                 >
@@ -253,6 +264,7 @@ const JobHistory = () => {
                 <TextField
                   className={classes.formControl}
                   name="startJobYear"
+                  required
                   defaultValue={startJobYear}
                   type="number"
                   placeholder="سال"
@@ -266,6 +278,7 @@ const JobHistory = () => {
               <Grid item xs={6} sm={7}>
                 <Select
                   name="endJobMonth"
+                  required
                   defaultValue={endJobMonth}
                   className={classes.formControl}
                   disabled={inJob}
@@ -284,6 +297,7 @@ const JobHistory = () => {
                 <TextField
                   className={classes.formControl}
                   name="endJobYear"
+                  required
                   defaultValue={endJobYear}
                   type="number"
                   disabled={inJob}
@@ -315,6 +329,7 @@ const JobHistory = () => {
             <TextField
               label="میزان درآمد"
               name="income"
+              required
               defaultValue={income}
               type="number"
               placeholder="4000000 تومان"
@@ -327,6 +342,7 @@ const JobHistory = () => {
               type="number"
               placeholder="88888888"
               name="phoneNumber"
+              required
               defaultValue={number}
               className={classes.formControl}
             />

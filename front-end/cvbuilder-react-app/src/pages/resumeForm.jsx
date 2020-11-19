@@ -85,10 +85,7 @@ const ResumeForm = () => {
   const [activeStep, setactiveStep] = useState(-1);
   const [baseInfo, setbaseInfo] = useState({});
   const [contactInfo, setcontactInfo] = useState({});
-  const [docs, setdocs] = useState([
-    { _id: "", file: null },
-    { _id: "", file: null },
-  ]);
+  const [docs, setdocs] = useState(["", ""]);
   const [edus, setedus] = useState([{}]);
   const [jobs, setjobs] = useState([{}]);
   const [researches, setresearches] = useState([{}]);
