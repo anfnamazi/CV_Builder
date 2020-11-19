@@ -16,6 +16,7 @@ import {
 } from "@material-ui/core";
 import {
   CastForEducation,
+  Check,
   Help,
   PhotoCamera,
   RecentActors,
@@ -65,8 +66,8 @@ const BaseInfo = () => {
     military,
     description,
     image,
-  } = context.baseInfo;
-
+  } = context.allResume.userBaseInfo;
+  
   const {
     email,
     phone,
@@ -78,8 +79,8 @@ const BaseInfo = () => {
     address,
     socialMediaName,
     socialMediaId,
-  } = context.contactInfo;
-  const docs = context.docs;
+  } = context.allResume.contactInfo;
+  const docs = context.allResume.docs;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -140,7 +141,7 @@ const BaseInfo = () => {
 
     const nationalCardFormData = new FormData();
     const eduCertifFormData = new FormData();
-    
+
     if (nationalCard && eduCertif) {
       nationalCardFormData.append("docType", "nationalCard");
       nationalCardFormData.append("file", nationalCard);
@@ -186,6 +187,10 @@ const BaseInfo = () => {
     if (birthDay) {
       setbirth(new Date(birthDay));
       setpersonImage(`${config.local_api}/img/${image}`);
+    }
+    if (Boolean(docs[0]) && Boolean(docs[1])) {
+      setidCard(<Check />);
+      setevidence(<Check />);
     }
   }, []);
 

@@ -22,15 +22,7 @@ import JobHistory from "../components/jobHistory";
 import Skill from "../components/skill";
 import Project from "../components/Project";
 import ResumeContext from "../context/resumeContext";
-import {
-  getBaseInfo,
-  getContactInfo,
-  getDocsInfo,
-  getEducationHistories,
-  getJobHistories,
-  getProjects,
-  getResearches,
-} from "../services/resumeService";
+import { getallResumeByUser } from "../services/resumeService";
 import { Redirect } from "react-router-dom";
 import FakePage from "../components/fakePage";
 
@@ -83,13 +75,18 @@ QontoStepIcon.propTypes = {
 const ResumeForm = () => {
   const classes = useStyles();
   const [activeStep, setactiveStep] = useState(-1);
-  const [baseInfo, setbaseInfo] = useState({});
-  const [contactInfo, setcontactInfo] = useState({});
-  const [docs, setdocs] = useState(["", ""]);
-  const [edus, setedus] = useState([{}]);
-  const [jobs, setjobs] = useState([{}]);
-  const [researches, setresearches] = useState([{}]);
-  const [projects, setprojects] = useState([{}]);
+  const [allResume, setallResume] = useState({
+    educationHistories: [{}],
+    jobHistories: [{}],
+    researchs: [{}],
+    projects: [{}],
+    skills: [{}],
+    honors: [{}],
+    docs: ["", ""],
+    userBaseInfo: {},
+    contactInfo: {},
+  });
+
   const steps = getSteps();
 
   const handleNext = () => {
@@ -113,29 +110,10 @@ const ResumeForm = () => {
   }, []);
 
   const initializeData = async () => {
-    const response = await getBaseInfo();
-    const response2 = await getContactInfo();
-    const response3 = await getDocsInfo();
-    const responseEdus = await getEducationHistories();
-    const responseJobs = await getJobHistories();
-    const responseResearches = await getResearches();
-    const responseProjects = await getProjects();
-    if (
-      response.status < 210 &&
-      response2.status < 210 &&
-      response3.status < 210 &&
-      responseEdus.status < 210 &&
-      responseJobs.status < 210 &&
-      responseResearches.status < 210 &&
-      responseProjects.status < 210
-    ) {
-      setbaseInfo({ ...response.data });
-      setcontactInfo({ ...response2.data });
-      setdocs([...response3.data.docs]);
-      setedus([...responseEdus.data.docs]);
-      setjobs([...responseJobs.data.docs]);
-      setresearches([...responseResearches.data.docs]);
-      setprojects([...responseProjects.data.docs]);
+    const response = await getallResumeByUser();
+
+    if (response.status < 210) {
+      setallResume({ ...response.data });
     }
   };
 
@@ -147,13 +125,7 @@ const ResumeForm = () => {
     <ResumeContext.Provider
       value={{
         handleNext,
-        baseInfo,
-        contactInfo,
-        docs,
-        edus,
-        jobs,
-        researches,
-        projects,
+        allResume,
         initializeData,
       }}
     >
