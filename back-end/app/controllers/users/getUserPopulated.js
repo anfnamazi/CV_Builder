@@ -1,6 +1,7 @@
 const User = require('../../models/user')
 const { matchedData } = require('express-validator')
 const { isIDGood, handleError } = require('../../middleware/utils')
+const honor = require('../../models/honor')
 
 /**
  * Get item function called by route
@@ -20,7 +21,9 @@ const getUserPopulated = async (req, res) => {
       'jobHistories',
       'researchs',
       'projects',
-      'docs'
+      'docs',
+      'skills',
+      'honors'
     ])
     res.status(200).json(item)
   } catch (error) {
