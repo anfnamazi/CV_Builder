@@ -20,7 +20,7 @@ const JobHistorySchema = new mongoose.Schema(
     cooperateType: {
       type: String,
       enum: [
-        'فراردادی تمام وقت',
+        'قراردادی تمام وقت',
         'قراردادی پاره وقت',
         'رسمی یا پیمانی',
         'ساعتی',
