@@ -88,7 +88,7 @@ const JobHistory = () => {
     const jobCity = event.target.jobCity.value;
     const startJobMonth = event.target.startJobMonth.value;
     const startJobYear = event.target.startJobYear.value;
-    const endJobMonth = event.target.endJobMonth.value;
+    const endJobMonth = inJob ? null : event.target.endJobMonth.value;
     const endJobYear = event.target.endJobYear.value;
     const income = event.target.income.value;
     const number = event.target.phoneNumber.value;

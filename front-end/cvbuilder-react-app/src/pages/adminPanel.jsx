@@ -43,7 +43,10 @@ const AdminPanel = () => {
   }, []);
 
   return (
-    <TableContainer component={Paper} style={{ marginTop: 20 }}>
+    <TableContainer
+      component={Paper}
+      style={{ marginTop: 20, marginBottom: 120 }}
+    >
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
           <TableRow>
@@ -86,7 +89,7 @@ const AdminPanel = () => {
         </TableBody>
       </Table>
       <Button
-        style={{ position: "fixed", top: 120, left: -5 }}
+        style={{ position: "fixed", bottom: 80, left: -5 }}
         color="secondary"
         variant="contained"
         onClick={() => window.location.replace("/logout")}
