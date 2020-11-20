@@ -10,6 +10,7 @@ import {
 import React, { Fragment, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getAllResumeByAdmin } from "../services/adminService";
+import config from "../config.json";
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
@@ -47,6 +48,7 @@ const Pdf = ({ match }) => {
     marital,
     military,
     description,
+    image,
   } = allInfo.userBaseInfo;
 
   const {
@@ -147,6 +149,8 @@ const Pdf = ({ match }) => {
     ? allInfo.honors[allInfo.honors.length - 1]
     : [{}];
 
+  const docs = allInfo.docs;
+
   const getAllInfo = async (userId) => {
     const response = await getAllResumeByAdmin(userId);
     if (response.status < 210) {
@@ -182,6 +186,13 @@ const Pdf = ({ match }) => {
         اطلاعات پایه
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
+        <Grid container spacing={3} justify="center">
+          <img
+            src={`${config.local_api}/img/${image}`}
+            style={{ height: 100, width: 100, borderRadius: "50%", margin: 20 }}
+            alt=""
+          />
+        </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
             <List>
@@ -542,6 +553,27 @@ const Pdf = ({ match }) => {
               {honorYear}
             </ListItem>
           </Grid>
+        </Grid>
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        مدارک
+      </Typography>
+      <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
+        <Grid container spacing={5}>
+          {typeof docs === "object"
+            ? docs.map((img) => (
+                <Grid item xs={6}>
+                  <img
+                    src={`${config.local_api}/img/${img.file}`}
+                    style={{
+                      width: "100%",
+                      margin: "10px 0",
+                    }}
+                    alt=""
+                  />
+                </Grid>
+              ))
+            : null}
         </Grid>
       </Paper>
     </Fragment>
