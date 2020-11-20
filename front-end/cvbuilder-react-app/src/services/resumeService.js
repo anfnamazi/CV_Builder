@@ -26,7 +26,7 @@ export const getContactInfo = () => {
     return http.get(`${config.local_api}/users/contactInfo`)
 }
 
-export const saveDocsInfo = (docsForm, id) => {
+export const saveDocsInfo = (docsForm, id = "") => {
     return http.post(`${config.local_api}/users/docs/${id}`, docsForm, {
         headers: {
             'content-type': 'multipart/form-data'

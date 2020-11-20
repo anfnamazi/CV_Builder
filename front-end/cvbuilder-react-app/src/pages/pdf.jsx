@@ -130,7 +130,10 @@ const Pdf = ({ match }) => {
   const getAllInfo = async (userId) => {
     const response = await getAllResumeByAdmin(userId);
     if (response.status < 210) {
-      setallInfo({ ...response.data });
+      const { userBaseInfo } = response.data;
+      if (userBaseInfo) {
+        setallInfo({ ...response.data });
+      }
     }
   };
 

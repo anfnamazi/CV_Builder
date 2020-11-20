@@ -113,7 +113,10 @@ const ResumeForm = () => {
     const response = await getallResumeByUser();
 
     if (response.status < 210) {
-      setallResume({ ...response.data });
+      const { userBaseInfo } = response.data;
+      if (userBaseInfo) {
+        setallResume({ ...response.data });
+      }
     }
   };
 
