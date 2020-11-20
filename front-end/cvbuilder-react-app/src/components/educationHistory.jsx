@@ -38,7 +38,9 @@ const EducationHistory = () => {
     endEdu,
     stillStudying,
   } = context.allResume.educationHistories.length
-    ? context.allResume.educationHistories[0]
+    ? context.allResume.educationHistories[
+        context.allResume.educationHistories.length - 1
+      ]
     : [{}];
 
   useEffect(() => {

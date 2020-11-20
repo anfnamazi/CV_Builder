@@ -11,6 +11,7 @@ import AdminPanel from './pages/adminPanel';
 import Pdf from './pages/pdf';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Logout from './pages/Logout';
 
 
 const App = () => {
@@ -31,6 +32,7 @@ const App = () => {
           <Switch>
             <Route exact path="/" component={ResumeForm} />
             <Route path="/login" component={Login} />
+            <Route path="/logout" component={Logout} />
             <Route exact path="/admin" component={AdminPanel} />
             <Route path="/admin/:id" component={Pdf} />
           </Switch>

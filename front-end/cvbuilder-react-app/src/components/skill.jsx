@@ -42,23 +42,23 @@ const Skill = () => {
 
   const { readSkill, writeSkill, hearSkill, speakSkill } = context.allResume
     .skills.length
-    ? context.allResume.skills[0]
+    ? context.allResume.skills[context.allResume.skills.length - 2]
     : [{}];
 
   const { experienceSkillLevel } = context.allResume.skills.length
-    ? context.allResume.skills[1]
+    ? context.allResume.skills[context.allResume.skills.length - 1]
     : [{}];
 
   const language = context.allResume.skills.length
-    ? context.allResume.skills[0].Name
+    ? context.allResume.skills[context.allResume.skills.length - 2].Name
     : "";
 
   const experienceSkillTitle = context.allResume.skills.length
-    ? context.allResume.skills[1].Name
+    ? context.allResume.skills[context.allResume.skills.length - 1].Name
     : "";
 
   const { honorTitle, honorMonth, honorYear } = context.allResume.honors.length
-    ? context.allResume.honors[0]
+    ? context.allResume.honors[context.allResume.honors.length - 1]
     : [{}];
 
   const onChangeEvidence = (event) => {

@@ -44,7 +44,7 @@ const JobHistory = () => {
     jobDescription,
     stillWorking,
   } = context.allResume.jobHistories.length
-    ? context.allResume.jobHistories[0]
+    ? context.allResume.jobHistories[context.allResume.jobHistories.length - 1]
     : [{}];
 
   useEffect(() => {

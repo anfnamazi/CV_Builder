@@ -10,7 +10,7 @@ import {
   Typography,
   Hidden,
 } from "@material-ui/core";
-import { ArrowForward, Check, SkipNext } from "@material-ui/icons";
+import { ArrowForward, Check, MeetingRoom, SkipNext } from "@material-ui/icons";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { useStyles } from "../utils/styles";
@@ -207,6 +207,15 @@ const ResumeForm = () => {
             </div>
           )}
         </div>
+        <Button
+          style={{ position: "fixed", top: 120, left: -5 }}
+          color="secondary"
+          variant="contained"
+          onClick={() => window.location.replace("/logout")}
+        >
+          <MeetingRoom style={{ marginLeft: 10 }} />
+          خروج
+        </Button>
       </div>
     </ResumeContext.Provider>
   );
