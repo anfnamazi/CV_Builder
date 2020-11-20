@@ -45,7 +45,7 @@ const validateAddJobHistory = [
       return val < 13
     }),
   check('startJobYear').optional(),
-  // check('endJobMonth')
+  check('endJobMonth').optional(),
   //   .optional()
   //   .isNumeric()
   //   .withMessage('SHOULD_BE_NUMBER')
