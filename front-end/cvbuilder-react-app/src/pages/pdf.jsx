@@ -14,14 +14,15 @@ import config from "../config.json";
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
-    contactInfo: {},
     educationHistories: [],
-    honors: [],
     jobHistories: [],
-    projects: [],
     researchs: [],
+    projects: [],
     skills: [],
+    honors: [],
+    docs: ["", ""],
     userBaseInfo: {},
+    contactInfo: {},
   });
 
   const months = [
