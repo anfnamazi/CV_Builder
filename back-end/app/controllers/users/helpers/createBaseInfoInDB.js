@@ -31,6 +31,7 @@ const createBaseInfoInDB = (
       gender,
       military,
       description,
+      birthDay,
       user: userId
     })
     baseInfo.save((err, item) => {
