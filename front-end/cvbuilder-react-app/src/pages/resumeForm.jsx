@@ -76,12 +76,12 @@ const ResumeForm = () => {
   const classes = useStyles();
   const [activeStep, setactiveStep] = useState(-1);
   const [allResume, setallResume] = useState({
-    educationHistories: [{}],
-    jobHistories: [{}],
-    researchs: [{}],
-    projects: [{}],
-    skills: [{}],
-    honors: [{}],
+    educationHistories: [],
+    jobHistories: [],
+    researchs: [],
+    projects: [],
+    skills: [],
+    honors: [],
     docs: ["", ""],
     userBaseInfo: {},
     contactInfo: {},
