@@ -42,23 +42,23 @@ const Skill = () => {
 
   const { readSkill, writeSkill, hearSkill, speakSkill } = context.allResume
     .skills.length
-    ? context.allResume.skills[0]
+    ? context.allResume.skills[context.allResume.skills.length - 2]
     : [{}];
 
   const { experienceSkillLevel } = context.allResume.skills.length
-    ? context.allResume.skills[1]
+    ? context.allResume.skills[context.allResume.skills.length - 1]
     : [{}];
 
-  const fieldEdu = context.allResume.skills.length
-    ? context.allResume.skills[0].Name
+  const language = context.allResume.skills.length
+    ? context.allResume.skills[context.allResume.skills.length - 2].Name
     : "";
 
   const experienceSkillTitle = context.allResume.skills.length
-    ? context.allResume.skills[1].Name
+    ? context.allResume.skills[context.allResume.skills.length - 1].Name
     : "";
 
   const { honorTitle, honorMonth, honorYear } = context.allResume.honors.length
-    ? context.allResume.honors[0]
+    ? context.allResume.honors[context.allResume.honors.length - 1]
     : [{}];
 
   const onChangeEvidence = (event) => {
@@ -68,14 +68,14 @@ const Skill = () => {
   const handleSaveSkills = async (event) => {
     event.preventDefault();
     const readSkill = event.target.readSkill.value;
-    const fieldEdu = event.target.fieldEdu.value;
+    const language = event.target.language.value;
     const writeSkill = event.target.writeSkill.value;
     const hearSkill = event.target.hearSkill.value;
     const speakSkill = event.target.speakSkill.value;
 
     const languageForm = {
       readSkill,
-      Name: fieldEdu,
+      Name: language,
       writeSkill,
       hearSkill,
       speakSkill,
@@ -125,14 +125,20 @@ const Skill = () => {
             <TextField
               className={classes.formControl}
               label="نام زبان"
-              name="fieldEdu"
-              defaultValue={fieldEdu}
+              required
+              name="language"
+              defaultValue={language}
             />
           </Grid>
           <Grid md={2} item>
             <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">خواندن</Typography>
-              <Rating size="small" name="readSkill" defaultValue={readSkill} />
+              <Rating
+                size="small"
+                required
+                name="readSkill"
+                defaultValue={readSkill}
+              />
             </Box>
           </Grid>
           <Grid md={2} item>
@@ -140,6 +146,7 @@ const Skill = () => {
               <Typography component="legend">نوشتن</Typography>
               <Rating
                 size="small"
+                required
                 name="writeSkill"
                 defaultValue={writeSkill}
               />
@@ -148,7 +155,12 @@ const Skill = () => {
           <Grid md={2} item>
             <Box component="fieldset" borderColor="transparent">
               <Typography component="legend">شنیداری</Typography>
-              <Rating size="small" name="hearSkill" defaultValue={hearSkill} />
+              <Rating
+                size="small"
+                required
+                name="hearSkill"
+                defaultValue={hearSkill}
+              />
             </Box>
           </Grid>
           <Grid md={2} item>
@@ -156,6 +168,7 @@ const Skill = () => {
               <Typography component="legend">گفتاری</Typography>
               <Rating
                 size="small"
+                required
                 name="speakSkill"
                 defaultValue={speakSkill}
               />
@@ -173,6 +186,7 @@ const Skill = () => {
               <Grid xs={6} item>
                 <TextField
                   label="نام مهارت"
+                  required
                   name="experienceSkillTitle"
                   defaultValue={experienceSkillTitle}
                 />
@@ -182,6 +196,7 @@ const Skill = () => {
                   <Typography component="legend">سطح</Typography>
                   <Rating
                     size="small"
+                    required
                     name="experienceSkillLevel"
                     defaultValue={experienceSkillLevel}
                   />
@@ -199,13 +214,13 @@ const Skill = () => {
           <Grid xs={4} md={3} item>
             <FormControl className={classes.formControl}>
               <InputLabel>نوع گواهینامه</InputLabel>
-              <Select name="certificateType"></Select>
+              <Select required name="certificateType"></Select>
             </FormControl>
           </Grid>
           <Grid xs={8} md={3} item>
             <TextField
               label="عنوان"
-              name="certificateTitle"
+             required name="certificateTitle"
               className={classes.formControl}
             />
           </Grid>
@@ -218,7 +233,7 @@ const Skill = () => {
               <input
                 class="file-input"
                 type="file"
-                name="evidence"
+               required name="evidence"
                 onChange={onChangeEvidence}
               />
             </div>
@@ -232,6 +247,7 @@ const Skill = () => {
         <Grid container justify="center" spacing={2}>
           <Grid xs={12} md={8} item>
             <TextField
+              required
               name="honorTitle"
               defaultValue={honorTitle}
               label="عنوان"
@@ -244,6 +260,7 @@ const Skill = () => {
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Select
+                  required
                   name="honorMonth"
                   defaultValue={honorMonth}
                   className={classes.formControl}
@@ -259,6 +276,7 @@ const Skill = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextField
+                  required
                   name="honorYear"
                   defaultValue={honorYear}
                   placeholder="سال"

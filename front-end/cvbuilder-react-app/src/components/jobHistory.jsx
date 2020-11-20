@@ -44,7 +44,7 @@ const JobHistory = () => {
     jobDescription,
     stillWorking,
   } = context.allResume.jobHistories.length
-    ? context.allResume.jobHistories[0]
+    ? context.allResume.jobHistories[context.allResume.jobHistories.length - 1]
     : [{}];
 
   useEffect(() => {
@@ -280,7 +280,7 @@ const JobHistory = () => {
               <Grid item xs={6} sm={7}>
                 <Select
                   name="endJobMonth"
-                  required
+                  required={!Boolean(inJob)}
                   defaultValue={endJobMonth}
                   className={classes.formControl}
                   disabled={inJob}
@@ -299,7 +299,7 @@ const JobHistory = () => {
                 <TextField
                   className={classes.formControl}
                   name="endJobYear"
-                  required
+                  required={!Boolean(inJob)}
                   defaultValue={endJobYear}
                   type="number"
                   disabled={inJob}

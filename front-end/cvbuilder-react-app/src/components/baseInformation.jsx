@@ -67,7 +67,7 @@ const BaseInfo = () => {
     description,
     image,
   } = context.allResume.userBaseInfo;
-  
+
   const {
     email,
     phone,
@@ -142,10 +142,11 @@ const BaseInfo = () => {
     const nationalCardFormData = new FormData();
     const eduCertifFormData = new FormData();
 
-    if (nationalCard && eduCertif) {
+    if (nationalCard) {
       nationalCardFormData.append("docType", "nationalCard");
       nationalCardFormData.append("file", nationalCard);
-
+    }
+    if (eduCertif) {
       eduCertifFormData.append("docType", "eduCertif");
       eduCertifFormData.append("file", eduCertif);
     }
@@ -167,14 +168,11 @@ const BaseInfo = () => {
 
     const response2 = await saveContactInfo(contactForm);
 
-    if (nationalCard && eduCertif) {
-      if (docs[1]) {
-        const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
-        const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
-      } else {
-        const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
-        const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
-      }
+    if (nationalCard) {
+      const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
+    }
+    if (eduCertif) {
+      const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
     }
 
     if (response.status < 210 && response2.status < 210) {
@@ -186,6 +184,8 @@ const BaseInfo = () => {
   useEffect(() => {
     if (birthDay) {
       setbirth(new Date(birthDay));
+    }
+    if (image) {
       setpersonImage(`${config.local_api}/img/${image}`);
     }
     if (Boolean(docs[0]) && Boolean(docs[1])) {

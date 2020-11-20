@@ -127,10 +127,33 @@ const Pdf = ({ match }) => {
     ? allInfo.projects[allInfo.projects.length - 1]
     : [{}];
 
+  const { readSkill, writeSkill, hearSkill, speakSkill } = allInfo.skills.length
+    ? allInfo.skills[allInfo.skills.length - 2]
+    : [{}];
+
+  const { experienceSkillLevel } = allInfo.skills.length
+    ? allInfo.skills[allInfo.skills.length - 1]
+    : [{}];
+
+  const language = allInfo.skills.length
+    ? allInfo.skills[allInfo.skills.length - 2].Name
+    : "";
+
+  const experienceSkillTitle = allInfo.skills.length
+    ? allInfo.skills[allInfo.skills.length - 1].Name
+    : "";
+
+  const { honorTitle, honorMonth, honorYear } = allInfo.honors.length
+    ? allInfo.honors[allInfo.honors.length - 1]
+    : [{}];
+
   const getAllInfo = async (userId) => {
     const response = await getAllResumeByAdmin(userId);
     if (response.status < 210) {
-      setallInfo({ ...response.data });
+      const { userBaseInfo } = response.data;
+      if (userBaseInfo) {
+        setallInfo({ ...response.data });
+      }
     }
   };
 
@@ -465,6 +488,59 @@ const Pdf = ({ match }) => {
                 {projectDescription}
               </ListItem>
             </List>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        زبان ، مهارت های تجربی و افتخارات
+      </Typography>
+      <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <List>
+              <ListItem>
+                <ListItemText secondary="نام زبان:" />
+                {language}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سطح خواندن:" />
+                {readSkill}/5
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سطح نوشتن:" />
+                {writeSkill}/5
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سطح شنیداری:" />
+                {hearSkill}/5
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سطح گفتاری:" />
+                {speakSkill}/5
+              </ListItem>
+            </List>
+          </Grid>
+          <Grid item xs={6}>
+            <ListItem>
+              <ListItemText secondary="نام مهارت:" />
+              {experienceSkillTitle}
+            </ListItem>
+            <ListItem>
+              <ListItemText secondary="سطح مهارت:" />
+              {experienceSkillLevel}/5
+            </ListItem>
+            <ListItem>
+              <ListItemText secondary="عنوان افتخار:" />
+              {honorTitle}
+            </ListItem>
+            <ListItem>
+              <ListItemText secondary="ماه افتخار:" />
+              {months[honorMonth - 1]}
+            </ListItem>
+            <ListItem>
+              <ListItemText secondary="سال افتخار:" />
+              {honorYear}
+            </ListItem>
           </Grid>
         </Grid>
       </Paper>

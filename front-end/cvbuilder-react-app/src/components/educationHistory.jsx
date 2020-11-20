@@ -38,7 +38,9 @@ const EducationHistory = () => {
     endEdu,
     stillStudying,
   } = context.allResume.educationHistories.length
-    ? context.allResume.educationHistories[0]
+    ? context.allResume.educationHistories[
+        context.allResume.educationHistories.length - 1
+      ]
     : [{}];
 
   useEffect(() => {
@@ -210,7 +212,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               label="فراغت از تحصیل"
               name="endEdu"
-              required
+              required={!Boolean(endEdu)}
               defaultValue={endEdu}
               value={inEdu ? "" : null}
               disabled={inEdu}
