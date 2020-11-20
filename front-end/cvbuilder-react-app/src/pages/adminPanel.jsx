@@ -7,22 +7,14 @@ import {
   Paper,
   TableBody,
   IconButton,
+  Button,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getallUsers, getUserCSV  } from "../services/adminService";
+import { getallUsers, getUserCSV } from "../services/adminService";
 import { useStyles } from "../utils/styles";
-import fileDownload from 'js-file-download'
-
-
-// function createData(index, user, date, download) {
-//   return { index, user, date, download };
-// }
-
-// const rows = [
-//   createData(1, "amin_amini", "1399-04-04 15:40"),
-//   createData(2, "reza_rezaei", "1399-04-04 15:50"),
-// ];
+import fileDownload from "js-file-download";
+import { MeetingRoom } from "@material-ui/icons";
 
 const AdminPanel = () => {
   const [users, setusers] = useState([]);
@@ -37,16 +29,14 @@ const AdminPanel = () => {
 
   const handleDownlaodCSV = async (userId) => {
     try {
-      const csvResult = await getUserCSV(userId)
-      if(csvResult.status === 200){
-        fileDownload(csvResult.data, 'filename.csv');
+      const csvResult = await getUserCSV(userId);
+      if (csvResult.status === 200) {
+        fileDownload(csvResult.data, "filename.csv");
       }
     } catch (error) {
-      console.log(error)
-      
+      console.log(error);
     }
-   
-  }
+  };
 
   useEffect(() => {
     handleGetUsers();
@@ -74,9 +64,7 @@ const AdminPanel = () => {
                 {new Date(user.updatedAt).toLocaleString()}
               </TableCell>
               <TableCell align="left">
-              <IconButton 
-                onClick={(e)=>handleDownlaodCSV(user._id)}
-                >
+                <IconButton onClick={(e) => handleDownlaodCSV(user._id)}>
                   <img
                     className="download-icon"
                     src={require("../assets/images/excelIcon.svg")}
@@ -97,6 +85,15 @@ const AdminPanel = () => {
           ))}
         </TableBody>
       </Table>
+      <Button
+        style={{ position: "fixed", top: 120, left: -5 }}
+        color="secondary"
+        variant="contained"
+        onClick={() => window.location.replace("/logout")}
+      >
+        <MeetingRoom style={{ marginLeft: 10 }} />
+        خروج
+      </Button>
     </TableContainer>
   );
 };
