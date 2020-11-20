@@ -6,6 +6,7 @@ const { Schema } = require('mongoose')
  * @param {Object} req - request object
  * @param {String} userId - the user_id to add base info for
  */
+
 const createBaseInfoInDB = (
   {
     firstName = '',
@@ -15,7 +16,8 @@ const createBaseInfoInDB = (
     gender = 'مرد',
     marital = 'مجرد',
     military = 'مشمول',
-    description = ''
+    description = '',
+    birthDay = ''
   },
   userId
 ) => {
