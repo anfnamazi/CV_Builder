@@ -45,13 +45,13 @@ const validateAddJobHistory = [
       return val < 13
     }),
   check('startJobYear').optional(),
-  check('endJobMonth')
-    .optional()
-    .isNumeric()
-    .withMessage('SHOULD_BE_NUMBER')
-    .custom((val) => {
-      return val < 13
-    }),
+  // check('endJobMonth')
+  //   .optional()
+  //   .isNumeric()
+  //   .withMessage('SHOULD_BE_NUMBER')
+  //   .custom((val) => {
+  //     return val < 13
+  //   }),
   check('endJobYear').optional(),
   check('stillWorking').optional().isBoolean().withMessage('SHOULD_BE_BOOLEAN'),
   check('income').optional(),
