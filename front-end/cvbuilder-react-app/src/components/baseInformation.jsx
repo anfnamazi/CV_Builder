@@ -32,6 +32,9 @@ import {
   saveDocsInfo,
 } from "../services/resumeService";
 import config from "../config.json";
+import provinces from "../utils/provinces.json";
+import cities from "../utils/cities.json";
+import { Autocomplete } from "@material-ui/lab";
 
 jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
@@ -386,30 +389,36 @@ const BaseInfo = () => {
         </Grid>
         <Grid container style={{ marginTop: 20 }} spacing={2}>
           <Grid item xs={6} sm={2}>
-            <TextField
+            <FormControl className={classes.formControl}>
+              <InputLabel>کشور</InputLabel>
+              <Select name="country" defaultValue={country} required>
+                <MenuItem value={"ایران"}>ایران</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={2}>
+            <Autocomplete
+              options={provinces}
+              getOptionLabel={(option) => option.title}
               className={classes.formControl}
-              label="کشور"
-              name="country"
-              defaultValue={country}
+              defaultValue={{ title: province }}
               required
+              renderInput={(params) => (
+                <TextField name {...params} name="province" label="استان" />
+              )}
             />
           </Grid>
           <Grid item xs={6} sm={2}>
-            <TextField
-              className={classes.formControl}
-              label="استان"
-              name="province"
-              defaultValue={province}
-              required
-            />
-          </Grid>
-          <Grid item xs={6} sm={2}>
-            <TextField
-              className={classes.formControl}
+            <Autocomplete
+              options={cities}
+              getOptionLabel={(option) => option.city}
               label="شهر"
-              name="city"
-              defaultValue={city}
+              defaultValue={{ city }}
+              className={classes.formControl}
               required
+              renderInput={(params) => (
+                <TextField {...params} name="city" label="استان" />
+              )}
             />
           </Grid>
           <Grid item xs={6} sm={6}>

@@ -14,10 +14,13 @@ import {
   Typography,
 } from "@material-ui/core";
 import { Help, SkipPrevious } from "@material-ui/icons";
+import { Autocomplete } from "@material-ui/lab";
 import React, { Fragment, useContext, useEffect, useState } from "react";
 import ResumeContext from "../context/resumeContext";
 import { saveEducationHistories } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
+import provinces from "../utils/provinces.json";
+import cities from "../utils/cities.json";
 
 const EducationHistory = () => {
   const [inEdu, setinEdu] = useState(false);
@@ -167,33 +170,36 @@ const EducationHistory = () => {
           spacing={2}
         >
           <Grid item xs={6} sm={2}>
-            <TextField
+            <FormControl className={classes.formControl}>
+              <InputLabel>کشور</InputLabel>
+              <Select name="uniCountry" defaultValue={uniCountry} required>
+                <MenuItem value={"ایران"}>ایران</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+          <Grid item xs={6} sm={2}>
+            <Autocomplete
+              options={provinces}
+              getOptionLabel={(option) => option.title}
               className={classes.formControl}
-              label="کشور"
-              name="uniCountry"
+              defaultValue={{ title: uniProvince }}
               required
-              defaultValue={uniCountry}
-              // defaultValue="ایران"
+              renderInput={(params) => (
+                <TextField name {...params} name="uniProvince" label="استان" />
+              )}
             />
           </Grid>
           <Grid item xs={6} sm={2}>
-            <TextField
-              className={classes.formControl}
-              label="استان"
-              name="uniProvince"
-              defaultValue={uniProvince}
-              required
-              // defaultValue="تهران"
-            />
-          </Grid>
-          <Grid item xs={6} sm={2}>
-            <TextField
-              className={classes.formControl}
+            <Autocomplete
+              options={cities}
+              getOptionLabel={(option) => option.city}
               label="شهر"
-              name="uniCity"
-              defaultValue={uniCity}
+              defaultValue={{ city: uniCity }}
+              className={classes.formControl}
               required
-              // defaultValue="تهران"
+              renderInput={(params) => (
+                <TextField {...params} name="uniCity" label="استان" />
+              )}
             />
           </Grid>
           <Grid item xs={6} sm={2}>
