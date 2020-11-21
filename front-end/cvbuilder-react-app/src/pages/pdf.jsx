@@ -335,7 +335,7 @@ const Pdf = ({ match }) => {
               </ListItem>
               <ListItem>
                 <ListItemText secondary="در حال تحصیل:" />
-                {stillStudying}
+                {stillStudying ? "بله" : "خیر"}
               </ListItem>
             </List>
           </Grid>
@@ -401,12 +401,12 @@ const Pdf = ({ match }) => {
                 {months[endJobMonth - 1]}
               </ListItem>
               <ListItem>
-                <ListItemText secondary="سال شروع:" />
+                <ListItemText secondary="سال اتمام:" />
                 {endJobYear}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="مشغول به فعالیت:" />
-                {stillWorking}
+                {stillWorking ? "بله" : "خیر"}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="میزان درآمد:" />
