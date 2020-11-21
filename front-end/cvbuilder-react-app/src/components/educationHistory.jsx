@@ -24,8 +24,8 @@ import cities from "../utils/cities.json";
 
 const EducationHistory = () => {
   const [inEdu, setinEdu] = useState(false);
-  const [provinceState, setprovinceState] = useState();
   const [citiesFiltered, setcitiesFiltered] = useState([]);
+  const [cityState, setcityState] = useState("");
 
   const context = useContext(ResumeContext);
 
@@ -49,7 +49,7 @@ const EducationHistory = () => {
     : [{}];
 
   const handleChangeProvince = (e, newValue) => {
-    setprovinceState(newValue);
+    setcityState("");
     if (newValue) {
       setcitiesFiltered(
         cities.filter((city) => city.province == newValue.title)
@@ -59,6 +59,9 @@ const EducationHistory = () => {
 
   useEffect(() => {
     setinEdu(stillStudying);
+    if (uniCity) {
+      setcityState({ city: uniCity });
+    }
   }, []);
 
   const sectionEduList = ["فوق دیپلم", "کارشناسی", "کارشناسی ارشد", "دکتری"];
@@ -194,7 +197,6 @@ const EducationHistory = () => {
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: uniProvince }}
-              value={provinceState}
               onChange={handleChangeProvince}
               required
               renderInput={(params) => (
@@ -209,6 +211,8 @@ const EducationHistory = () => {
               label="شهر"
               defaultValue={{ city: uniCity }}
               className={classes.formControl}
+              value={cityState}
+              onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
                 <TextField {...params} name="uniCity" label="شهر" />

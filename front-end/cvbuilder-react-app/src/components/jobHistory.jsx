@@ -25,8 +25,8 @@ import cities from "../utils/cities.json";
 
 const JobHistory = () => {
   const [inJob, setinJob] = useState(false);
-  const [provinceState, setprovinceState] = useState();
   const [citiesFiltered, setcitiesFiltered] = useState([]);
+  const [cityState, setcityState] = useState("");
 
   const context = useContext(ResumeContext);
 
@@ -53,7 +53,7 @@ const JobHistory = () => {
     : [{}];
 
   const handleChangeProvince = (e, newValue) => {
-    setprovinceState(newValue);
+    setcityState("");
     if (newValue) {
       setcitiesFiltered(
         cities.filter((city) => city.province == newValue.title)
@@ -63,6 +63,9 @@ const JobHistory = () => {
 
   useEffect(() => {
     setinJob(stillWorking);
+    if (jobCity) {
+      setcityState({ city: jobCity });
+    }
   }, []);
 
   const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
@@ -234,7 +237,6 @@ const JobHistory = () => {
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: jobProvince }}
-              value={provinceState}
               onChange={handleChangeProvince}
               required
               renderInput={(params) => (
@@ -249,6 +251,8 @@ const JobHistory = () => {
               label="شهر"
               defaultValue={{ city: jobCity }}
               className={classes.formControl}
+              value={cityState}
+              onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
                 <TextField {...params} name="jobCity" label="شهر" />

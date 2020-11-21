@@ -47,8 +47,8 @@ const BaseInfo = () => {
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
   const [birth, setbirth] = useState(new Date().setFullYear(2002));
-  const [provinceState, setprovinceState] = useState();
   const [citiesFiltered, setcitiesFiltered] = useState([]);
+  const [cityState, setcityState] = useState("");
 
   const socialMediaList = [
     "تلگرام",
@@ -188,7 +188,7 @@ const BaseInfo = () => {
   };
 
   const handleChangeProvince = (e, newValue) => {
-    setprovinceState(newValue);
+    setcityState("");
     if (newValue) {
       setcitiesFiltered(
         cities.filter((city) => city.province == newValue.title)
@@ -202,6 +202,9 @@ const BaseInfo = () => {
     }
     if (image) {
       setpersonImage(`${config.local_api}/img/${image}`);
+    }
+    if (city) {
+      setcityState({ city });
     }
     if (Boolean(docs[0]) && Boolean(docs[1])) {
       setidCard(<Check />);
@@ -415,7 +418,6 @@ const BaseInfo = () => {
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: province }}
-              value={provinceState}
               onChange={handleChangeProvince}
               required
               renderInput={(params) => (
@@ -430,6 +432,8 @@ const BaseInfo = () => {
               label="شهر"
               defaultValue={{ city }}
               className={classes.formControl}
+              value={cityState}
+              onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
                 <TextField {...params} name="city" label="شهر" />
