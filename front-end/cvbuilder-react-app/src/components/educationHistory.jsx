@@ -24,6 +24,8 @@ import cities from "../utils/cities.json";
 
 const EducationHistory = () => {
   const [inEdu, setinEdu] = useState(false);
+  const [provinceState, setprovinceState] = useState();
+  const [citiesFiltered, setcitiesFiltered] = useState([]);
 
   const context = useContext(ResumeContext);
 
@@ -45,6 +47,15 @@ const EducationHistory = () => {
         context.allResume.educationHistories.length - 1
       ]
     : [{}];
+
+  const handleChangeProvince = (e, newValue) => {
+    setprovinceState(newValue);
+    if (newValue) {
+      setcitiesFiltered(
+        cities.filter((city) => city.province == newValue.title)
+      );
+    }
+  };
 
   useEffect(() => {
     setinEdu(stillStudying);
@@ -177,21 +188,23 @@ const EducationHistory = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
               options={provinces}
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: uniProvince }}
+              value={provinceState}
+              onChange={handleChangeProvince}
               required
               renderInput={(params) => (
                 <TextField name {...params} name="uniProvince" label="استان" />
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
-              options={cities}
+              options={citiesFiltered}
               getOptionLabel={(option) => option.city}
               label="شهر"
               defaultValue={{ city: uniCity }}
@@ -202,7 +215,7 @@ const EducationHistory = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={1}>
             <TextField
               className={classes.formControl}
               label="ورود"
@@ -213,10 +226,10 @@ const EducationHistory = () => {
               type="number"
             />
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={1}>
             <TextField
               className={classes.formControl}
-              label="فراغت از تحصیل"
+              label="فراغت"
               name="endEdu"
               required={!Boolean(endEdu)}
               defaultValue={endEdu}

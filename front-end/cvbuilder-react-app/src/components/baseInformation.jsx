@@ -47,6 +47,9 @@ const BaseInfo = () => {
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
   const [birth, setbirth] = useState(new Date().setFullYear(2002));
+  const [provinceState, setprovinceState] = useState();
+  const [citiesFiltered, setcitiesFiltered] = useState([]);
+
   const socialMediaList = [
     "تلگرام",
     "واتساپ",
@@ -181,6 +184,15 @@ const BaseInfo = () => {
     if (response.status < 210 && response2.status < 210) {
       context.handleNext();
       context.initializeData();
+    }
+  };
+
+  const handleChangeProvince = (e, newValue) => {
+    setprovinceState(newValue);
+    if (newValue) {
+      setcitiesFiltered(
+        cities.filter((city) => city.province == newValue.title)
+      );
     }
   };
 
@@ -371,6 +383,7 @@ const BaseInfo = () => {
               defaultValue={tel}
               type="number"
               style={{ direction: "ltr" }}
+              InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
               placeholder="88888888"
               required
             />
@@ -396,21 +409,23 @@ const BaseInfo = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
               options={provinces}
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: province }}
+              value={provinceState}
+              onChange={handleChangeProvince}
               required
               renderInput={(params) => (
                 <TextField name {...params} name="province" label="استان" />
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
-              options={cities}
+              options={citiesFiltered}
               getOptionLabel={(option) => option.city}
               label="شهر"
               defaultValue={{ city }}
@@ -421,11 +436,12 @@ const BaseInfo = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={6}>
+          <Grid item xs={6} sm={4}>
             <TextField
               className={classes.formControl}
               label="آدرس"
               name="address"
+              multiline
               defaultValue={address}
               required
             />

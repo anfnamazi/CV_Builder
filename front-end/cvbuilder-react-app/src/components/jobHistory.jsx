@@ -25,6 +25,8 @@ import cities from "../utils/cities.json";
 
 const JobHistory = () => {
   const [inJob, setinJob] = useState(false);
+  const [provinceState, setprovinceState] = useState();
+  const [citiesFiltered, setcitiesFiltered] = useState([]);
 
   const context = useContext(ResumeContext);
 
@@ -49,6 +51,15 @@ const JobHistory = () => {
   } = context.allResume.jobHistories.length
     ? context.allResume.jobHistories[context.allResume.jobHistories.length - 1]
     : [{}];
+
+  const handleChangeProvince = (e, newValue) => {
+    setprovinceState(newValue);
+    if (newValue) {
+      setcitiesFiltered(
+        cities.filter((city) => city.province == newValue.title)
+      );
+    }
+  };
 
   useEffect(() => {
     setinJob(stillWorking);
@@ -185,7 +196,7 @@ const JobHistory = () => {
           </Grid>
         </Grid>
         <Grid container justify="center" style={{ marginTop: 20 }} spacing={2}>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={2}>
             <FormControl className={classes.formControl}>
               <InputLabel>نحوه همکاری</InputLabel>
               <Select
@@ -199,7 +210,7 @@ const JobHistory = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={2}>
             <FormControl className={classes.formControl}>
               <InputLabel>سطح ارشدیت</InputLabel>
               <Select name="seniorLevel" required defaultValue={seniorLevel}>
@@ -217,21 +228,23 @@ const JobHistory = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
               options={provinces}
               getOptionLabel={(option) => option.title}
               className={classes.formControl}
               defaultValue={{ title: jobProvince }}
+              value={provinceState}
+              onChange={handleChangeProvince}
               required
               renderInput={(params) => (
                 <TextField name {...params} name="jobProvince" label="استان" />
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={3}>
             <Autocomplete
-              options={cities}
+              options={citiesFiltered}
               getOptionLabel={(option) => option.city}
               label="شهر"
               defaultValue={{ city: jobCity }}
@@ -351,6 +364,7 @@ const JobHistory = () => {
               placeholder="88888888"
               name="phoneNumber"
               required
+              InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
               defaultValue={number}
               className={classes.formControl}
             />
