@@ -432,7 +432,7 @@ const BaseInfo = () => {
               className={classes.formControl}
               required
               renderInput={(params) => (
-                <TextField {...params} name="city" label="استان" />
+                <TextField {...params} name="city" label="شهر" />
               )}
             />
           </Grid>

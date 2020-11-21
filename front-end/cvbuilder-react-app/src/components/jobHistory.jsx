@@ -251,7 +251,7 @@ const JobHistory = () => {
               className={classes.formControl}
               required
               renderInput={(params) => (
-                <TextField {...params} name="jobCity" label="استان" />
+                <TextField {...params} name="jobCity" label="شهر" />
               )}
             />
           </Grid>

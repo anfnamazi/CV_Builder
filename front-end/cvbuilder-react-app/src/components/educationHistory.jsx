@@ -211,7 +211,7 @@ const EducationHistory = () => {
               className={classes.formControl}
               required
               renderInput={(params) => (
-                <TextField {...params} name="uniCity" label="استان" />
+                <TextField {...params} name="uniCity" label="شهر" />
               )}
             />
           </Grid>
