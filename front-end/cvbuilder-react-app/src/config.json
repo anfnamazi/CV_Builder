@@ -1,5 +1,6 @@
 {
   "local_api": ".",
+  "server_url": "https://cvbuilder.bastaniyelaghari.ir",
   "port":{
     "production": 3000,
     "development": 3001

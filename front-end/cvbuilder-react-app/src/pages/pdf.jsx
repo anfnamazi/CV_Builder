@@ -168,9 +168,7 @@ const Pdf = ({ match }) => {
     }
   }, []);
 
-  const newLocalUrl = `http://localhost:${
-    config.port[process.env.REACT_APP_ENVIRONMENT]
-  }`; 
+  const newLocalUrl = config.server_url
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
