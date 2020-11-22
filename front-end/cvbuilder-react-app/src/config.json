@@ -1,3 +1,7 @@
 {
-  "local_api": "http://localhost:3001"
+  "local_api": ".",
+  "port":{
+    "production": 3000,
+    "development": 3001
+  }
 }

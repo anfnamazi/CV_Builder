@@ -68,9 +68,20 @@ app.use('/img', (req, res, next) => {
   res.set({ 'Content-Type': 'image/png' })
   res.sendFile(`${__dirname}/uploads${req.path}`)
 })
-app.set('views', path.join(__dirname, 'views'))
-app.engine('html', require('ejs').renderFile)
-app.set('view engine', 'html')
+
+app.use(express.static(path.join(__dirname, 'build')))
+
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+app.get('/login', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+app.get('/admin', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
 app.use(require('./app/routes'))
 app.listen(app.get('port'))
 

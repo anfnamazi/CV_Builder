@@ -167,6 +167,10 @@ const Pdf = ({ match }) => {
       getAllInfo(match.params.id);
     }
   }, []);
+
+  const newLocalUrl = `http://localhost:${
+    config.port[process.env.REACT_APP_ENVIRONMENT]
+  }`; 
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
@@ -189,7 +193,7 @@ const Pdf = ({ match }) => {
       <Paper style={{ padding: "10px 30px" }}>
         <Grid container spacing={3} justify="center">
           <img
-            src={`${config.local_api}/img/${image}`}
+            src={`${newLocalUrl}/img/${image}`}
             style={{ height: 100, width: 100, borderRadius: "50%", margin: 20 }}
             alt=""
           />
@@ -565,7 +569,7 @@ const Pdf = ({ match }) => {
             ? docs.map((img) => (
                 <Grid item xs={6}>
                   <img
-                    src={`${config.local_api}/img/${img.file}`}
+                    src={`${newLocalUrl}/img/${img.file}`}
                     style={{
                       width: "100%",
                       margin: "10px 0",
