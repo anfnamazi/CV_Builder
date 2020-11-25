@@ -255,7 +255,7 @@ const JobHistory = () => {
               onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
-                <TextField {...params} name="jobCity" label="استان" />
+                <TextField {...params} name="jobCity" label="شهر" />
               )}
             />
           </Grid>

@@ -436,7 +436,7 @@ const BaseInfo = () => {
               onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
-                <TextField {...params} name="city" label="استان" />
+                <TextField {...params} name="city" label="شهر" />
               )}
             />
           </Grid>

@@ -215,7 +215,7 @@ const EducationHistory = () => {
               onChange={(e, newValue) => setcityState(newValue)}
               required
               renderInput={(params) => (
-                <TextField {...params} name="uniCity" label="استان" />
+                <TextField {...params} name="uniCity" label="شهر" />
               )}
             />
           </Grid>
