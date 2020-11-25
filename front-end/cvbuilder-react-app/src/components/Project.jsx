@@ -126,7 +126,6 @@ const Project = () => {
               <Select
                 name="researchType"
                 // onChange={(e) => setresearchTypeState(e.target.value)}
-                required
                 defaultValue={researchType}
               >
                 {researchTypeList.map((type) => (
@@ -139,7 +138,6 @@ const Project = () => {
             <TextField
               label="عنوان"
               name="researchTitle"
-              required
               defaultValue={researchTitle}
               className={classes.formControl}
             />
@@ -149,7 +147,6 @@ const Project = () => {
               <InputLabel>نوع مقاله</InputLabel>
               <Select
                 name="articleType"
-                required
                 defaultValue={articleType}
                 // disabled={researchTypeState === "مقاله" ? false : true}
               >
@@ -165,7 +162,6 @@ const Project = () => {
             <TextField
               label="ناشر"
               name="publisher"
-              required
               defaultValue={publisher}
               className={classes.formControl}
             />
@@ -174,7 +170,6 @@ const Project = () => {
             <TextField
               label="لینک مرتبط"
               name="researchHyperlink"
-              required
               defaultValue={researchHyperlink}
               className={classes.formControl}
               style={{ direction: "ltr" }}
@@ -186,7 +181,6 @@ const Project = () => {
               <Grid item xs={6}>
                 <Select
                   name="researchMonth"
-                  required
                   defaultValue={researchMonth}
                   className={classes.formControl}
                   // defaultValue="def"
@@ -202,7 +196,6 @@ const Project = () => {
               <Grid item xs={6}>
                 <TextField
                   name="researchYear"
-                  required
                   defaultValue={researchYear}
                   type="number"
                   placeholder="سال"
@@ -231,7 +224,6 @@ const Project = () => {
             <TextField
               label="عنوان"
               name="projectTitle"
-              required
               defaultValue={projectTitle}
               className={classes.formControl}
             />
@@ -240,7 +232,6 @@ const Project = () => {
             <TextField
               label="کارفرما/درخواست کننده"
               name="projectEmployer"
-              required
               defaultValue={projectEmployer}
               className={classes.formControl}
             />
@@ -251,7 +242,6 @@ const Project = () => {
             <TextField
               label="لینک مرتبط"
               name="projectHyperlink"
-              required
               defaultValue={projectHyperlink}
               className={classes.formControl}
               style={{ direction: "ltr" }}
@@ -263,7 +253,6 @@ const Project = () => {
               <Grid item xs={6}>
                 <Select
                   name="startProjectMonth"
-                  required
                   defaultValue={startProjectMonth}
                   className={classes.formControl}
                   // defaultValue="def"
@@ -294,7 +283,6 @@ const Project = () => {
                 <Select
                   name="endProjectMonth"
                   defaultValue={endProjectMonth}
-                  required
                   className={classes.formControl}
                   // defaultValue="def"
                 >
@@ -310,7 +298,6 @@ const Project = () => {
                 <TextField
                   name="endProjectYear"
                   defaultValue={endProjectYear}
-                  required
                   type="number"
                   placeholder="سال"
                   className={classes.formControl}

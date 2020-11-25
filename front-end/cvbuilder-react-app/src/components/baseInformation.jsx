@@ -234,7 +234,7 @@ const BaseInfo = () => {
               id="icon-button-file"
               type="file"
               name="image"
-              required={!Boolean(image)}
+              // required={!Boolean(image)}
             />
             <label htmlFor="icon-button-file">
               <IconButton
@@ -268,6 +268,15 @@ const BaseInfo = () => {
                 />
               </Grid>
               <Grid xs={6} sm={4} item>
+                <FormControl className={classes.formControl}>
+                  <InputLabel>جنسیت</InputLabel>
+                  <Select name="gender" defaultValue={gender} required>
+                    <MenuItem value={"مرد"}>مرد</MenuItem>
+                    <MenuItem value={"زن"}>زن</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+              {/* <Grid xs={6} sm={4} item>
                 <Tooltip title="لورم ایپسوم">
                   <TextField
                     className={classes.formControl}
@@ -288,19 +297,10 @@ const BaseInfo = () => {
                     required
                   />
                 </Tooltip>
-              </Grid>
+              </Grid> */}
             </Grid>
             <Grid container spacing={2} style={{ marginTop: 20 }}>
-              <Grid xs={6} sm={2} item>
-                <FormControl className={classes.formControl}>
-                  <InputLabel>جنسیت</InputLabel>
-                  <Select name="gender" defaultValue={gender} required>
-                    <MenuItem value={"مرد"}>مرد</MenuItem>
-                    <MenuItem value={"زن"}>زن</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid xs={6} sm={2} item>
+              <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
                   <Select name="marital" defaultValue={marital} required>
@@ -309,7 +309,7 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <Grid xs={6} sm={3} item>
+              <Grid xs={6} sm={5} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت سربازی</InputLabel>
                   <Select name="military" defaultValue={military} required>
@@ -326,7 +326,7 @@ const BaseInfo = () => {
                 </FormControl>
               </Grid>
               <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
-                <Grid item xs={6} sm={5}>
+                <Grid item xs={6} sm={4}>
                   <DatePicker
                     className={classes.formControl}
                     label="تاریخ تولد"
@@ -363,7 +363,6 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               placeholder="example@domain.com"
               inputMode="email"
-              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -388,7 +387,6 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
               placeholder="88888888"
-              required
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -484,13 +482,13 @@ const BaseInfo = () => {
                 type="file"
                 name="eduCertif"
                 onChange={onChangeEvidence}
-                required={!Boolean(docs[1])}
+                // required={!Boolean(docs[1])}
               />
             </div>
           </Grid>
         </Grid>
       </Paper>
-      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+      {/* <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         توصیف خلاصه
       </Typography>
       <Paper style={{ padding: "25px 30px" }}>
@@ -505,7 +503,7 @@ const BaseInfo = () => {
             گرافیست با استعداد و علاقه مند به پیشرفت با داشتن مهارت های پیشرفته طراحی، ...."
           />
         </Grid>
-      </Paper>
+      </Paper> */}
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         شبکه اجتماعی
       </Typography>

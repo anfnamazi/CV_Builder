@@ -186,7 +186,6 @@ const Skill = () => {
               <Grid xs={6} item>
                 <TextField
                   label="نام مهارت"
-                  required
                   name="experienceSkillTitle"
                   defaultValue={experienceSkillTitle}
                 />
@@ -196,11 +195,19 @@ const Skill = () => {
                   <Typography component="legend">سطح</Typography>
                   <Rating
                     size="small"
-                    required
                     name="experienceSkillLevel"
                     defaultValue={experienceSkillLevel}
                   />
                 </Box>
+              </Grid>
+              <Grid xs={12} item>
+                <TextField
+                  className={classes.formControl}
+                  name="experienceDescription"
+                  // defaultValue={experienceDescription}
+                  multiline
+                  label="توضیحات"
+                />
               </Grid>
             </Grid>
           </Paper>
@@ -247,7 +254,6 @@ const Skill = () => {
         <Grid container justify="center" spacing={2}>
           <Grid xs={12} md={8} item>
             <TextField
-              required
               name="honorTitle"
               defaultValue={honorTitle}
               label="عنوان"
@@ -260,7 +266,6 @@ const Skill = () => {
             <Grid container spacing={1}>
               <Grid item xs={6}>
                 <Select
-                  required
                   name="honorMonth"
                   defaultValue={honorMonth}
                   className={classes.formControl}
@@ -276,7 +281,6 @@ const Skill = () => {
               </Grid>
               <Grid item xs={6}>
                 <TextField
-                  required
                   name="honorYear"
                   defaultValue={honorYear}
                   placeholder="سال"

@@ -1,5 +1,5 @@
 {
-  "local_api": ".",
+  "local_api": "http://localhost:3001",
   "server_url": "https://cvbuilder.bastaniyelaghari.ir",
   "port":{
     "production": 3000,
