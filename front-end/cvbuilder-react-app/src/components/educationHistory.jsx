@@ -1,105 +1,22 @@
-import {
-  Checkbox,
-  Fab,
-  FormControl,
-  FormControlLabel,
-  Grid,
-  Hidden,
-  InputLabel,
-  MenuItem,
-  Paper,
-  Select,
-  TextField,
-  Tooltip,
-  Typography,
-} from "@material-ui/core";
-import { Help, SkipPrevious } from "@material-ui/icons";
-import { Autocomplete } from "@material-ui/lab";
-import React, { Fragment, useContext, useEffect, useState } from "react";
+import { Fab, Grid, Hidden, Typography } from "@material-ui/core";
+import { SkipPrevious, Add } from "@material-ui/icons";
+import React, { Fragment, useContext, useEffect } from "react";
 import ResumeContext from "../context/resumeContext";
-import { saveEducationHistories } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
-import provinces from "../utils/provinces.json";
-import cities from "../utils/cities.json";
+import { useDispatch, useSelector } from "react-redux";
+import { addEdu, setAllEdus } from "../action/edus";
+import Edu from "./subComponents/edu";
+import { saveEducationHistories } from "../services/resumeService";
 
 const EducationHistory = () => {
-  const [inEdu, setinEdu] = useState(false);
-  const [citiesFiltered, setcitiesFiltered] = useState([]);
-  const [cityState, setcityState] = useState("");
-
   const context = useContext(ResumeContext);
 
-  const {
-    sectionEdu,
-    fieldEdu,
-    orientationEdu,
-    uniType,
-    uniName,
-    averageEdu,
-    uniCountry,
-    uniProvince,
-    uniCity,
-    startEdu,
-    endEdu,
-    stillStudying,
-  } = context.allResume.educationHistories.length
-    ? context.allResume.educationHistories[
-        context.allResume.educationHistories.length - 1
-      ]
-    : [{}];
+  const dispatch = useDispatch();
 
-  const handleChangeProvince = (e, newValue) => {
-    setcityState("");
-    if (newValue) {
-      setcitiesFiltered(
-        cities.filter((city) => city.province == newValue.title)
-      );
-    }
-  };
+  const edus = useSelector((state) => state.edus);
 
-  useEffect(() => {
-    setinEdu(stillStudying);
-    if (uniCity) {
-      setcityState({ city: uniCity });
-    }
-  }, []);
-
-  const sectionEduList = ["فوق دیپلم", "کارشناسی", "کارشناسی ارشد", "دکتری"];
-  const uniTypeList = ["دولتی", "غیرانتفاعی", "آزاد", "پیام نور"];
-
-  const handleSaveEducationHistories = async (event) => {
-    event.preventDefault();
-    const sectionEdu = event.target.sectionEdu.value;
-    const fieldEdu = event.target.fieldEdu.value;
-    const orientationEdu = event.target.orientationEdu.value;
-    const uniType = event.target.uniType.value;
-    const uniName = event.target.uniName.value;
-    const averageEdu = event.target.averageEdu.value;
-    const uniCountry = event.target.uniCountry.value;
-    const uniProvince = event.target.uniProvince.value;
-    const uniCity = event.target.uniCity.value;
-    const startEdu = event.target.startEdu.value;
-    const endEdu = event.target.endEdu.value;
-    const stillStudying = Boolean(inEdu);
-
-    const eduHistroiesForm = {
-      sectionEdu,
-      fieldEdu,
-      orientationEdu,
-      uniType,
-      uniName,
-      averageEdu,
-      uniCountry,
-      uniProvince,
-      uniCity,
-      startEdu,
-      endEdu,
-      stillStudying,
-    };
-
-    const response = await saveEducationHistories(eduHistroiesForm);
-    console.log(response);
-
+  const handleSaveEducationHistories = async () => {
+    const response = await saveEducationHistories(edus);
     if (response.status < 210) {
       context.handleNext();
       context.initializeData();
@@ -108,7 +25,7 @@ const EducationHistory = () => {
 
   const classes = useStyles();
   return (
-    <form onSubmit={handleSaveEducationHistories}>
+    <Fragment>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق تحصیلی
       </Typography>
@@ -116,155 +33,21 @@ const EducationHistory = () => {
         برای نوشتن سوابق تحصیلی در رزومه، همیشه از بالاترین مدرک خود شروع به
         نوشتن کنید.
       </Typography>
-      <Paper style={{ padding: "25px 30px" }}>
-        <Grid container justify="center" spacing={2}>
-          <Grid xs={6} sm={2} item>
-            <FormControl className={classes.formControl}>
-              <InputLabel>مقطع</InputLabel>
-              <Select name="sectionEdu" defaultValue={sectionEdu} required>
-                {sectionEduList.map((section) => (
-                  <MenuItem value={section}>{section}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid xs={6} sm={2} item>
-            <TextField
-              className={classes.formControl}
-              label="رشته تحصیلی"
-              name="fieldEdu"
-              required
-              defaultValue={fieldEdu}
-            />
-          </Grid>
-          <Grid xs={6} sm={2} item>
-            <TextField
-              className={classes.formControl}
-              label="گرایش/تخصص"
-              name="orientationEdu"
-              required
-              defaultValue={orientationEdu}
-            />
-          </Grid>
-          <Grid xs={6} sm={2} item>
-            <FormControl className={classes.formControl}>
-              <InputLabel>نوع موسسه</InputLabel>
-              <Select name="uniType" required defaultValue={uniType}>
-                {uniTypeList.map((type) => (
-                  <MenuItem value={type}>{type}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid xs={6} sm={2} item>
-            <TextField
-              className={classes.formControl}
-              label="عنوان موسسه"
-              name="uniName"
-              required
-              defaultValue={uniName}
-            />
-          </Grid>
-          <Grid xs={6} sm={2} item>
-            <TextField
-              className={classes.formControl}
-              label="معدل"
-              name="averageEdu"
-              required
-              defaultValue={averageEdu}
-              type="number"
-              inputProps={{ step: "0.01" }}
-            />
-          </Grid>
-        </Grid>
-        <Grid
-          container
-          style={{ marginTop: 20 }}
-          alignItems="flex-end"
-          spacing={2}
+      {edus.map((edu, index) => (
+        <Edu edu={edu} index={index} length={edus.length} />
+      ))}
+      <Grid container spacing={1}>
+        <Fab
+          color="primary"
+          size="small"
+          style={{ margin: "auto" }}
+          onClick={() => {
+            dispatch(addEdu());
+          }}
         >
-          <Grid item xs={6} sm={2}>
-            <FormControl className={classes.formControl}>
-              <InputLabel>کشور</InputLabel>
-              <Select name="uniCountry" defaultValue={uniCountry} required>
-                <MenuItem value={"ایران"}>ایران</MenuItem>
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Autocomplete
-              options={provinces}
-              getOptionLabel={(option) => option.title}
-              className={classes.formControl}
-              defaultValue={{ title: uniProvince }}
-              onChange={handleChangeProvince}
-              required
-              renderInput={(params) => (
-                <TextField name {...params} name="uniProvince" label="استان" />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6} sm={3}>
-            <Autocomplete
-              options={citiesFiltered}
-              getOptionLabel={(option) => option.city}
-              label="شهر"
-              defaultValue={{ city: uniCity }}
-              className={classes.formControl}
-              value={cityState}
-              onChange={(e, newValue) => setcityState(newValue)}
-              required
-              renderInput={(params) => (
-                <TextField {...params} name="uniCity" label="شهر" />
-              )}
-            />
-          </Grid>
-          <Grid item xs={6} sm={1}>
-            <TextField
-              className={classes.formControl}
-              label="ورود"
-              name="startEdu"
-              required
-              defaultValue={startEdu}
-              placeholder="سال"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6} sm={1}>
-            <TextField
-              className={classes.formControl}
-              label="فراغت"
-              name="endEdu"
-              required={!Boolean(endEdu)}
-              defaultValue={endEdu}
-              value={inEdu ? "" : null}
-              disabled={inEdu}
-              placeholder="سال"
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={6} sm={2}>
-            <Tooltip title="لورم ایپسوم">
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={inEdu}
-                    onChange={(e) => setinEdu(e.target.checked)}
-                  />
-                }
-                label={
-                  <Fragment>
-                    درحال تحصیل{" "}
-                    <Help
-                      style={{ fontSize: 14, transform: "rotateY(180deg)" }}
-                    />
-                  </Fragment>
-                }
-              />
-            </Tooltip>
-          </Grid>
-        </Grid>
-      </Paper>
+          <Add />
+        </Fab>
+      </Grid>
       <Fab
         style={{
           position: "fixed",
@@ -274,13 +57,13 @@ const EducationHistory = () => {
         variant="contained"
         color="primary"
         type="submit"
-        // onClick={}
+        onClick={handleSaveEducationHistories}
         size="medium"
       >
         <Hidden xsDown>ذخیره و ادامه</Hidden>
         <SkipPrevious className={classes.extendedIcon} />
       </Fab>
-    </form>
+    </Fragment>
   );
 };
 

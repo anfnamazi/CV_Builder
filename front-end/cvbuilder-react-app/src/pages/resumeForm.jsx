@@ -25,6 +25,9 @@ import ResumeContext from "../context/resumeContext";
 import { getallResumeByUser } from "../services/resumeService";
 import { Redirect } from "react-router-dom";
 import FakePage from "../components/fakePage";
+import { useDispatch } from "react-redux";
+import { setAllEdus } from "../action/edus";
+import { setAllJobs } from "../action/jobs";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -89,6 +92,8 @@ const ResumeForm = () => {
 
   const steps = getSteps();
 
+  const dispatch = useDispatch();
+
   const handleNext = () => {
     setactiveStep((prevActiveStep) => prevActiveStep + 1);
   };
@@ -116,6 +121,12 @@ const ResumeForm = () => {
       const { userBaseInfo } = response.data;
       if (userBaseInfo) {
         setallResume({ ...response.data });
+        if (response.data.educationHistories.length) {
+          dispatch(setAllEdus([...response.data.educationHistories]));
+        }
+        if (response.data.jobHistories.length) {
+          dispatch(setAllJobs([...response.data.jobHistories]));
+        }
       }
     }
   };
