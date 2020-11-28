@@ -1,6 +1,6 @@
 import { Fab, Grid, Hidden, Typography } from "@material-ui/core";
 import { Add, SkipPrevious } from "@material-ui/icons";
-import React, { Fragment, useContext } from "react";
+import React, { useContext } from "react";
 import ResumeContext from "../context/resumeContext";
 import { saveJobHistories } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
@@ -25,7 +25,7 @@ const JobHistory = () => {
 
   const classes = useStyles();
   return (
-    <Fragment>
+    <form onSubmit={handleSaveJobHistories}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق شغلی
       </Typography>
@@ -57,13 +57,12 @@ const JobHistory = () => {
         variant="contained"
         color="primary"
         type="submit"
-        onClick={handleSaveJobHistories}
         size="medium"
       >
         <Hidden xsDown>ذخیره و ادامه</Hidden>
         <SkipPrevious className={classes.extendedIcon} />
       </Fab>
-    </Fragment>
+    </form>
   );
 };
 

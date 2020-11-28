@@ -1,10 +1,10 @@
 import { Fab, Grid, Hidden, Typography } from "@material-ui/core";
 import { SkipPrevious, Add } from "@material-ui/icons";
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { addEdu, setAllEdus } from "../action/edus";
+import { addEdu } from "../action/edus";
 import Edu from "./subComponents/edu";
 import { saveEducationHistories } from "../services/resumeService";
 
@@ -25,7 +25,7 @@ const EducationHistory = () => {
 
   const classes = useStyles();
   return (
-    <Fragment>
+    <form onSubmit={handleSaveEducationHistories}>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق تحصیلی
       </Typography>
@@ -57,13 +57,12 @@ const EducationHistory = () => {
         variant="contained"
         color="primary"
         type="submit"
-        onClick={handleSaveEducationHistories}
         size="medium"
       >
         <Hidden xsDown>ذخیره و ادامه</Hidden>
         <SkipPrevious className={classes.extendedIcon} />
       </Fab>
-    </Fragment>
+    </form>
   );
 };
 
