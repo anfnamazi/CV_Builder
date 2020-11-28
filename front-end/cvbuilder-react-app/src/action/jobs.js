@@ -70,6 +70,7 @@ export const changejobCountry = (event, index) => {
 export const changejobProvince = (value, index) => {
     return (dispatch, getState) => {
         const jobList = [...getState().jobs];
+        jobList[index].jobCity = "";
         jobList[index].jobProvince = value;
         const jobs = [...jobList];
         dispatch({ type: "UPDATE_JOBS", payload: jobs })

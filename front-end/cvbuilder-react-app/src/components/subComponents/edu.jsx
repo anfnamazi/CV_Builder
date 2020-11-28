@@ -80,20 +80,20 @@ const Edu = ({ edu, index, length }) => {
           <TextField
             className={classes.formControl}
             label="رشته تحصیلی"
-            onChange={(e) => dispatch(changeFieldEdu(e, index))}
+            onBlur={(e) => dispatch(changeFieldEdu(e, index))}
             name="fieldEdu"
             required
-            value={edu.fieldEdu}
+            defaultValue={edu.fieldEdu}
           />
         </Grid>
         <Grid xs={6} sm={2} item>
           <TextField
             className={classes.formControl}
             label="گرایش/تخصص"
-            onChange={(e) => dispatch(changeOrientationEdu(e, index))}
+            onBlur={(e) => dispatch(changeOrientationEdu(e, index))}
             name="orientationEdu"
             required
-            value={edu.orientationEdu}
+            defaultValue={edu.orientationEdu}
           />
         </Grid>
         <Grid xs={6} sm={2} item>
@@ -115,20 +115,20 @@ const Edu = ({ edu, index, length }) => {
           <TextField
             className={classes.formControl}
             label="عنوان موسسه"
-            onChange={(e) => dispatch(changeUniName(e, index))}
+            onBlur={(e) => dispatch(changeUniName(e, index))}
             name="uniName"
             required
-            value={edu.uniName}
+            defaultValue={edu.uniName}
           />
         </Grid>
         <Grid xs={6} sm={2} item>
           <TextField
             className={classes.formControl}
             label="معدل"
-            onChange={(e) => dispatch(changeAverageEdu(e, index))}
+            onBlur={(e) => dispatch(changeAverageEdu(e, index))}
             name="averageEdu"
             required
-            value={edu.averageEdu}
+            defaultValue={edu.averageEdu}
             type="number"
             inputProps={{ step: "0.01" }}
           />
@@ -192,10 +192,10 @@ const Edu = ({ edu, index, length }) => {
           <TextField
             className={classes.formControl}
             label="ورود"
-            onChange={(e) => dispatch(changeStartEdu(e, index))}
+            onBlur={(e) => dispatch(changeStartEdu(e, index))}
             name="startEdu"
             required
-            value={edu.startEdu}
+            defaultValue={edu.startEdu}
             placeholder="سال"
             type="number"
           />
@@ -204,11 +204,11 @@ const Edu = ({ edu, index, length }) => {
           <TextField
             className={classes.formControl}
             label="فراغت"
-            onChange={(e) => dispatch(changeEndEdu(e, index))}
+            onBlur={(e) => dispatch(changeEndEdu(e, index))}
             name="endEdu"
             required={!Boolean(edu.stillStudying)}
-            value={edu.endEdu}
-            // value={edu.stillStudying ? "" : null}
+            defaultValue={edu.endEdu}
+            // defaultValue={edu.stillStudying ? "" : null}
             disabled={edu.stillStudying}
             placeholder="سال"
             type="number"

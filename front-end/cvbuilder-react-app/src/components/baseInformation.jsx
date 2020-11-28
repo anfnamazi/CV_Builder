@@ -110,11 +110,11 @@ const BaseInfo = () => {
     event.preventDefault();
     const firstName = event.target.firstName.value;
     const lastName = event.target.lastName.value;
-    const job = event.target.job.value;
+    // const job = event.target.job.value;
     const gender = event.target.gender.value;
     const marital = event.target.marital.value;
     const military = event.target.military.value;
-    const description = event.target.description.value;
+    // const description = event.target.description.value;
     const image = event.target.image.files[0];
     const birthDay = new Date(birth).toLocaleDateString("en-CA");
 
@@ -135,11 +135,11 @@ const BaseInfo = () => {
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
-    formData.append("job", job);
+    // formData.append("job", job);
     formData.append("gender", gender);
     formData.append("marital", marital);
     formData.append("military", military);
-    formData.append("description", description);
+    // formData.append("description", description);
     if (image) {
       formData.append("image", image);
     }

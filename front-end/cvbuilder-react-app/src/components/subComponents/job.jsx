@@ -92,10 +92,10 @@ const Job = ({ job, index, length }) => {
           <Tooltip title="لورم ایپسوم">
             <TextField
               className={classes.formControl}
-              onChange={(e) => dispatch(changejobTitle(e, index))}
+              onBlur={(e) => dispatch(changejobTitle(e, index))}
               name="jobTitle"
               required
-              value={job.jobTitle}
+              defaultValue={job.jobTitle}
               label={
                 <Fragment>
                   سمت شغلی{" "}
@@ -125,20 +125,20 @@ const Job = ({ job, index, length }) => {
         <Grid item xs={6} sm={3}>
           <TextField
             className={classes.formControl}
-            onChange={(e) => dispatch(changejobCenter(e, index))}
+            onBlur={(e) => dispatch(changejobCenter(e, index))}
             name="jobCenter"
             required
-            value={job.jobCenter}
+            defaultValue={job.jobCenter}
             label="مرکز شغلی"
           />
         </Grid>
         <Grid item xs={6} sm={3}>
           <TextField
             className={classes.formControl}
-            onChange={(e) => dispatch(changetitleCenter(e, index))}
+            onBlur={(e) => dispatch(changetitleCenter(e, index))}
             name="titleCenter"
             required
-            value={job.titleCenter}
+            defaultValue={job.titleCenter}
             label="عنوان مرکز"
           />
         </Grid>
@@ -251,10 +251,10 @@ const Job = ({ job, index, length }) => {
             <Grid item xs={6} sm={5}>
               <TextField
                 className={classes.formControl}
-                onChange={(e) => dispatch(changestartJobYear(e, index))}
+                onBlur={(e) => dispatch(changestartJobYear(e, index))}
                 name="startJobYear"
                 required
-                value={job.startJobYear}
+                defaultValue={job.startJobYear}
                 type="number"
                 placeholder="سال"
               />
@@ -284,10 +284,10 @@ const Job = ({ job, index, length }) => {
             <Grid item xs={6} sm={5}>
               <TextField
                 className={classes.formControl}
-                onChange={(e) => dispatch(changeendJobYear(e, index))}
+                onBlur={(e) => dispatch(changeendJobYear(e, index))}
                 name="endJobYear"
                 required={!Boolean(job.stillWorking)}
-                value={job.endJobYear}
+                defaultValue={job.endJobYear}
                 type="number"
                 disabled={job.stillWorking}
                 placeholder="سال"
@@ -316,10 +316,10 @@ const Job = ({ job, index, length }) => {
         <Grid item xs={6} sm={4}>
           <TextField
             label="میزان درآمد"
-            onChange={(e) => dispatch(changeincome(e, index))}
+            onBlur={(e) => dispatch(changeincome(e, index))}
             name="income"
             required
-            value={job.income}
+            defaultValue={job.income}
             type="number"
             placeholder="4000000 تومان"
             className={classes.formControl}
@@ -330,11 +330,11 @@ const Job = ({ job, index, length }) => {
             label="شماره تماس"
             type="number"
             placeholder="88888888"
-            onChange={(e) => dispatch(changenumber(e, index))}
+            onBlur={(e) => dispatch(changenumber(e, index))}
             name="phoneNumber"
             required
             InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
-            value={job.number}
+            defaultValue={job.number}
             className={classes.formControl}
           />
         </Grid>
@@ -357,9 +357,9 @@ const Job = ({ job, index, length }) => {
       <Grid item style={{ margin: "10px" }} justify="center" spacing={2}>
         <TextField
           className={classes.formControl}
-          onChange={(e) => dispatch(changejobDescription(e, index))}
+          onBlur={(e) => dispatch(changejobDescription(e, index))}
           name="jobDescription"
-          value={job.jobDescription}
+          defaultValue={job.jobDescription}
           multiline
           label="وظایف و دستاوردها"
         />

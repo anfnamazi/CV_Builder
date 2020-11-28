@@ -65,6 +65,7 @@ export const changeUniCountry = (event, index) => {
 export const changeUniProvince = (value, index) => {
     return (dispatch, getState) => {
         const eduList = [...getState().edus];
+        eduList[index].uniCity = "";
         eduList[index].uniProvince = value;
         const edus = [...eduList];
         dispatch({ type: "UPDATE_EDUS", payload: edus })
