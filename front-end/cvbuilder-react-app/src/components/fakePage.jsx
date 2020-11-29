@@ -17,7 +17,7 @@ const FakePage = () => {
       >
         <img
           src={require("../assets/images/resume-folder-animate.svg")}
-          style={{ width: 512, height: 512 }}
+          style={{ height: 512, maxWidth: 512, width: "90%" }}
           alt="resume img"
         />
         <Fab variant="contained" color="primary" onClick={context.handleNext}>

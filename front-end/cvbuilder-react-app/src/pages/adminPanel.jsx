@@ -8,6 +8,7 @@ import {
   TableBody,
   IconButton,
   Button,
+  Hidden,
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -95,7 +96,7 @@ const AdminPanel = () => {
         onClick={() => window.location.replace("/logout")}
       >
         <MeetingRoom style={{ marginLeft: 10 }} />
-        خروج
+        <Hidden xsDown>خروج</Hidden>
       </Button>
     </TableContainer>
   );

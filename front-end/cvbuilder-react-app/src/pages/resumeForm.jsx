@@ -228,7 +228,7 @@ const ResumeForm = () => {
           onClick={() => window.location.replace("/logout")}
         >
           <MeetingRoom style={{ marginLeft: 10 }} />
-          خروج
+          <Hidden xsDown>خروج</Hidden>
         </Button>
       </div>
     </ResumeContext.Provider>
