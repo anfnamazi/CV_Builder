@@ -3,6 +3,7 @@ import {
   Fab,
   Grid,
   Hidden,
+  Link,
   Tab,
   Tabs,
   TextField,
@@ -34,6 +35,7 @@ const Login = () => {
   const [currentTab, setcurrentTab] = useState(0);
   const [showverify, setshowverify] = useState(false);
   const [phone, setphone] = useState();
+  let [counter, setcounter] = useState(60);
 
   const handleChangeTab = (event, newTab) => {
     setcurrentTab(newTab);
@@ -68,11 +70,15 @@ const Login = () => {
 
   const handleGetVerify = async () => {
     const request = { phone };
+    setcounter((counter = 60));
     const result = await sendSms(request);
     if (result.status < 210) {
       setshowverify(true);
+      const interval = setInterval(() => {
+        setcounter(counter--);
+        if (counter < 0) clearInterval(interval);
+      }, 1000);
     }
-    console.log(result);
   };
 
   const classes = useStyles();
@@ -173,6 +179,26 @@ const Login = () => {
                         >
                           ورود
                         </button>
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "space-around",
+                            padding: 10,
+                          }}
+                        >
+                          {counter === 0 ? (
+                            <Link
+                              href="#"
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleGetVerify();
+                              }}
+                            >
+                              ارسال مجدد کد تایید
+                            </Link>
+                          ) : null}
+                          <div>{counter} ثانیه باقی مانده</div>
+                        </div>
                         <div>
                           <Fab
                             variant="contained"
