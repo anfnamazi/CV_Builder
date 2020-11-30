@@ -9,6 +9,8 @@ const { Schema } = require('mongoose')
 
 const createBaseInfoInDB = (
   {
+    eduCertif = '',
+    nationalCard = '',
     firstName = '',
     lastName = '',
     job = '',
@@ -23,6 +25,8 @@ const createBaseInfoInDB = (
 ) => {
   return new Promise((resolve, reject) => {
     const baseInfo = new model({
+      eduCertif,
+      nationalCard,
       firstName,
       lastName,
       image,

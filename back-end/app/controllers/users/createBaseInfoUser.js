@@ -12,14 +12,21 @@ const createBaseInfoUser = async (req, res) => {
   try {
     let user = req.user
     let userBaseInfoId = req.user.userBaseInfo
-    let image = undefined
-    if (req.file) {
-      req = await addFileNameToReq(req, 'image')
-      image = req.image
+    let files = undefined
+    if (req.files) {
+      files = req.files
     }
     req = matchedData(req)
-    if (image) {
-      req.image = image
+    if (files) {
+      req.image = files.image[0].filename
+      ;(req.eduCertif = {
+        file: files.eduCertif[0].filename,
+        title: files.eduCertif[0].originalname
+      }),
+        (req.nationalCard = {
+          file: files.nationalCard[0].filename,
+          title: files.nationalCard[0].originalname
+        })
     }
 
     if (userBaseInfoId == null) {

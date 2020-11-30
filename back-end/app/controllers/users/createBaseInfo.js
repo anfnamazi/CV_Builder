@@ -17,7 +17,7 @@ const createBaseInfo = async (req, res) => {
   try {
     const currentUserId = req.user._id
     req = await addAvatarToReq(req)
-    const image = req.image
+    const image = req.files
     let user = await findUserById(currentUserId)
     req = matchedData(req)
     req.image = image

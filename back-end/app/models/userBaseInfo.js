@@ -3,6 +3,24 @@ const { Schema } = require('mongoose')
 
 const UserBaseInfoSchema = new mongoose.Schema(
   {
+    eduCertif: {
+      file: {
+        type: String,
+        required: false
+      },
+      title: {
+        type: String
+      }
+    },
+    nationalCard: {
+      file: {
+        type: String,
+        required: false
+      },
+      title: {
+        type: String
+      }
+    },
     firstName: {
       type: String
     },

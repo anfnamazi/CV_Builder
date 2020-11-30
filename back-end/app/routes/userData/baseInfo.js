@@ -23,12 +23,21 @@ const UserBaseInfo = require('../../models/userBaseInfo')
 
 /*
  * add or edit BaseInfo of user, by Admin
+ 
  */
+var cpUpload = upload.fields([
+  { name: 'image', maxCount: 1 },
+  { name: 'eduCertif', maxCount: 1 },
+  { name: 'nationalCard', maxCount: 1 }
+])
 router.post(
   '/:id/base',
   requireAuth,
   roleAuthorization(['admin']),
-  upload.single('image'),
+  cpUpload,
+  // upload.single('image'),
+  // upload.single('eduCertif'),
+  // upload.single('nationalCard'),
   trimRequest.all,
   validateAddBaseInfo,
   async (req, res) => {
@@ -49,7 +58,8 @@ router.post(
   '/base',
   requireAuth,
   roleAuthorization(['user']),
-  upload.single('image'),
+  // upload.single('image'),
+  cpUpload,
   trimRequest.all,
   validateAddBaseInfoUser,
   createBaseInfoUser

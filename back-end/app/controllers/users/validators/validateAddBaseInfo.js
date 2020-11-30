@@ -37,6 +37,8 @@ const validateAddBaseInfo = [
   check('firstName').optional(),
   check('lastName').optional(),
   check('image').optional(),
+  check('eduCertif').optional(),
+  check('nationalCard').optional(),
   check('job').optional(),
   check('description').optional(),
   (req, res, next) => {

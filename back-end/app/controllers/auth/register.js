@@ -24,13 +24,17 @@ const register = async (req, res) => {
     if (!userExists) {
       const item = await registerUser(req)
       const userInfo = await setUserInfo(item)
-      sendVerificationSMS(item.phone, item.verification)
-      // console.log('verification: ', item.verification)
+      if (process.env.NODE_ENV === 'production') {
+        sendVerificationSMS(item.phone, item.verification)
+      }
+      console.log('verification: ', item.verification)
       res.status(201).json({ 'new user': userInfo })
     } else {
       const newToken = await changeVerificationCode(req.phone)
-      const data = await sendVerificationSMS(req.phone, newToken)
-      // console.log('verification: ', newToken)
+      if (process.env.NODE_ENV === 'production') {
+        const data = await sendVerificationSMS(req.phone, newToken)
+      }
+      console.log('verification: ', newToken)
       res.status(202).json('verification SMS sent')
     }
   } catch (error) {

@@ -1,0 +1,723 @@
+{
+	"info": {
+		"_postman_id": "2272872e-cc00-43b3-a317-091a199b1d14",
+		"name": "cvBuilder Copy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3001/users/contactInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "mag@mag.com",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/contactInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"contactInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/contactInfo",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true,
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b7692057ab9fed2344460413f58469fae8df70eb4eb56d02e1d3d23eb0f1b83e7f116e08cdb381da7422627bb715682f45ebc0fe3be0c617c87a63c78033409236e8a7c7d36f36d131933fadedb33674ec759130b3bd1cd59d136c5f31802269e02c9454a374981f4d72f66e8834ae695303270c76c54cca24f84b424c704fa5b8ead32eba871bf94355726fb52391ac082",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "mag@mag.com",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/5fb1770583beef44b949c6d5/csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"5fb1770583beef44b949c6d5",
+						"csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/contactInfo",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "mag@mag.com",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "09123455588",
+							"type": "text"
+						},
+						{
+							"key": "tel",
+							"value": "88888888",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/contactInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"contactInfo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/base",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "برنامه نویس فول استک",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/base",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"base"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/base",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "description",
+							"value": "مجتبی",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/base",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"base"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/docs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "docType",
+							"value": "nationalCard",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "docType",
+							"value": "eduCertif",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/docs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"docs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/edus",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "fieldEdu",
+							"value": "کامپیوتر",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/edus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"edus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/edus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2a019615c8799d4f9dc4ac58a7feb6e28481eb56fee1971d059b809bd4e1f9c267cb13ae393c190c06477f13e40f99a5d47bb6625962fbf52809e5305c6ddc17c3216bdef6da9b0399363b5faabcaeed2083cb9ffee161563857a043512ec91d8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "fieldEdu",
+							"value": "کامپیوتر",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/edus",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"edus"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/research",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2838a5ed57b9ef8f33d392fafd41f87d8ff782c3d7158b684cb4ef70d03d02f6eb73ab67c3e45ab47d98f88221c72cca302aa21c71226bb49c05b671ac534dc46b783993ba8486b76711a41354eed4eb9ddb4ef7af1c1a99b72d201282ede91eb",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "researchType",
+							"value": "کتاب",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/research",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"research"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users/research",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2bfb92f18bbb996f591da90f18f8a8ccd365def8421f8b9d331bcfe5093e838b3d95dce9312bfaa62f94c999c67d65ae5a6fd1a2e01ee3d3b451025736dc6db853ad7933bc6afdbd50db09b9f40fb1639361b611638725ab42a4b30ffc954f9cc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "researchTitle",
+							"value": "کتاب",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users/research",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users",
+						"research"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/login",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2bfb92f18bbb996f591da90f18f8a8ccd365def8421f8b9d331bcfe5093e838b3d95dce9312bfaa62f94c999c67d65ae5a6fd1a2e01ee3d3b451025736dc6db853ad7933bc6afdbd50db09b9f40fb1639361b611638725ab42a4b30ffc954f9cc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b7692057ab9fed2344460413f58469fae8df70eb4eb56d02e1d3d23eb0f1b83e7f116e08cdb381da7422627bb715682f45e9b1d43b5aba5d9aae42bba92d2557f423479ff57a1140cafec65828afacd0e22a460978a51bddbc71d852aec997a787893fe3def77c2721d5203c832499e4e53f4b69ddc025111136254e18c957da35dcc4dfc29bcfeb573d0788a2ff2b978f1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/sendsms",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2bfb92f18bbb996f591da90f18f8a8ccd365def8421f8b9d331bcfe5093e838b3d95dce9312bfaa62f94c999c67d65ae5a6fd1a2e01ee3d3b451025736dc6db853ad7933bc6afdbd50db09b9f40fb1639361b611638725ab42a4b30ffc954f9cc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "phone",
+							"value": "09900890108",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/sendsms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"sendsms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/verify",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b76e48803d7321b0991d031e9d2872286519ea0c516dc2eeaeaebf512c7dc894115a704df5ede5bea35b782cb20beba07b2bfb92f18bbb996f591da90f18f8a8ccd365def8421f8b9d331bcfe5093e838b3d95dce9312bfaa62f94c999c67d65ae5a6fd1a2e01ee3d3b451025736dc6db853ad7933bc6afdbd50db09b9f40fb1639361b611638725ab42a4b30ffc954f9cc",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "426239",
+							"type": "text"
+						},
+						{
+							"key": "phone",
+							"value": "09900890108",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/verify",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"verify"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3001/users",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "b0177568358a95709dbef7a7ec2f793027851b42a4b6c16e4bc62f213e3a20519874e1c01f24b57051b7a22f4fb11b7692057ab9fed2344460413f58469fae8df70eb4eb56d02e1d3d23eb0f1b83e7f116e08cdb381da7422627bb715682f45eed56d0759d76a30870a70ab51e10dffb6b5c5cd6cadc18939e038a564fe9852804761ed55555337853d3b7116cb17e6ff0cbbed6ff510a7042ff86570fff893da99a9c23ab1faf63931f7ad1b9ed82486896f899596fb4b6d27f6d09878e5c89",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@admin.com\",\r\n  \"password\": \"12345\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3001/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3001",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "media",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
