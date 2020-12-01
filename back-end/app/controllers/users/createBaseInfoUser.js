@@ -18,15 +18,25 @@ const createBaseInfoUser = async (req, res) => {
     }
     req = matchedData(req)
     if (files) {
-      req.image = files.image[0].filename
-      ;(req.eduCertif = {
-        file: files.eduCertif[0].filename,
-        title: files.eduCertif[0].originalname
-      }),
-        (req.nationalCard = {
-          file: files.nationalCard[0].filename,
-          title: files.nationalCard[0].originalname
-        })
+      if (files.image) {
+        req.image = files.image ? files.image[0].filename : undefined
+      }
+      if (files.eduCertif) {
+        req.eduCertif = files.eduCertif
+          ? {
+              file: files.eduCertif[0].filename,
+              title: files.eduCertif[0].originalname
+            }
+          : undefined
+      }
+      if (files.nationalCard) {
+        req.nationalCard = files.nationalCard
+          ? {
+              file: files.nationalCard[0].filename,
+              title: files.nationalCard[0].originalname
+            }
+          : undefined
+      }
     }
 
     if (userBaseInfoId == null) {
