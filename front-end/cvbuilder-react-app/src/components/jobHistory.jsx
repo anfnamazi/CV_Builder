@@ -15,7 +15,8 @@ const JobHistory = () => {
 
   const dispatch = useDispatch();
 
-  const handleSaveJobHistories = async () => {
+  const handleSaveJobHistories = async (e) => {
+    e.preventDefault();
     const response = await saveJobHistories(jobs);
     if (response.status < 210) {
       context.handleNext();

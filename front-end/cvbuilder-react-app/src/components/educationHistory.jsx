@@ -15,7 +15,8 @@ const EducationHistory = () => {
 
   const edus = useSelector((state) => state.edus);
 
-  const handleSaveEducationHistories = async () => {
+  const handleSaveEducationHistories = async (e) => {
+    e.preventDefault();
     const response = await saveEducationHistories(edus);
     if (response.status < 210) {
       context.handleNext();

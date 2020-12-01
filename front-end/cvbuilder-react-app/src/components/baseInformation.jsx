@@ -65,12 +65,12 @@ const BaseInfo = () => {
   const {
     firstName,
     lastName,
-    job,
     birthDay,
     gender,
     marital,
     military,
-    description,
+    nationalCard,
+    eduCertif,
     image,
   } = context.allResume.userBaseInfo;
 
@@ -86,7 +86,6 @@ const BaseInfo = () => {
     socialMediaName,
     socialMediaId,
   } = context.allResume.contactInfo;
-  const docs = context.allResume.docs;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -136,6 +135,7 @@ const BaseInfo = () => {
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
     // formData.append("job", job);
+    formData.append("nationalCard", nationalCard);
     formData.append("gender", gender);
     formData.append("marital", marital);
     formData.append("military", military);
@@ -144,17 +144,8 @@ const BaseInfo = () => {
       formData.append("image", image);
     }
     formData.append("birthDay", birthDay);
-
-    const nationalCardFormData = new FormData();
-    const eduCertifFormData = new FormData();
-
-    if (nationalCard) {
-      nationalCardFormData.append("docType", "nationalCard");
-      nationalCardFormData.append("file", nationalCard);
-    }
     if (eduCertif) {
-      eduCertifFormData.append("docType", "eduCertif");
-      eduCertifFormData.append("file", eduCertif);
+      formData.append("eduCertif", eduCertif);
     }
 
     const contactForm = {
@@ -173,13 +164,6 @@ const BaseInfo = () => {
     const response = await saveBaseInfo(formData);
 
     const response2 = await saveContactInfo(contactForm);
-
-    if (nationalCard) {
-      const response3 = await saveDocsInfo(nationalCardFormData, docs[0]._id);
-    }
-    if (eduCertif) {
-      const response4 = await saveDocsInfo(eduCertifFormData, docs[1]._id);
-    }
 
     if (response.status < 210 && response2.status < 210) {
       context.handleNext();
@@ -206,9 +190,11 @@ const BaseInfo = () => {
     if (city) {
       setcityState({ city });
     }
-    if (Boolean(docs[0]) && Boolean(docs[1])) {
-      setidCard(<Check />);
-      setevidence(<Check />);
+    if (nationalCard) {
+      setidCard(nationalCard.title);
+    }
+    if (eduCertif) {
+      setevidence(eduCertif.title);
     }
   }, []);
 
@@ -467,7 +453,7 @@ const BaseInfo = () => {
                 name="nationalCard"
                 // defaultValue={docs[0].file}
                 onChange={onChangeIdCard}
-                required={!Boolean(docs[0])}
+                required={!Boolean(nationalCard)}
               />
             </div>
           </Grid>

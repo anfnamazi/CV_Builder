@@ -205,6 +205,7 @@ const Login = () => {
                             color="secondary"
                             size="medium"
                             type="button"
+                            disabled={counter <= 0 ? false : true}
                             onClick={() => setshowverify(false)}
                           >
                             برگشت
