@@ -4,6 +4,7 @@ import {
   FormControl,
   Grid,
   Hidden,
+  IconButton,
   InputLabel,
   MenuItem,
   Paper,
@@ -11,9 +12,19 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import { CastForEducation, SkipPrevious } from "@material-ui/icons";
+import { Add, CastForEducation, Close, SkipPrevious } from "@material-ui/icons";
 import { Rating } from "@material-ui/lab";
 import React, { useContext, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addLanguage,
+  changehearSkill,
+  changelanguage,
+  changereadSkill,
+  changespeakSkill,
+  changewriteSkill,
+  removeLanguage,
+} from "../action/language";
 import ResumeContext from "../context/resumeContext";
 import { saveLanguageSkills, saveHonores } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
@@ -40,18 +51,13 @@ const Skill = () => {
 
   const context = useContext(ResumeContext);
 
-  const { readSkill, writeSkill, hearSkill, speakSkill } = context.allResume
-    .skills.length
-    ? context.allResume.skills[context.allResume.skills.length - 2]
-    : [{}];
+  const dispatch = useDispatch();
+
+  const languages = useSelector((state) => state.languages);
 
   const { experienceSkillLevel } = context.allResume.skills.length
     ? context.allResume.skills[context.allResume.skills.length - 1]
     : [{}];
-
-  const language = context.allResume.skills.length
-    ? context.allResume.skills[context.allResume.skills.length - 2].Name
-    : "";
 
   const experienceSkillTitle = context.allResume.skills.length
     ? context.allResume.skills[context.allResume.skills.length - 1].Name
@@ -119,63 +125,98 @@ const Skill = () => {
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         زبان
       </Typography>
-      <Paper style={{ padding: "25px 30px" }}>
-        <Grid container justify="center" spacing={2}>
-          <Grid md={4} item>
-            <TextField
-              className={classes.formControl}
-              label="نام زبان"
-              required
-              name="language"
-              defaultValue={language}
-            />
-          </Grid>
-          <Grid md={2} item>
-            <Box component="fieldset" borderColor="transparent">
-              <Typography component="legend">خواندن</Typography>
-              <Rating
-                size="small"
+      {languages.map((language, index) => (
+        <Paper
+          style={{
+            padding: "25px 30px",
+            marginBottom: 15,
+            position: "relative",
+          }}
+        >
+          {languages.length > 1 ? (
+            <IconButton
+              color="secondary"
+              onClick={() => dispatch(removeLanguage(index))}
+              size="small"
+              style={{ position: "absolute", top: 5, left: 5 }}
+            >
+              <Close />
+            </IconButton>
+          ) : null}
+          <Grid container justify="center" spacing={2}>
+            <Grid md={4} item>
+              <TextField
+                className={classes.formControl}
+                label="نام زبان"
                 required
-                name="readSkill"
-                defaultValue={readSkill}
+                name="language"
+                defaultValue={language.language}
+                onBlur={(e) => dispatch(changelanguage(e, index))}
               />
-            </Box>
+            </Grid>
+            <Grid md={2} item>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography component="legend">خواندن</Typography>
+                <Rating
+                  size="small"
+                  required
+                  // name="readSkill"
+                  value={language.readSkill}
+                  onChange={(e) => dispatch(changereadSkill(e, index))}
+                />
+              </Box>
+            </Grid>
+            <Grid md={2} item>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography component="legend">نوشتن</Typography>
+                <Rating
+                  size="small"
+                  required
+                  // name="writeSkill"
+                  value={language.writeSkill}
+                  onChange={(e) => dispatch(changewriteSkill(e, index))}
+                />
+              </Box>
+            </Grid>
+            <Grid md={2} item>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography component="legend">شنیداری</Typography>
+                <Rating
+                  size="small"
+                  required
+                  // name="hearSkill"
+                  value={language.hearSkill}
+                  onChange={(e) => dispatch(changehearSkill(e, index))}
+                />
+              </Box>
+            </Grid>
+            <Grid md={2} item>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography component="legend">گفتاری</Typography>
+                <Rating
+                  size="small"
+                  required
+                  // name="speakSkill"
+                  value={language.speakSkill}
+                  onChange={(e) => dispatch(changespeakSkill(e, index))}
+                />
+              </Box>
+            </Grid>
           </Grid>
-          <Grid md={2} item>
-            <Box component="fieldset" borderColor="transparent">
-              <Typography component="legend">نوشتن</Typography>
-              <Rating
-                size="small"
-                required
-                name="writeSkill"
-                defaultValue={writeSkill}
-              />
-            </Box>
-          </Grid>
-          <Grid md={2} item>
-            <Box component="fieldset" borderColor="transparent">
-              <Typography component="legend">شنیداری</Typography>
-              <Rating
-                size="small"
-                required
-                name="hearSkill"
-                defaultValue={hearSkill}
-              />
-            </Box>
-          </Grid>
-          <Grid md={2} item>
-            <Box component="fieldset" borderColor="transparent">
-              <Typography component="legend">گفتاری</Typography>
-              <Rating
-                size="small"
-                required
-                name="speakSkill"
-                defaultValue={speakSkill}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      ))}
+      <Grid container spacing={1}>
+        <Fab
+          color="primary"
+          size="small"
+          style={{ margin: "auto" }}
+          onClick={() => {
+            dispatch(addLanguage());
+          }}
+        >
+          <Add />
+        </Fab>
+      </Grid>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         مهارت های تجربی
       </Typography>
