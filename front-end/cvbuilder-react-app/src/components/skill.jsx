@@ -17,6 +17,13 @@ import { Rating } from "@material-ui/lab";
 import React, { useContext, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  addexperimentalSkill,
+  changeexperienceDescription,
+  changeexperienceSkillLevel,
+  changeexperienceSkillTitle,
+  removeexperimentalSkill,
+} from "../action/experimentalSkills";
+import {
   addLanguage,
   changehearSkill,
   changelanguage,
@@ -54,14 +61,7 @@ const Skill = () => {
   const dispatch = useDispatch();
 
   const languages = useSelector((state) => state.languages);
-
-  const { experienceSkillLevel } = context.allResume.skills.length
-    ? context.allResume.skills[context.allResume.skills.length - 1]
-    : [{}];
-
-  const experienceSkillTitle = context.allResume.skills.length
-    ? context.allResume.skills[context.allResume.skills.length - 1].Name
-    : "";
+  const experimentalSkills = useSelector((state) => state.experimentalSkills);
 
   const { honorTitle, honorMonth, honorYear } = context.allResume.honors.length
     ? context.allResume.honors[context.allResume.honors.length - 1]
@@ -221,38 +221,77 @@ const Skill = () => {
         مهارت های تجربی
       </Typography>
       <Grid container spacing={1}>
-        <Grid item spacing={3} xs={12} sm={6}>
-          <Paper style={{ padding: "25px 30px" }}>
-            <Grid container justify="center" spacing={2}>
-              <Grid xs={6} item>
-                <TextField
-                  label="نام مهارت"
-                  name="experienceSkillTitle"
-                  defaultValue={experienceSkillTitle}
-                />
-              </Grid>
-              <Grid xs={6} item>
-                <Box component="fieldset" borderColor="transparent">
-                  <Typography component="legend">سطح</Typography>
-                  <Rating
-                    size="small"
-                    name="experienceSkillLevel"
-                    defaultValue={experienceSkillLevel}
+        {experimentalSkills.map((experimentalSkill, index) => (
+          <Grid item spacing={3} xs={12} sm={6}>
+            <Paper
+              style={{
+                padding: "25px 30px",
+                marginBottom: 15,
+                position: "relative",
+              }}
+            >
+              {experimentalSkills.length > 1 ? (
+                <IconButton
+                  color="secondary"
+                  onClick={() => dispatch(removeexperimentalSkill(index))}
+                  size="small"
+                  style={{ position: "absolute", top: 5, left: 5 }}
+                >
+                  <Close />
+                </IconButton>
+              ) : null}
+              <Grid container justify="center" spacing={2}>
+                <Grid xs={6} item>
+                  <TextField
+                    label="نام مهارت"
+                    name="experienceSkillTitle"
+                    defaultValue={experimentalSkill.experienceSkillTitle}
+                    onBlur={(e) =>
+                      dispatch(changeexperienceSkillTitle(e, index))
+                    }
                   />
-                </Box>
+                </Grid>
+                <Grid xs={6} item>
+                  <Box component="fieldset" borderColor="transparent">
+                    <Typography component="legend">سطح</Typography>
+                    <Rating
+                      size="small"
+                      // name="experienceSkillLevel"
+                      value={experimentalSkill.experienceSkillLevel}
+                      onChange={(e) =>
+                        dispatch(changeexperienceSkillLevel(e, index))
+                      }
+                    />
+                  </Box>
+                </Grid>
+                <Grid xs={12} item>
+                  <TextField
+                    className={classes.formControl}
+                    name="experienceDescription"
+                    defaultValue={experimentalSkill.experienceDescription}
+                    onBlur={(e) =>
+                      dispatch(changeexperienceDescription(e, index))
+                    }
+                    multiline
+                    label="توضیحات"
+                  />
+                </Grid>
               </Grid>
-              <Grid xs={12} item>
-                <TextField
-                  className={classes.formControl}
-                  name="experienceDescription"
-                  // defaultValue={experienceDescription}
-                  multiline
-                  label="توضیحات"
-                />
-              </Grid>
-            </Grid>
-          </Paper>
-        </Grid>
+            </Paper>
+          </Grid>
+        ))}
+      </Grid>
+      <Grid container spacing={1}>
+        <Fab
+          color="primary"
+          size="small"
+          style={{ margin: "auto" }}
+          onClick={() => {
+            dispatch(addexperimentalSkill());
+          }}
+        >
+          <Add />
+        </Fab>
       </Grid>
       {/* <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         دوره ها و گواهینامه
