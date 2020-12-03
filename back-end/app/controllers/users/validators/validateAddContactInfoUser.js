@@ -5,7 +5,7 @@ const { check } = require('express-validator')
  * Validates create new item request
  */
 const validateAddContactInfoUser = [
-  check('email').optional().isEmail().withMessage('NOT_VALID_EMAIL'),
+  check('email').optional(),
   check('phone')
     .optional()
     .isMobilePhone('fa-IR')

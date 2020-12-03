@@ -11,7 +11,7 @@ const validateAddContactInfo = [
     .not()
     .isEmpty()
     .withMessage('IS_EMPTY'),
-  check('email').optional().isEmail().withMessage('NOT_VALID_EMAIL'),
+  check('email').optional(),
   check('phone')
     .optional()
     .isMobilePhone('fa-IR')
