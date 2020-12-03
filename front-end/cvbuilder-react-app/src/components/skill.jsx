@@ -24,6 +24,13 @@ import {
   removeexperimentalSkill,
 } from "../action/experimentalSkills";
 import {
+  addHonor,
+  changehonorMonth,
+  changehonorTitle,
+  changehonorYear,
+  removeHonor,
+} from "../action/honors";
+import {
   addLanguage,
   changehearSkill,
   changelanguage,
@@ -62,10 +69,7 @@ const Skill = () => {
 
   const languages = useSelector((state) => state.languages);
   const experimentalSkills = useSelector((state) => state.experimentalSkills);
-
-  const { honorTitle, honorMonth, honorYear } = context.allResume.honors.length
-    ? context.allResume.honors[context.allResume.honors.length - 1]
-    : [{}];
+  const honors = useSelector((state) => state.honors);
 
   // const onChangeEvidence = (event) => {
   //   setevidence(event.target.files[0].name);
@@ -330,48 +334,80 @@ const Skill = () => {
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         افتخارات
       </Typography>
-      <Paper style={{ padding: "25px 30px" }}>
-        <Grid container justify="center" spacing={2}>
-          <Grid xs={12} md={8} item>
-            <TextField
-              name="honorTitle"
-              defaultValue={honorTitle}
-              label="عنوان"
-              className={classes.formControl}
-              placeholder="به طور مثال: برنده جایزه، مقاله برتر پژوهشگاه، دانشجوی ممتاز کارشناسی ارشد"
-            />
-          </Grid>
-          <Grid xs={12} md={4} item>
-            <InputLabel>تاریخ</InputLabel>
-            <Grid container spacing={1}>
-              <Grid item xs={6}>
-                <Select
-                  name="honorMonth"
-                  defaultValue={honorMonth}
-                  className={classes.formControl}
-                  // defaultValue="def"
-                >
-                  <MenuItem disabled value="def">
-                    ماه
-                  </MenuItem>
-                  {months.map((v, k) => (
-                    <MenuItem value={k + 1}>{v}</MenuItem>
-                  ))}
-                </Select>
-              </Grid>
-              <Grid item xs={6}>
-                <TextField
-                  name="honorYear"
-                  defaultValue={honorYear}
-                  placeholder="سال"
-                  type="number"
-                  className={classes.formControl}
-                />
+      {honors.map((honor, index) => (
+        <Paper
+          style={{
+            padding: "25px 30px",
+            marginBottom: 15,
+            position: "relative",
+          }}
+        >
+          {honors.length > 1 ? (
+            <IconButton
+              color="secondary"
+              onClick={() => dispatch(removeHonor(index))}
+              size="small"
+              style={{ position: "absolute", top: 5, left: 5 }}
+            >
+              <Close />
+            </IconButton>
+          ) : null}
+          <Grid container justify="center" spacing={2}>
+            <Grid xs={12} md={8} item>
+              <TextField
+                name="honorTitle"
+                defaultValue={honor.honorTitle}
+                onBlur={(e) => dispatch(changehonorTitle(e, index))}
+                label="عنوان"
+                className={classes.formControl}
+                placeholder="به طور مثال: برنده جایزه، مقاله برتر پژوهشگاه، دانشجوی ممتاز کارشناسی ارشد"
+              />
+            </Grid>
+            <Grid xs={12} md={4} item>
+              <InputLabel>تاریخ</InputLabel>
+              <Grid container spacing={1}>
+                <Grid item xs={6}>
+                  <Select
+                    name="honorMonth"
+                    defaultValue={honor.honorMonth}
+                    onChange={(e) => dispatch(changehonorMonth(e, index))}
+                    className={classes.formControl}
+                  >
+                    <MenuItem disabled value="def">
+                      ماه
+                    </MenuItem>
+                    {months.map((v, k) => (
+                      <MenuItem value={k + 1}>{v}</MenuItem>
+                    ))}
+                  </Select>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    name="honorYear"
+                    defaultValue={honor.honorYear}
+                    onBlur={(e) => dispatch(changehonorYear(e, index))}
+                    placeholder="سال"
+                    type="number"
+                    className={classes.formControl}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Grid>
-      </Paper>
+        </Paper>
+      ))}
+      <Grid container spacing={1}>
+        <Fab
+          color="primary"
+          size="small"
+          style={{ margin: "auto" }}
+          onClick={() => {
+            dispatch(addHonor());
+          }}
+        >
+          <Add />
+        </Fab>
+      </Grid>
       <Fab
         style={{
           position: "fixed",
