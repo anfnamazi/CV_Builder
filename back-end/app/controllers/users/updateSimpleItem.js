@@ -11,8 +11,10 @@ const updateSimpleItem = async (req, res, model = {}) => {
   try {
     let id = req.params.id || ''
     id = await isIDGood(id)
-    req = matchedData(req)
-    let item = await updateItem(id, model, req)
+    // const body = req.body
+    // req = matchedData(req)
+    // req.body = body
+    let item = await updateItem(id, model, req.body)
     res.status(200).json(item)
   } catch (error) {
     handleError(res, error)

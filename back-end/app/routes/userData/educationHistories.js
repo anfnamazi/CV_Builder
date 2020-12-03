@@ -58,12 +58,21 @@ router.post(
   createEducationHistoryUser
 )
 
+router.put(
+  '/edus/:edusID',
+  requireAuth,
+  roleAuthorization(['user']),
+  trimRequest.all,
+  validateAddEducationHistoryUser,
+  createEducationHistoryUser
+)
+
 router.post(
   '/edus/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
-  trimRequest.all,
-  validateAddEducationHistoryUser,
+  // trimRequest.all,
+  // validateAddEducationHistoryUser,
   async (req, res) => {
     try {
       if (req.user.role == 'admin') {
