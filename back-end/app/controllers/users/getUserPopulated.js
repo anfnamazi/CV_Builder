@@ -25,7 +25,15 @@ const getUserPopulated = async (req, res) => {
       'skills',
       'honors'
     ])
-    res.status(200).json(item)
+    const doc = item.toObject({ getters: true })
+    if (!doc.userBaseInfo) {
+      doc.userBaseInfo = []
+    }
+    if (!doc.contactInfo) {
+      doc.contactInfo = []
+    }
+
+    res.status(200).send(doc)
   } catch (error) {
     handleError(res, error)
   }
