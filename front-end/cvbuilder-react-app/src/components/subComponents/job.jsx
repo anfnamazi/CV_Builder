@@ -95,6 +95,7 @@ const Job = ({ job, index, length }) => {
               onBlur={(e) => dispatch(changejobTitle(e, index))}
               name="jobTitle"
               required
+              key={Math.random()}
               defaultValue={job.jobTitle}
               label={
                 <Fragment>
@@ -128,6 +129,7 @@ const Job = ({ job, index, length }) => {
             onBlur={(e) => dispatch(changejobCenter(e, index))}
             name="jobCenter"
             required
+            key={Math.random()}
             defaultValue={job.jobCenter}
             label="مرکز شغلی"
           />
@@ -138,6 +140,7 @@ const Job = ({ job, index, length }) => {
             onBlur={(e) => dispatch(changetitleCenter(e, index))}
             name="titleCenter"
             required
+            key={Math.random()}
             defaultValue={job.titleCenter}
             label="عنوان مرکز"
           />
@@ -254,6 +257,7 @@ const Job = ({ job, index, length }) => {
                 onBlur={(e) => dispatch(changestartJobYear(e, index))}
                 name="startJobYear"
                 required
+                key={Math.random()}
                 defaultValue={job.startJobYear}
                 type="number"
                 placeholder="سال"
@@ -287,6 +291,7 @@ const Job = ({ job, index, length }) => {
                 onBlur={(e) => dispatch(changeendJobYear(e, index))}
                 name="endJobYear"
                 required={!Boolean(job.stillWorking)}
+                key={Math.random()}
                 defaultValue={job.endJobYear}
                 type="number"
                 disabled={job.stillWorking}
@@ -319,6 +324,7 @@ const Job = ({ job, index, length }) => {
             onBlur={(e) => dispatch(changeincome(e, index))}
             name="income"
             required
+            key={Math.random()}
             defaultValue={job.income}
             type="number"
             placeholder="4000000 تومان"
@@ -334,6 +340,7 @@ const Job = ({ job, index, length }) => {
             name="phoneNumber"
             required
             InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
+            key={Math.random()}
             defaultValue={job.number}
             className={classes.formControl}
           />
@@ -359,6 +366,7 @@ const Job = ({ job, index, length }) => {
           className={classes.formControl}
           onBlur={(e) => dispatch(changejobDescription(e, index))}
           name="jobDescription"
+          key={Math.random()}
           defaultValue={job.jobDescription}
           multiline
           label="وظایف و دستاوردها"

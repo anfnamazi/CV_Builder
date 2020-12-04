@@ -154,6 +154,7 @@ const Skill = () => {
                 label="نام زبان"
                 required
                 name="language"
+                key={Math.random()}
                 defaultValue={language.language}
                 onBlur={(e) => dispatch(changelanguage(e, index))}
               />
@@ -249,6 +250,7 @@ const Skill = () => {
                   <TextField
                     label="نام مهارت"
                     name="experienceSkillTitle"
+                    key={Math.random()}
                     defaultValue={experimentalSkill.experienceSkillTitle}
                     onBlur={(e) =>
                       dispatch(changeexperienceSkillTitle(e, index))
@@ -272,6 +274,7 @@ const Skill = () => {
                   <TextField
                     className={classes.formControl}
                     name="experienceDescription"
+                    key={Math.random()}
                     defaultValue={experimentalSkill.experienceDescription}
                     onBlur={(e) =>
                       dispatch(changeexperienceDescription(e, index))
@@ -356,6 +359,7 @@ const Skill = () => {
             <Grid xs={12} md={8} item>
               <TextField
                 name="honorTitle"
+                key={Math.random()}
                 defaultValue={honor.honorTitle}
                 onBlur={(e) => dispatch(changehonorTitle(e, index))}
                 label="عنوان"
@@ -369,6 +373,7 @@ const Skill = () => {
                 <Grid item xs={6}>
                   <Select
                     name="honorMonth"
+                    key={Math.random()}
                     defaultValue={honor.honorMonth}
                     onChange={(e) => dispatch(changehonorMonth(e, index))}
                     className={classes.formControl}
@@ -384,6 +389,7 @@ const Skill = () => {
                 <Grid item xs={6}>
                   <TextField
                     name="honorYear"
+                    key={Math.random()}
                     defaultValue={honor.honorYear}
                     onBlur={(e) => dispatch(changehonorYear(e, index))}
                     placeholder="سال"

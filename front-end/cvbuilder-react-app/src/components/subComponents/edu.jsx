@@ -83,6 +83,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeFieldEdu(e, index))}
             name="fieldEdu"
             required
+            key={Math.random()}
             defaultValue={edu.fieldEdu}
           />
         </Grid>
@@ -93,6 +94,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeOrientationEdu(e, index))}
             name="orientationEdu"
             required
+            key={Math.random()}
             defaultValue={edu.orientationEdu}
           />
         </Grid>
@@ -118,6 +120,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeUniName(e, index))}
             name="uniName"
             required
+            key={Math.random()}
             defaultValue={edu.uniName}
           />
         </Grid>
@@ -128,6 +131,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeAverageEdu(e, index))}
             name="averageEdu"
             required
+            key={Math.random()}
             defaultValue={edu.averageEdu}
             type="number"
             inputProps={{ step: "0.01" }}
@@ -195,6 +199,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeStartEdu(e, index))}
             name="startEdu"
             required
+            key={Math.random()}
             defaultValue={edu.startEdu}
             placeholder="سال"
             type="number"
@@ -207,6 +212,7 @@ const Edu = ({ edu, index, length }) => {
             onBlur={(e) => dispatch(changeEndEdu(e, index))}
             name="endEdu"
             required={!Boolean(edu.stillStudying)}
+            key={Math.random()}
             defaultValue={edu.endEdu}
             // defaultValue={edu.stillStudying ? "" : null}
             disabled={edu.stillStudying}
