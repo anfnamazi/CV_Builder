@@ -70,14 +70,13 @@ const Project = () => {
 
   const handleSaveResearches = async (event) => {
     event.preventDefault();
+    const responseResearch = await saveResearches(researches);
+    const responseProject = await saveProjects(projects);
 
-    // const responseResearch = await saveResearches(researchForm);
-
-    // const responseProject = await saveProjects(projectForm);
-    // if (responseResearch.status < 210 && responseProject.status < 210) {
-    //   context.handleNext();
-    //   context.initializeData();
-    // }
+    if (responseResearch.status < 210 && responseProject.status < 210) {
+      context.handleNext();
+      context.initializeData();
+    }
   };
 
   const classes = useStyles();

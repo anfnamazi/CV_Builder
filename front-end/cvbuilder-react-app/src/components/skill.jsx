@@ -44,10 +44,6 @@ import { saveLanguageSkills, saveHonores } from "../services/resumeService";
 import { useStyles } from "../utils/styles";
 
 const Skill = () => {
-  // const [evidence, setevidence] = useState(
-  //   "لطفا مدرک مربوطه را بارگذاری کنید."
-  // );
-
   const months = [
     "فروردین",
     "اردیبهشت",
@@ -71,56 +67,20 @@ const Skill = () => {
   const experimentalSkills = useSelector((state) => state.experimentalSkills);
   const honors = useSelector((state) => state.honors);
 
-  // const onChangeEvidence = (event) => {
-  //   setevidence(event.target.files[0].name);
-  // };
-
   const handleSaveSkills = async (event) => {
     event.preventDefault();
-    //   const readSkill = event.target.readSkill.value;
-    //   const language = event.target.language.value;
-    //   const writeSkill = event.target.writeSkill.value;
-    //   const hearSkill = event.target.hearSkill.value;
-    //   const speakSkill = event.target.speakSkill.value;
 
-    //   const languageForm = {
-    //     readSkill,
-    //     Name: language,
-    //     writeSkill,
-    //     hearSkill,
-    //     speakSkill,
-    //     skillType: "language",
-    //   };
-
-    //   const experienceSkillTitle = event.target.experienceSkillTitle.value;
-    //   const experienceSkillLevel = event.target.experienceSkillLevel.value;
-    //   const experimentForm = {
-    //     skillType: "Experimental",
-    //     experienceSkillLevel,
-    //     Name: experienceSkillTitle,
-    //   };
-
-    //   const honorTitle = event.target.honorTitle.value;
-    //   const honorMonth = event.target.honorMonth.value;
-    //   const honorYear = event.target.honorYear.value;
-
-    //   const honorForm = {
-    //     honorTitle,
-    //     honorMonth,
-    //     honorYear,
-    //   };
-
-    //   const response = await saveLanguageSkills(languageForm);
-    //   const response2 = await saveLanguageSkills(experimentForm);
-    //   const response3 = await saveHonores(honorForm);
-    //   if (
-    //     response.status < 210 &&
-    //     response2.status < 210 &&
-    //     response3.status < 210
-    //   ) {
-    //     context.handleNext();
-    //     context.initializeData();
-    //   }
+    const response = await saveLanguageSkills(languages);
+    const response2 = await saveLanguageSkills(experimentalSkills);
+    const response3 = await saveHonores(honors);
+    if (
+      response.status < 210 &&
+      response2.status < 210 &&
+      response3.status < 210
+    ) {
+      context.handleNext();
+      context.initializeData();
+    }
   };
 
   const classes = useStyles();

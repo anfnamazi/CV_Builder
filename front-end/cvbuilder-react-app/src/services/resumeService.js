@@ -39,11 +39,7 @@ export const getDocsInfo = () => {
 }
 
 export const saveEducationHistories = eduHistoryForm => {
-    return http.post(`${config.local_api}/users/edus`, qs.stringify(eduHistoryForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/edus`, eduHistoryForm)
 }
 
 export const getEducationHistories = () => {
@@ -51,11 +47,7 @@ export const getEducationHistories = () => {
 }
 
 export const saveJobHistories = jobHistoryForm => {
-    return http.post(`${config.local_api}/users/jobs`, qs.stringify(jobHistoryForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/jobs`, jobHistoryForm)
 }
 
 export const getJobHistories = () => {
@@ -63,11 +55,7 @@ export const getJobHistories = () => {
 }
 
 export const saveResearches = researchForm => {
-    return http.post(`${config.local_api}/users/researchs`, qs.stringify(researchForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/researchs`, researchForm)
 }
 
 export const getResearches = () => {
@@ -75,11 +63,7 @@ export const getResearches = () => {
 }
 
 export const saveProjects = projectForm => {
-    return http.post(`${config.local_api}/users/projects`, qs.stringify(projectForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/projects`, projectForm)
 }
 
 export const getProjects = () => {
@@ -87,19 +71,11 @@ export const getProjects = () => {
 }
 
 export const saveLanguageSkills = skillForm => {
-    return http.post(`${config.local_api}/users/skills`, qs.stringify(skillForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/skills`, skillForm)
 }
 
 export const saveHonores = honorForm => {
-    return http.post(`${config.local_api}/users/honors`, qs.stringify(honorForm), {
-        headers: {
-            'content-type': 'application/x-www-form-urlencoded'
-        }
-    })
+    return http.post(`${config.local_api}/users/honors`, honorForm)
 }
 
 export const getallResumeByUser = () => {
