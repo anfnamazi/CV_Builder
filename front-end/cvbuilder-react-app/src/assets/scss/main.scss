@@ -46,6 +46,11 @@
     src: url('../fonts/IRANSansWeb900.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'Afsoon';
+    src: url('../fonts/afsoon.woff') format('woff');
+}
+
 * {
     font-family: IranSans !important;
 }
@@ -201,4 +206,9 @@ body {
     display: flex;
     width: 100px;
     justify-content: space-between;
+}
+
+.header-txt {
+    font-family: Afsoon !important;
+    font-size: 20px;
 }
