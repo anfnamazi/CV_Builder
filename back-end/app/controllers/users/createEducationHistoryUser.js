@@ -1,6 +1,7 @@
 const { matchedData } = require('express-validator')
 const { handleError } = require('../../middleware/utils')
 const { createEducationHistoryInDB, addFileNameToReq } = require('./helpers')
+const model = require('../../models/educationHistory')
 
 /**
  * Create contact item for user function called by route
@@ -10,11 +11,23 @@ const { createEducationHistoryInDB, addFileNameToReq } = require('./helpers')
 const createEducationHistoryUser = async (req, res) => {
   try {
     let user = req.user
-    req = matchedData(req)
-    const item = await createEducationHistoryInDB(req, user._id)
-    user.educationHistories.push(item._id)
-    await user.save()
-    res.status(201).json({ 'new item': item })
+    const edusCount = req.body.length
+    let items = []
+    const resultDelete = await model.deleteMany({})
+    if (resultDelete) {
+      user.educationHistories = []
+      req.body.map(async (edusField) => {
+        req = matchedData(req)
+        const item = await createEducationHistoryInDB(edusField, user._id)
+        user.educationHistories.push(item._id)
+
+        items.push(item)
+        if (edusCount === items.length) {
+          await user.save()
+          res.status(201).json({ 'new items': items })
+        }
+      })
+    }
   } catch (error) {
     handleError(res, error)
   }
