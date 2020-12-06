@@ -13,7 +13,7 @@ const createEducationHistoryUser = async (req, res) => {
     let user = req.user
     const edusCount = req.body.length
     let items = []
-    const resultDelete = await model.deleteMany({})
+    const resultDelete = await model.deleteMany({ user: user._id })
     if (resultDelete) {
       user.educationHistories = []
       req.body.map(async (edusField) => {
