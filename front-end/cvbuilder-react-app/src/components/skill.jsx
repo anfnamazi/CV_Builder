@@ -40,7 +40,11 @@ import {
   removeLanguage,
 } from "../action/language";
 import ResumeContext from "../context/resumeContext";
-import { saveLanguageSkills, saveHonores } from "../services/resumeService";
+import {
+  saveLanguageSkills,
+  saveHonores,
+  saveExperimentSkills,
+} from "../services/resumeService";
 import { useStyles } from "../utils/styles";
 
 const Skill = () => {
@@ -71,7 +75,7 @@ const Skill = () => {
     event.preventDefault();
 
     const response = await saveLanguageSkills(languages);
-    const response2 = await saveLanguageSkills(experimentalSkills);
+    const response2 = await saveExperimentSkills(experimentalSkills);
     const response3 = await saveHonores(honors);
     if (
       response.status < 210 &&

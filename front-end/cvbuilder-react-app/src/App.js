@@ -28,7 +28,7 @@ const App = () => {
     <StylesProvider jss={jss}>
       <ToastContainer />
       <Grid container alignItems="center" justify="center"
-        style={{ backgroundColor: "white", boxShadow: "0 5px 10px #00000033", marginBottom: 10 }}>
+        style={{ backgroundColor: "white", boxShadow: "0 5px 10px #00000033", marginBottom: 15 }}>
         <span className="header-txt">حوزه هنر</span>
         <img src={require("./assets/images/hozeHonar.png")} style={{
           margin: "10px", width: 70, height: 70
