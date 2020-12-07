@@ -14,13 +14,13 @@ import config from "../config.json";
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
-    educationHistories: [],
-    jobHistories: [],
-    researchs: [],
-    projects: [],
-    languages: [],
-    experiments: [],
-    honors: [],
+    educationHistories: [{}, {}],
+    jobHistories: [{}, {}],
+    researchs: [{}, {}],
+    projects: [{}, {}],
+    languages: [{}, {}],
+    experiments: [{}, {}],
+    honors: [{}, {}],
     docs: ["", ""],
     userBaseInfo: {},
     contactInfo: {},
@@ -523,9 +523,19 @@ const Pdf = ({ match }) => {
             </Grid>
             <Grid item xs={6}>
               <ListItem>
-                <ListItemText secondary="سطح مهارت:" />
-                {experiment.experienceDescription}/5
+                <ListItemText secondary="توضیحات:" />
+                {experiment.experienceDescription}
               </ListItem>
+              {/* {typeof experiment.experienceDoc === "object" ? (
+                <img
+                  src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
+                  style={{
+                    width: "100%",
+                    margin: "10px 0",
+                  }}
+                  alt=""
+                />
+              ) : null} */}
             </Grid>
           </Grid>
         ))}
