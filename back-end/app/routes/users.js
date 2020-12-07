@@ -36,7 +36,7 @@ router.use(require('./userData/educationHistories')) //edus
 router.use(require('./userData/jobHistories')) // jobs
 router.use(require('./userData/projects')) // projects
 router.use(require('./userData/researchs')) // researchs
-router.use(require('./userData/skills')) // skills
+router.use(require('./userData/languages')) // skills
 router.use(require('./userData/honors')) // honors
 
 /*

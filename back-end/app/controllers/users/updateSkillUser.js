@@ -1,6 +1,6 @@
 const { matchedData } = require('express-validator')
 const { handleError, isIDGood } = require('../../middleware/utils')
-const Skill = require('../../models/skill')
+const Skill = require('../../models/language')
 const { updateItem } = require('../../middleware/db')
 
 /**

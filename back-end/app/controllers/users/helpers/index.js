@@ -9,7 +9,7 @@ const { createEducationHistoryInDB } = require('./createEducationHistoryInDB')
 const { createJobHistoryInDB } = require('./createJobHistoryInDB')
 const { createProjectInDB } = require('./createProjectInDB')
 const { createResearchInDB } = require('./createResearchInDB')
-const { createLanguageinDB } = require('./createLanguageinDB')
+
 const { createLanguageInDB } = require('./createLanguageInDB')
 const { createHonorInDB } = require('./createHonorInDB')
 
@@ -25,6 +25,6 @@ module.exports = {
   createJobHistoryInDB,
   createProjectInDB,
   createResearchInDB,
-  createLanguageinDB,
+  createLanguageInDB,
   createHonorInDB
 }

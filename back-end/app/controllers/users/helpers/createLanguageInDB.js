@@ -1,11 +1,11 @@
-const model = require('../../../models/skill')
+const model = require('../../../models/language')
 const { buildErrObject } = require('../../../middleware/utils')
 /**
  * Creates a new item in database
  * @param {Object} req - request object
  * @param {String} userId - the user_id to add base info for
  */
-const createLanguageinDB = (
+const createLanguageInDB = (
   { Name = '', readSkill = 0, writeSkill = 0, hearSkill = 0, speakSkill = 0 },
   userId
 ) => {
@@ -28,4 +28,4 @@ const createLanguageinDB = (
   })
 }
 
-module.exports = { createLanguageinDB }
+module.exports = { createLanguageInDB }

@@ -1,6 +1,6 @@
 const { matchedData } = require('express-validator')
 const { handleError } = require('../../middleware/utils')
-const { createLanguageinDB } = require('./helpers')
+const { createLanguageInDB } = require('./helpers')
 const model = require('../../models/language')
 /**
  * Create contact item for user function called by route
@@ -17,7 +17,7 @@ const createLanguageUser = async (req, res) => {
       user.languages = []
       req.body.map(async (jobField) => {
         req = matchedData(req)
-        const item = await createLanguageinDB(jobField, user._id)
+        const item = await createLanguageInDB(jobField, user._id)
         user.languages.push(item._id)
 
         items.push(item)

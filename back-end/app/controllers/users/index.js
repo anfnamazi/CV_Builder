@@ -18,7 +18,7 @@ const { updateJobHistoryUser } = require('./updateJobHistoryUser')
 const { createResearchUser } = require('./createResearchUser')
 const { createProjectUser } = require('./createProjectUser')
 const { updateSimpleItem } = require('./updateSimpleItem')
-const { createLanguageUser } = require('./createSkillUser')
+const { createLanguageUser } = require('./createLanguageUser')
 const { updateSkillUser } = require('./updateSkillUser')
 const { createHonorUser } = require('./createHonorUser')
 const { updateHonorUser } = require('./updateHonorUser')
@@ -44,7 +44,7 @@ module.exports = {
   createResearchUser,
   createProjectUser,
   updateSimpleItem,
-  createSkillUser,
+  createLanguageUser,
   updateSkillUser,
   createHonorUser,
   updateHonorUser

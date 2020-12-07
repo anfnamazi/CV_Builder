@@ -9,10 +9,10 @@ const trimRequest = require('trim-request')
 const { roleAuthorization } = require('../../controllers/auth')
 const { findUserById } = require('../../controllers/auth/helpers')
 
+const { updateSkillUser } = require('../../controllers/users')
 const {
-  createLanguageUser,
-  updateSkillUser
-} = require('../../controllers/users')
+  createLanguageUser
+} = require('../../controllers/users/createLanguageUser')
 
 const {
   validateAddSkillUser,
@@ -24,7 +24,7 @@ const {
   isIDGood,
   buildErrObject
 } = require('../../middleware/utils')
-const Skill = require('../../models/skill')
+const Language = require('../../models/language')
 
 /*
  * add or edit BaseInfo of user, by Admin
@@ -54,8 +54,8 @@ router.post(
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
-  validateAddSkillUser,
-  createSkillUser
+  // validateAddSkillUser,
+  createLanguageUser
 )
 
 router.post(
@@ -98,7 +98,7 @@ router.get(
       let user = await findUserById(id)
       res
         .status(201)
-        .json(await getItems(req, Skill, { _id: { $in: user.languages } }))
+        .json(await getItems(req, Language, { _id: { $in: user.languages } }))
     } catch (err) {
       handleError(res, err)
     }
@@ -116,7 +116,9 @@ router.get(
     try {
       res
         .status(201)
-        .json(await getItems(req, Skill, { _id: { $in: req.user.languages } }))
+        .json(
+          await getItems(req, Language, { _id: { $in: req.user.languages } })
+        )
     } catch (err) {
       handleError(res, err)
     }
@@ -131,12 +133,12 @@ router.get(
     try {
       const id = req.params.id || ''
       if (req.user.role == 'admin') {
-        res.status(201).json(await getItem(id, Skill))
+        res.status(201).json(await getItem(id, Language))
         return
       }
       if (Array.isArray(req.user.languages)) {
         if (req.user.languages.includes(id)) {
-          res.status(201).json(await getItem(id, Skill))
+          res.status(201).json(await getItem(id, Language))
           return
         }
       }
