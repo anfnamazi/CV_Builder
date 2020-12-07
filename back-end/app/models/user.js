@@ -93,6 +93,12 @@ const UserSchema = new mongoose.Schema(
         ref: 'Language'
       }
     ],
+    experiments: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Experiment'
+      }
+    ],
     honors: [
       {
         type: Schema.Types.ObjectId,
