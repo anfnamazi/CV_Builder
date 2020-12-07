@@ -22,7 +22,7 @@ const getUserPopulated = async (req, res) => {
       'researchs',
       'projects',
       'docs',
-      'skills',
+      'languages',
       'honors'
     ])
     const doc = item.toObject({ getters: true })

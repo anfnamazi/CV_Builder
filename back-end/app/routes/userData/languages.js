@@ -9,7 +9,10 @@ const trimRequest = require('trim-request')
 const { roleAuthorization } = require('../../controllers/auth')
 const { findUserById } = require('../../controllers/auth/helpers')
 
-const { createSkillUser, updateSkillUser } = require('../../controllers/users')
+const {
+  createLanguageUser,
+  updateSkillUser
+} = require('../../controllers/users')
 
 const {
   validateAddSkillUser,
@@ -27,7 +30,7 @@ const Skill = require('../../models/skill')
  * add or edit BaseInfo of user, by Admin
  */
 router.post(
-  '/:id/skills',
+  '/:id/languages',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
@@ -37,7 +40,7 @@ router.post(
       let id = req.params.id || ''
       id = isIDGood(id)
       req.user = findUserById(id)
-      await createSkillUser(req, res)
+      await createLanguageUser(req, res)
     } catch (err) {
       handleError(res, err)
     }
@@ -47,7 +50,7 @@ router.post(
  * add or edit BaseInfo of user, by himself
  */
 router.post(
-  '/skills',
+  '/languages',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
@@ -56,7 +59,7 @@ router.post(
 )
 
 router.post(
-  '/skills/:id',
+  '/languages/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
@@ -68,8 +71,8 @@ router.post(
         return
       }
       const id = req.params.id || ''
-      if (Array.isArray(req.user.skills)) {
-        if (req.user.skills.includes(id)) {
+      if (Array.isArray(req.user.languages)) {
+        if (req.user.languages.includes(id)) {
           await updateSkillUser(req, res)
           return
         }
@@ -84,7 +87,7 @@ router.post(
  * get BaseInfo of user, by Admin
  */
 router.get(
-  '/:id/skills',
+  '/:id/languages',
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
@@ -95,7 +98,7 @@ router.get(
       let user = await findUserById(id)
       res
         .status(201)
-        .json(await getItems(req, Skill, { _id: { $in: user.skills } }))
+        .json(await getItems(req, Skill, { _id: { $in: user.languages } }))
     } catch (err) {
       handleError(res, err)
     }
@@ -105,7 +108,7 @@ router.get(
  * get BaseInfo of user, by himself
  */
 router.get(
-  '/skills',
+  '/languages',
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
@@ -113,14 +116,14 @@ router.get(
     try {
       res
         .status(201)
-        .json(await getItems(req, Skill, { _id: { $in: req.user.skills } }))
+        .json(await getItems(req, Skill, { _id: { $in: req.user.languages } }))
     } catch (err) {
       handleError(res, err)
     }
   }
 )
 router.get(
-  '/skills/:id',
+  '/languages/:id',
   requireAuth,
   roleAuthorization(['user', 'admin']),
   trimRequest.all,
@@ -131,8 +134,8 @@ router.get(
         res.status(201).json(await getItem(id, Skill))
         return
       }
-      if (Array.isArray(req.user.skills)) {
-        if (req.user.skills.includes(id)) {
+      if (Array.isArray(req.user.languages)) {
+        if (req.user.languages.includes(id)) {
           res.status(201).json(await getItem(id, Skill))
           return
         }
