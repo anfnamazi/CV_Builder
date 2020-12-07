@@ -87,10 +87,10 @@ const UserSchema = new mongoose.Schema(
         ref: 'Project'
       }
     ],
-    skills: [
+    languages: [
       {
         type: Schema.Types.ObjectId,
-        ref: 'Skill'
+        ref: 'Language'
       }
     ],
     honors: [

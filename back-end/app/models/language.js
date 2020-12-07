@@ -34,4 +34,4 @@ const languageschema = new mongoose.Schema(
   }
 )
 languageschema.plugin(mongoosePaginate)
-module.exports = mongoose.model('language', languageschema)
+module.exports = mongoose.model('Language', languageschema)
