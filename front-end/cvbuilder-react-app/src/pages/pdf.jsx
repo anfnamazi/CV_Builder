@@ -14,12 +14,13 @@ import config from "../config.json";
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
-    educationHistories: [],
-    jobHistories: [],
-    researchs: [],
-    projects: [],
-    skills: [],
-    honors: [],
+    educationHistories: [{}, {}],
+    jobHistories: [{}, {}],
+    researchs: [{}, {}],
+    projects: [{}, {}],
+    languages: [{}, {}],
+    experiments: [{}, {}],
+    honors: [{}, {}],
     docs: ["", ""],
     userBaseInfo: {},
     contactInfo: {},
@@ -50,6 +51,8 @@ const Pdf = ({ match }) => {
     military,
     description,
     image,
+    nationalCard,
+    eduCertif,
   } = allInfo.userBaseInfo;
 
   const {
@@ -65,93 +68,6 @@ const Pdf = ({ match }) => {
     socialMediaId,
   } = allInfo.contactInfo;
 
-  const {
-    sectionEdu,
-    fieldEdu,
-    orientationEdu,
-    uniType,
-    uniName,
-    averageEdu,
-    uniCountry,
-    uniProvince,
-    uniCity,
-    startEdu,
-    endEdu,
-    stillStudying,
-  } = allInfo.educationHistories.length
-    ? allInfo.educationHistories[allInfo.educationHistories.length - 1]
-    : [{}];
-
-  const {
-    jobTitle,
-    jobGroup,
-    jobCenter,
-    titleCenter,
-    cooperateType,
-    seniorLevel,
-    jobCountry,
-    jobProvince,
-    jobCity,
-    startJobMonth,
-    startJobYear,
-    endJobMonth,
-    endJobYear,
-    income,
-    number,
-    jobDescription,
-    stillWorking,
-  } = allInfo.jobHistories.length
-    ? allInfo.jobHistories[allInfo.jobHistories.length - 1]
-    : [{}];
-
-  const {
-    researchType,
-    researchTitle,
-    articleType,
-    publisher,
-    researchHyperlink,
-    researchMonth,
-    researchYear,
-    researchDescription,
-  } = allInfo.researchs.length
-    ? allInfo.researchs[allInfo.researchs.length - 1]
-    : [{}];
-
-  const {
-    projectTitle,
-    projectEmployer,
-    projectHyperlink,
-    startProjectMonth,
-    startProjectYear,
-    endProjectMonth,
-    endProjectYear,
-    projectDescription,
-  } = allInfo.projects.length
-    ? allInfo.projects[allInfo.projects.length - 1]
-    : [{}];
-
-  const { readSkill, writeSkill, hearSkill, speakSkill } = allInfo.skills.length
-    ? allInfo.skills[allInfo.skills.length - 2]
-    : [{}];
-
-  const { experienceSkillLevel } = allInfo.skills.length
-    ? allInfo.skills[allInfo.skills.length - 1]
-    : [{}];
-
-  const language = allInfo.skills.length
-    ? allInfo.skills[allInfo.skills.length - 2].Name
-    : "";
-
-  const experienceSkillTitle = allInfo.skills.length
-    ? allInfo.skills[allInfo.skills.length - 1].Name
-    : "";
-
-  const { honorTitle, honorMonth, honorYear } = allInfo.honors.length
-    ? allInfo.honors[allInfo.honors.length - 1]
-    : [{}];
-
-  const docs = allInfo.docs;
-
   const getAllInfo = async (userId) => {
     const response = await getAllResumeByAdmin(userId);
     if (response.status < 210) {
@@ -163,12 +79,12 @@ const Pdf = ({ match }) => {
   };
 
   useEffect(() => {
-    if (match.params.id) {
-      getAllInfo(match.params.id);
-    }
+    // if (match.params.id) {
+    //   getAllInfo(match.params.id);
+    // }
   }, []);
 
-  const newLocalUrl = config.server_url
+  const newLocalUrl = config.server_url;
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
@@ -284,299 +200,404 @@ const Pdf = ({ match }) => {
         سوابق تحصیلی
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="مقطع:" />
-                {sectionEdu}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="رشته تحصیلی:" />
-                {fieldEdu}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="گرایش/تخصص:" />
-                {orientationEdu}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="نوع موسسه:" />
-                {uniType}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="عنوان موسسه:" />
-                {uniName}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="معدل:" />
-                {averageEdu}
-              </ListItem>
-            </List>
+        {allInfo.educationHistories.map((edu) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="مقطع:" />
+                  {edu.sectionEdu}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="رشته تحصیلی:" />
+                  {edu.fieldEdu}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="گرایش/تخصص:" />
+                  {edu.orientationEdu}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="نوع موسسه:" />
+                  {edu.uniType}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="عنوان موسسه:" />
+                  {edu.uniName}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="معدل:" />
+                  {edu.averageEdu}
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="کشور:" />
+                  {edu.uniCountry}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="استان:" />
+                  {edu.uniProvince}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="شهر:" />
+                  {edu.uniCity}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ورود:" />
+                  {edu.startEdu}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="فراغت از تحصیل:" />
+                  {edu.endEdu}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="در حال تحصیل:" />
+                  {edu.stillStudying ? "بله" : "خیر"}
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="کشور:" />
-                {uniCountry}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="استان:" />
-                {uniProvince}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="شهر:" />
-                {uniCity}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ورود:" />
-                {startEdu}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="فراغت از تحصیل:" />
-                {endEdu}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="در حال تحصیل:" />
-                {stillStudying ? "بله" : "خیر"}
-              </ListItem>
-            </List>
-          </Grid>
-        </Grid>
+        ))}
       </Paper>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         سوابق شغلی
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="سمت شغلی:" />
-                {jobTitle}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="گروه شغلی:" />
-                {jobGroup}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="مرکز شغلی:" />
-                {jobCenter}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="عنوان مرکز:" />
-                {titleCenter}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="نحوه همکاری:" />
-                {cooperateType}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سطح ارشدیت:" />
-                {seniorLevel}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="کشور:" />
-                {jobCountry}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="استان:" />
-                {jobProvince}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="شهر:" />
-                {jobCity}
-              </ListItem>
-            </List>
+        {allInfo.jobHistories.map((job) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="سمت شغلی:" />
+                  {job.jobTitle}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="گروه شغلی:" />
+                  {job.jobGroup}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="مرکز شغلی:" />
+                  {job.jobCenter}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="عنوان مرکز:" />
+                  {job.titleCenter}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="نحوه همکاری:" />
+                  {job.cooperateType}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سطح ارشدیت:" />
+                  {job.seniorLevel}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="کشور:" />
+                  {job.jobCountry}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="استان:" />
+                  {job.jobProvince}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="شهر:" />
+                  {job.jobCity}
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="ماه شروع:" />
+                  {months[job.startJobMonth - 1]}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سال شروع:" />
+                  {job.startJobYear}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ماه اتمام:" />
+                  {months[job.endJobMonth - 1]}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سال اتمام:" />
+                  {job.endJobYear}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="مشغول به فعالیت:" />
+                  {job.stillWorking ? "بله" : "خیر"}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="میزان درآمد:" />
+                  {job.income}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="شماره تماس:" />
+                  {job.number}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="وظایف و دستاوردها:" />
+                  {job.jobDescription}
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="ماه شروع:" />
-                {months[startJobMonth - 1]}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سال شروع:" />
-                {startJobYear}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ماه اتمام:" />
-                {months[endJobMonth - 1]}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سال اتمام:" />
-                {endJobYear}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="مشغول به فعالیت:" />
-                {stillWorking ? "بله" : "خیر"}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="میزان درآمد:" />
-                {income}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="شماره تماس:" />
-                {number}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="وظایف و دستاوردها:" />
-                {jobDescription}
-              </ListItem>
-            </List>
-          </Grid>
-        </Grid>
+        ))}
       </Paper>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
-        مقالات و پروژه ها
+        مقالات
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="نوع اثر:" />
-                {researchType}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="عنوان:" />
-                {researchTitle}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="نوع مقاله:" />
-                {articleType}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ناشر:" />
-                {publisher}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="لینک مرتبط:" />
-                {researchHyperlink}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ماه:" />
-                {months[researchMonth - 1]}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سال:" />
-                {researchYear}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="توضیحات:" />
-                {researchDescription}
-              </ListItem>
-            </List>
+        {allInfo.researchs.map((research) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="نوع اثر:" />
+                  {research.researchType}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="عنوان:" />
+                  {research.researchTitle}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="نوع مقاله:" />
+                  {research.articleType}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ناشر:" />
+                  {research.publisher}
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="لینک مرتبط:" />
+                  {research.researchHyperlink}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ماه:" />
+                  {months[research.researchMonth - 1]}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سال:" />
+                  {research.researchYear}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="توضیحات:" />
+                  {research.researchDescription}
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="عنوان:" />
-                {projectTitle}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="کارفرما/درخواست کننده:" />
-                {projectEmployer}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="لینک مرتبط:" />
-                {projectHyperlink}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ماه شروع:" />
-                {months[startProjectMonth - 1]}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سال شروع:" />
-                {startProjectYear}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="ماه اتمام:" />
-                {months[endProjectMonth - 1]}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سال اتمام:" />
-                {endProjectYear}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="توضیحات:" />
-                {projectDescription}
-              </ListItem>
-            </List>
-          </Grid>
-        </Grid>
+        ))}
       </Paper>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
-        زبان ، مهارت های تجربی و افتخارات
+        پروژه ها
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <List>
-              <ListItem>
-                <ListItemText secondary="نام زبان:" />
-                {language}
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سطح خواندن:" />
-                {readSkill}/5
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سطح نوشتن:" />
-                {writeSkill}/5
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سطح شنیداری:" />
-                {hearSkill}/5
-              </ListItem>
-              <ListItem>
-                <ListItemText secondary="سطح گفتاری:" />
-                {speakSkill}/5
-              </ListItem>
-            </List>
+        {allInfo.projects.map((project) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="عنوان:" />
+                  {project.projectTitle}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="کارفرما/درخواست کننده:" />
+                  {project.projectEmployer}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="لینک مرتبط:" />
+                  {project.projectHyperlink}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ماه شروع:" />
+                  {months[project.startProjectMonth - 1]}
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="سال شروع:" />
+                  {project.startProjectYear}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="ماه اتمام:" />
+                  {months[project.endProjectMonth - 1]}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سال اتمام:" />
+                  {project.endProjectYear}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="توضیحات:" />
+                  {project.projectDescription}
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
-          <Grid item xs={6}>
-            <ListItem>
-              <ListItemText secondary="نام مهارت:" />
-              {experienceSkillTitle}
-            </ListItem>
-            <ListItem>
-              <ListItemText secondary="سطح مهارت:" />
-              {experienceSkillLevel}/5
-            </ListItem>
-            <ListItem>
-              <ListItemText secondary="عنوان افتخار:" />
-              {honorTitle}
-            </ListItem>
-            <ListItem>
-              <ListItemText secondary="ماه افتخار:" />
-              {months[honorMonth - 1]}
-            </ListItem>
-            <ListItem>
-              <ListItemText secondary="سال افتخار:" />
-              {honorYear}
-            </ListItem>
+        ))}
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        زبان
+      </Typography>
+      <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
+        {allInfo.languages.map((language) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="نام زبان:" />
+                  {language.language}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سطح خواندن:" />
+                  {language.readSkill}/5
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سطح نوشتن:" />
+                  {language.writeSkill}/5
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="سطح شنیداری:" />
+                  {language.hearSkill}/5
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="سطح گفتاری:" />
+                  {language.speakSkill}/5
+                </ListItem>
+              </List>
+            </Grid>
           </Grid>
-        </Grid>
+        ))}
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        مهارت های تجربی
+      </Typography>
+      <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
+        {allInfo.experiments.map((experiment) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="نام مهارت:" />
+                {experiment.experienceSkillTitle}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سطح مهارت:" />
+                {experiment.experienceSkillLevel}/5
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="توضیحات:" />
+                {experiment.experienceDescription}
+              </ListItem>
+              {/* {typeof experiment.experienceDoc === "object" ? (
+                <img
+                  src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
+                  style={{
+                    width: "100%",
+                    margin: "10px 0",
+                  }}
+                  alt=""
+                />
+              ) : null} */}
+            </Grid>
+          </Grid>
+        ))}
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        افتخارات
+      </Typography>
+      <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
+        {allInfo.honors.map((honor) => (
+          <Grid
+            container
+            spacing={3}
+            style={{ borderBottom: "1px dotted #999" }}
+          >
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="عنوان افتخار:" />
+                {honor.honorTitle}
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="ماه افتخار:" />
+                {months[honor.honorMonth - 1]}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="سال افتخار:" />
+                {honor.honorYear}
+              </ListItem>
+            </Grid>
+          </Grid>
+        ))}
       </Paper>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         مدارک
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
         <Grid container spacing={5}>
-          {typeof docs === "object"
-            ? docs.map((img) => (
-                <Grid item xs={6}>
-                  <img
-                    src={`${newLocalUrl}/img/${img.file}`}
-                    style={{
-                      width: "100%",
-                      margin: "10px 0",
-                    }}
-                    alt=""
-                  />
-                </Grid>
-              ))
-            : null}
+          {typeof nationalCard === "object" ? (
+            <Grid item xs={6}>
+              <img
+                src={`${newLocalUrl}/img/${nationalCard.file}`}
+                style={{
+                  width: "100%",
+                  margin: "10px 0",
+                }}
+                alt=""
+              />
+            </Grid>
+          ) : null}
+          {typeof eduCertif === "object" ? (
+            <Grid item xs={6}>
+              <img
+                src={`${newLocalUrl}/img/${eduCertif.file}`}
+                style={{
+                  width: "100%",
+                  margin: "10px 0",
+                }}
+                alt=""
+              />
+            </Grid>
+          ) : null}
         </Grid>
       </Paper>
     </Fragment>

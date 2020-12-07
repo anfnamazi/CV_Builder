@@ -70,8 +70,12 @@ export const getProjects = () => {
     return http.get(`${config.local_api}/users/projects`)
 }
 
-export const saveLanguageSkills = skillForm => {
-    return http.post(`${config.local_api}/users/skills`, skillForm)
+export const saveLanguageSkills = languageForm => {
+    return http.post(`${config.local_api}/users/language`, languageForm)
+}
+
+export const saveExperimentSkills = experimentForm => {
+    return http.post(`${config.local_api}/users/experiment`, experimentForm)
 }
 
 export const saveHonores = honorForm => {
