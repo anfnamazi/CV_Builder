@@ -119,7 +119,7 @@ const Skill = () => {
                 required
                 name="language"
                 key={Math.random()}
-                defaultValue={language.language}
+                defaultValue={language.Name}
                 onBlur={(e) => dispatch(changelanguage(e, index))}
               />
             </Grid>
@@ -215,7 +215,7 @@ const Skill = () => {
                     label="نام مهارت"
                     name="experienceSkillTitle"
                     key={Math.random()}
-                    defaultValue={experimentalSkill.experienceSkillTitle}
+                    defaultValue={experimentalSkill.Name}
                     onBlur={(e) =>
                       dispatch(changeexperienceSkillTitle(e, index))
                     }
@@ -227,7 +227,7 @@ const Skill = () => {
                     <Rating
                       size="small"
                       // name="experienceSkillLevel"
-                      value={experimentalSkill.experienceSkillLevel}
+                      value={experimentalSkill.skillLevel}
                       onChange={(e) =>
                         dispatch(changeexperienceSkillLevel(e, index))
                       }
@@ -239,7 +239,7 @@ const Skill = () => {
                     className={classes.formControl}
                     name="experienceDescription"
                     key={Math.random()}
-                    defaultValue={experimentalSkill.experienceDescription}
+                    defaultValue={experimentalSkill.description}
                     onBlur={(e) =>
                       dispatch(changeexperienceDescription(e, index))
                     }

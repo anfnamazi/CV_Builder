@@ -1,7 +1,7 @@
 export const changelanguage = (event, index) => {
     return (dispatch, getState) => {
         const langList = [...getState().languages];
-        langList[index].language = event.target.value;
+        langList[index].Name = event.target.value;
         const languages = [...langList];
         dispatch({ type: "UPDATE_LANG", payload: languages });
     }
@@ -47,7 +47,7 @@ export const addLanguage = () => {
     return (dispatch, getState) => {
         const langList = [...getState().languages];
         langList.push({
-            language: "",
+            Name: "",
             readSkill: null,
             writeSkill: null,
             hearSkill: null,

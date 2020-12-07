@@ -1,7 +1,7 @@
 export const experimentalSkillsReducer = (state = [{
-    experienceSkillTitle: "",
-    experienceSkillLevel: null,
-    experienceDescription: ""
+    Name: "",
+    skillLevel: null,
+    description: ""
 }], action) => {
     switch (action.type) {
         case "ADD_EXSKILLS":

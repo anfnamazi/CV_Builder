@@ -1,5 +1,5 @@
 export const languagesReducer = (state = [{
-    language: "",
+    Name: "",
     readSkill: null,
     writeSkill: null,
     hearSkill: null,

@@ -28,6 +28,11 @@ import FakePage from "../components/fakePage";
 import { useDispatch } from "react-redux";
 import { setAllEdus } from "../action/edus";
 import { setAllJobs } from "../action/jobs";
+import { setAllLanguages } from "../action/language";
+import { setAllexperimentalSkills } from "../action/experimentalSkills";
+import { setAllhonors } from "../action/honors";
+import { setAllprojects } from "../action/projects";
+import { setAllresearches } from "../action/researches";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -121,12 +126,20 @@ const ResumeForm = () => {
       const { userBaseInfo } = response.data;
       if (userBaseInfo) {
         setallResume({ ...response.data });
-        if (response.data.educationHistories.length) {
+        if (response.data.educationHistories.length)
           dispatch(setAllEdus([...response.data.educationHistories]));
-        }
-        if (response.data.jobHistories.length) {
+        if (response.data.jobHistories.length)
           dispatch(setAllJobs([...response.data.jobHistories]));
-        }
+        if (response.data.languages.length)
+          dispatch(setAllLanguages([...response.data.languages]));
+        if (response.data.experiments.length)
+          dispatch(setAllexperimentalSkills([...response.data.experiments]));
+        if (response.data.honors.length)
+          dispatch(setAllhonors([...response.data.honors]));
+        if (response.data.projects.length)
+          dispatch(setAllprojects([...response.data.projects]));
+        if (response.data.researchs.length)
+          dispatch(setAllresearches([...response.data.researchs]));
       }
     }
   };

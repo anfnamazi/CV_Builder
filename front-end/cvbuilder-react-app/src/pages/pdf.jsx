@@ -79,12 +79,12 @@ const Pdf = ({ match }) => {
   };
 
   useEffect(() => {
-    // if (match.params.id) {
-    //   getAllInfo(match.params.id);
-    // }
+    if (match.params.id) {
+      getAllInfo(match.params.id);
+    }
   }, []);
 
-  const newLocalUrl = config.server_url;
+  const newLocalUrl = config.local_api;
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
@@ -474,7 +474,7 @@ const Pdf = ({ match }) => {
               <List>
                 <ListItem>
                   <ListItemText secondary="نام زبان:" />
-                  {language.language}
+                  {language.Name}
                 </ListItem>
                 <ListItem>
                   <ListItemText secondary="سطح خواندن:" />
@@ -514,17 +514,17 @@ const Pdf = ({ match }) => {
             <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="نام مهارت:" />
-                {experiment.experienceSkillTitle}
+                {experiment.Name}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سطح مهارت:" />
-                {experiment.experienceSkillLevel}/5
+                {experiment.skillLevel}/5
               </ListItem>
             </Grid>
             <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="توضیحات:" />
-                {experiment.experienceDescription}
+                {experiment.description}
               </ListItem>
               {/* {typeof experiment.experienceDoc === "object" ? (
                 <img
