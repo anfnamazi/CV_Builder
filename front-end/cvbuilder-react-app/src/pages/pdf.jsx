@@ -106,11 +106,18 @@ const Pdf = ({ match }) => {
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
         <Grid container spacing={3} justify="center">
-          <img
-            src={`${newLocalUrl}/img/${image}`}
-            style={{ height: 100, width: 100, borderRadius: "50%", margin: 20 }}
-            alt=""
-          />
+          {image ? (
+            <img
+              src={`${newLocalUrl}/img/${image}`}
+              style={{
+                height: 100,
+                width: 100,
+                borderRadius: "50%",
+                margin: 20,
+              }}
+              alt=""
+            />
+          ) : null}
         </Grid>
         <Grid container spacing={3}>
           <Grid item xs={6}>
