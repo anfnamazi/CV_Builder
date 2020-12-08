@@ -29,7 +29,7 @@ export const getAllResumeByAdmin = (userId) => {
   const newLocalUrl = `http://localhost:${
     config.port[process.env.REACT_APP_ENVIRONMENT]
   }`;
-  return http.get(`${config.local_api}/users/${userId}/populated`);
+  return http.get(`${config.server_url}/users/${userId}/populated`);
 };
 
 export const getUserCSV = (userId) => {
