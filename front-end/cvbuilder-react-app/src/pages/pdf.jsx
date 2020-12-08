@@ -84,7 +84,7 @@ const Pdf = ({ match }) => {
     }
   }, []);
 
-  const newLocalUrl = config.local_api;
+  const newLocalUrl = config.server_url;
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">
