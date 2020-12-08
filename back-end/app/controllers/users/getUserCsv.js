@@ -5,8 +5,9 @@ const EducationHistory = require('../../models/educationHistory')
 const JobHistorie = require('../../models/jobHistory')
 const { matchedData } = require('express-validator')
 const { isIDGood, handleError } = require('../../middleware/utils')
-
+const _ = require('lodash')
 const { Parser, parse } = require('json2csv')
+const moment = require('jalali-moment')
 /**
  * Get item function called by route
  * @param {Object} req - request object
@@ -27,25 +28,84 @@ const getUserCsv = async (req, res) => {
       'jobHistories',
       'researchs',
       'projects',
-      'docs'
+      'docs',
+      'languages',
+      'experiments',
+      'honors'
     ])
-    let edus = item.educationHistories.map((value) => {
-      return {
-        مقطع: value.sectionEdu,
-        'رشته تحصیلی': value.fieldEdu,
-        گرایش: value.orientationEdu,
-        'توع موسسه': value.uniType,
-        'عنوان موسسه': value.uniName,
-        معدل: value.averageEdu,
-        کشور: value.uniCountry,
-        استان: value.uniProvince,
-        شهر: value.uniCity,
-        'سال شروع': value.startEdu,
-        'سال فراغت': value.stillStudying ? 'درحال تحصیل' : value.endEdu
-      }
+    let edus = item.educationHistories.map((value, index) => {
+      return (
+        '‍‍‍مقطع:' +
+        value.sectionEdu +
+        '\n' +
+        'رشته تحصیلی:' +
+        value.fieldEdu +
+        '\n' +
+        'گرایش:' +
+        value.orientationEdu +
+        '\n' +
+        'نوع موسسه:' +
+        value.uniType +
+        '\n' +
+        'عنوان موسسه:' +
+        value.uniName +
+        '\n' +
+        'معدل:' +
+        value.averageEdu +
+        '\n' +
+        'کشور:' +
+        value.uniCountry +
+        '\n' +
+        'استان:' +
+        value.uniProvince +
+        '\n' +
+        'شهر:' +
+        value.uniCity +
+        '\n' +
+        'سال شروع:' +
+        value.startEdu +
+        '\n' +
+        'سال فراغت:' +
+        `${value.stillStudying ? 'درحال تحصیل' : value.endEdu}` +
+        '\n'
+      )
     })
+
+    let languages = item.languages.map((value) => {
+      let str = ''
+      const obj = {
+        زبان: value.Name,
+        خواندن: value.readSkill,
+        نوشتن: value.writeSkill,
+        شنیداری: value.hearSkill,
+        گفتاری: value.speakSkill
+      }
+
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
+    })
+
+    let experiments = item.experiments.map((value) => {
+      let str = ''
+      const obj = {
+        مهارت: value.Name,
+        درجه: value.skillLevel,
+        توضیحات: value.description
+      }
+
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
+    })
+
     let jobs = item.jobHistories.map((value) => {
-      return {
+      let str = ''
+      const obj = {
         'سمت شغلی': value.jobTitle,
         'گروه شغلی': value.jobGroup,
         'مرکز شغلی': value.jobCenter,
@@ -63,9 +123,17 @@ const getUserCsv = async (req, res) => {
         'شماره تماس': value.number,
         'وظایف و دستاورد ها': value.jobDescription
       }
+
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
     })
+
     let projects = item.projects.map((value) => {
-      return {
+      let str = ''
+      const obj = {
         عنوان: value.projectTitle,
         کارفرما: value.projectEmployer,
         لینک: value.projectHyperlink,
@@ -75,9 +143,15 @@ const getUserCsv = async (req, res) => {
         'ماه اتمام': value.endProjectMonth,
         توضیحات: value.projectDescription
       }
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
     })
     let researchs = item.researchs.map((value) => {
-      return {
+      let str = ''
+      const obj = {
         'نوع اثر': value.researchType,
         عنوان: value.researchTitle,
         'نوع مقاله': value.articleType,
@@ -87,6 +161,11 @@ const getUserCsv = async (req, res) => {
         ماه: value.researchMonth,
         توضیحات: value.researchDescription
       }
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
     })
     if (item.userBaseInfo === undefined) {
       item.userBaseInfo = new UserBaseInfo()
@@ -94,47 +173,54 @@ const getUserCsv = async (req, res) => {
     if (item.contactInfo === undefined) {
       item.contactInfo = new ContactInfo()
     }
-    let csvItem = {
+    let baseItems = {
       نام: item.userBaseInfo.firstName,
       نام‌خانوادگی: item.userBaseInfo.lastName,
       شغل: item.userBaseInfo.job,
       جنسیت: item.userBaseInfo.gender,
       'وضعیت تاهل': item.userBaseInfo.marital,
       'وضعیت نظام‌وظیفه': item.userBaseInfo.military,
-      'تاریخ تولد': item.userBaseInfo.birthDay,
-      'توصیف خلاصه': item.userBaseInfo.description,
+      'تاریخ تولد': moment(item.userBaseInfo.birthDay)
+        .locale('fa')
+        .format('YYYY/MM/DD'),
+      ' توصیف خلاصه': item.userBaseInfo.description,
       ایمیل: item.contactInfo.email,
       موبایل: item.contactInfo.phone,
       تلفن: item.contactInfo.tel,
-      وب‌سایت: item.contactInfo.webPage,
+      ' وب‌سایت': item.contactInfo.webPage,
       کشور: item.contactInfo.country,
       استان: item.contactInfo.province,
       شهر: item.contactInfo.city,
       آدرس: item.contactInfo.address,
-      'شبکه اجتماعی': item.contactInfo.socialMediaName,
-      'آی دی مرتبط': item.contactInfo.socialMediaId
+      ' شبکه اجتماعی': item.contactInfo.socialMediaName,
+      ' آی دی مرتبط': item.contactInfo.socialMediaId
     }
-    let csvUser = parse(csvItem)
-    if (edus.length) {
-      let csvEdus = parse(edus)
-      csvEdus = 'سوابق تحصیلی\r\n' + csvEdus
-      csvUser = csvUser + '\r\n' + csvEdus
+    const eusObj = {
+      'سوابق تحصیلی': edus
     }
-    if (jobs.length) {
-      let csvJobs = parse(jobs)
-      csvJobs = 'سوابق شغلی\r\n' + csvJobs
-      csvUser = csvUser + '\r\n' + csvJobs
+    let csvItems = []
+    const max = Math.max(
+      edus.length,
+      jobs.length,
+      projects.length,
+      researchs.length,
+      languages.length,
+      experiments.length
+    )
+    for (let index = 0; index < max; index++) {
+      csvItems[index] = {
+        'سوابق تحصیلی': edus[index] ? edus[index] : '',
+        'سوابق شغلی': jobs[index] ? jobs[index] : '',
+        'پروژه ها': projects[index] ? projects[index] : '',
+        تحقیقات: researchs[index] ? researchs[index] : '',
+        زبان: languages[index] ? languages[index] : '',
+        'مهارت تجربی': experiments[index] ? experiments[index] : ''
+      }
+      if (index === 0) {
+        csvItems[index] = { ...baseItems, ...csvItems[index] }
+      }
     }
-    if (projects.length) {
-      let csvProjects = parse(projects)
-      csvProjects = 'پروژه ها\r\n' + csvProjects
-      csvUser = csvUser + '\r\n' + csvProjects
-    }
-    if (researchs.length) {
-      let csvResearchs = parse(researchs)
-      csvResearchs = 'پروژه ها\r\n' + csvResearchs
-      csvUser = csvUser + '\r\n' + csvResearchs
-    }
+    let csvUser = parse(csvItems)
     res.setHeader('Content-disposition', 'attachment; filename=testing.csv')
     res.set('Content-Type', 'text/csv')
     res.status(200).send(csvUser)
