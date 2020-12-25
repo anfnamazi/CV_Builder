@@ -15,7 +15,7 @@ const getUsers = async (req, res) => {
     _.remove(usersResult.docs, {
       role: 'admin'
     })
-    console.log(usersResult)
+    // console.log(usersResult)
     res.status(200).json(usersResult)
   } catch (error) {
     handleError(res, error)
