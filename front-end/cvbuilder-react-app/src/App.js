@@ -17,6 +17,7 @@ import Pdf from "./pages/pdf";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "./pages/Logout";
+import AdminLogin from "./pages/adminLogin";
 
 const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -46,7 +47,7 @@ const App = () => {
             src={require("./assets/images/hozeHonar.png")}
             style={{
               margin: "10px",
-              width: 70,
+              width: 90,
               height: 70,
             }}
           />
@@ -57,6 +58,7 @@ const App = () => {
             <Switch>
               <Route exact path="/" component={ResumeForm} />
               <Route path="/login" component={Login} />
+              <Route path="/admin/login" component={AdminLogin} />
               <Route path="/logout" component={Logout} />
               <Route exact path="/admin" component={AdminPanel} />
               <Route path="/admin/:id" component={Pdf} />

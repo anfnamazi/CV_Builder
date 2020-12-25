@@ -15,12 +15,12 @@ const FakePage = () => {
         direction="column"
         alignItems="center"
       >
-        <img
-          src={require("../assets/images/resume-folder-animate.svg")}
-          style={{ height: 512, maxWidth: 512, width: "90%" }}
-          alt="resume img"
-        />
-        <Fab variant="contained" color="primary" onClick={context.handleNext}>
+        <Fab
+          variant="contained"
+          color="primary"
+          style={{ margin: "40px 0" }}
+          onClick={context.handleNext}
+        >
           {firstName ? "ویرایش اطلاعات" : "شروع فرآیند"}
         </Fab>
       </Grid>

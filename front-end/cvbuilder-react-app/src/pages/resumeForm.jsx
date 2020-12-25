@@ -193,7 +193,7 @@ const ResumeForm = () => {
                     onClick={handleReset}
                     startIcon={<ArrowForward />}
                   >
-                    بازگشت به صفحه اول
+                    preview
                   </Button>
                 </Grid>
                 {/* <Grid item>
