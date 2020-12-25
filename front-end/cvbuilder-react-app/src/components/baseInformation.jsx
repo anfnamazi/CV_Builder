@@ -314,6 +314,7 @@ const BaseInfo = () => {
               <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
                 <Grid item xs={6} sm={4}>
                   <DatePicker
+                    variant="inline"
                     className={classes.formControl}
                     label="تاریخ تولد"
                     name="birthDay"
@@ -361,6 +362,11 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               placeholder="09123456789"
               required
+              onInvalid={(e) =>
+                e.target.setCustomValidity(
+                  "لطفا شماره موبایل خود را بررسی کنید"
+                )
+              }
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -373,6 +379,9 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
               placeholder="88888888"
+              onInvalid={(e) =>
+                e.target.setCustomValidity("لطفا شماره تلفن خود را بررسی کنید")
+              }
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -388,7 +397,7 @@ const BaseInfo = () => {
           </Grid>
         </Grid>
         <Grid container style={{ marginTop: 20 }} spacing={2}>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={6} sm={4}>
             <FormControl className={classes.formControl}>
               <InputLabel>کشور</InputLabel>
               <Select name="country" defaultValue={country} required>
@@ -396,7 +405,7 @@ const BaseInfo = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Autocomplete
               options={provinces}
               getOptionLabel={(option) => option.title}
@@ -409,7 +418,7 @@ const BaseInfo = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={3}>
+          <Grid item xs={6} sm={4}>
             <Autocomplete
               options={citiesFiltered}
               getOptionLabel={(option) => option.city}
@@ -424,7 +433,7 @@ const BaseInfo = () => {
               )}
             />
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6}>
             <TextField
               className={classes.formControl}
               label="آدرس"
@@ -432,6 +441,17 @@ const BaseInfo = () => {
               multiline
               defaultValue={address}
               required
+            />
+          </Grid>
+          <Grid item xs={6}>
+            <TextField
+              type="number"
+              style={{ direction: "ltr" }}
+              className={classes.formControl}
+              label="کد ثنا"
+              name="sanaCode"
+              // defaultValue={sanaCode}
+              placeholder="********"
             />
           </Grid>
         </Grid>
@@ -442,6 +462,7 @@ const BaseInfo = () => {
       <Paper style={{ padding: "25px 30px" }}>
         <Grid container justify="center" spacing={2}>
           <Grid item xs={12} sm={6}>
+            <InputLabel style={{ marginBottom: 10 }}>کارت ملی</InputLabel>
             <div class="file-drop-area">
               <span class="fake-btn">
                 <RecentActors />
@@ -458,6 +479,7 @@ const BaseInfo = () => {
             </div>
           </Grid>
           <Grid item xs={12} sm={6}>
+            <InputLabel style={{ marginBottom: 10 }}>مدرک تحصیلی</InputLabel>
             <div class="file-drop-area">
               <span class="fake-btn">
                 <CastForEducation />
@@ -471,6 +493,43 @@ const BaseInfo = () => {
                 // required={!Boolean(docs[1])}
               />
             </div>
+          </Grid>
+        </Grid>
+      </Paper>
+      <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
+        اطلاعات مالی
+      </Typography>
+      <Paper style={{ padding: "25px 30px" }}>
+        <Grid container justify="center" spacing={2}>
+          <Grid xs={6} sm={2} item>
+            <TextField
+              className={classes.formControl}
+              name="bankName"
+              // defaultValue={bankName}
+              label="نام بانک"
+              placeholder="ملی"
+            />
+          </Grid>
+          <Grid xs={6} sm={4} item>
+            <TextField
+              type="number"
+              style={{ direction: "ltr" }}
+              className={classes.formControl}
+              name="accountNumber"
+              // defaultValue={accountNumber}
+              label="شماره حساب"
+              placeholder="**************"
+            />
+          </Grid>
+          <Grid xs={12} sm={6} item>
+            <TextField
+              style={{ direction: "ltr" }}
+              className={classes.formControl}
+              name="shabaNumber"
+              // defaultValue={shabaNumber}
+              label="شماره شبا"
+              placeholder="IR**************************"
+            />
           </Grid>
         </Grid>
       </Paper>

@@ -34,19 +34,25 @@ const EducationHistory = () => {
         برای نوشتن سوابق تحصیلی در رزومه، همیشه از بالاترین مدرک خود شروع به
         نوشتن کنید.
       </Typography>
+      <br />
+      <Typography variant="caption" style={{ color: "gray" }} gutterBottom>
+        لطفا تمام مقاطع تحصیلی خود را وارد کنید.
+      </Typography>
       {edus.map((edu, index) => (
         <Edu edu={edu} index={index} length={edus.length} />
       ))}
       <Grid container spacing={1}>
         <Fab
+          variant="contained"
           color="primary"
           size="small"
-          style={{ margin: "auto" }}
+          style={{ margin: "auto", paddingLeft: 20 }}
           onClick={() => {
             dispatch(addEdu());
           }}
         >
-          <Add />
+          <Add className={classes.extendedIcon} />
+          اضافه کردن مقطع دیگر
         </Fab>
       </Grid>
       <Fab

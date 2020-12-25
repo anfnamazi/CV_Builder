@@ -39,7 +39,14 @@ const Edu = ({ edu, index, length }) => {
     ...cities.filter((city) => city.province == edu.uniProvince),
   ];
 
-  const sectionEduList = ["فوق دیپلم", "کارشناسی", "کارشناسی ارشد", "دکتری"];
+  const sectionEduList = [
+    "دیپلم",
+    "کاردانی",
+    "کارشناسی",
+    "کارشناسی ارشد",
+    "دکتری",
+    "حوزوی",
+  ];
   const uniTypeList = ["دولتی", "غیرانتفاعی", "آزاد", "پیام نور"];
 
   const dispatch = useDispatch();

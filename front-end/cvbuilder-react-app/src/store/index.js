@@ -4,8 +4,9 @@ import thunk from "redux-thunk";
 
 export const store = createStore(
   reducers,
-  compose(
-    applyMiddleware(thunk)
-    // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-  )
+  process.env.REACT_APP_ENVIRONMENT === "development" ?
+    compose(
+      applyMiddleware(thunk),
+      window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    ) : applyMiddleware(thunk)
 );

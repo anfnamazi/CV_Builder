@@ -141,6 +141,7 @@ const Login = () => {
                       type="button"
                       disabled={counter <= 0 ? false : true}
                       onClick={() => setshowverify(false)}
+                      style={{ marginBottom: 30 }}
                     >
                       اصلاح شماره
                     </Fab>
