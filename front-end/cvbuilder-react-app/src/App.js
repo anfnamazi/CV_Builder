@@ -42,7 +42,6 @@ const App = () => {
             marginBottom: 15,
           }}
         >
-          <span className="header-txt">حوزه هنر</span>
           <img
             src={require("./assets/images/hozeHonar.png")}
             style={{
@@ -51,7 +50,6 @@ const App = () => {
               height: 70,
             }}
           />
-          <span className="header-txt">انقلاب اسلامی</span>
         </Grid>
         <Container maxWidth="md">
           <BrowserRouter>

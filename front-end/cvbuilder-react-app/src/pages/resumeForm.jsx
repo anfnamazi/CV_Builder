@@ -33,6 +33,7 @@ import { setAllexperimentalSkills } from "../action/experimentalSkills";
 import { setAllhonors } from "../action/honors";
 import { setAllprojects } from "../action/projects";
 import { setAllresearches } from "../action/researches";
+import Preview from "../components/preview";
 
 function getStepContent(stepIndex) {
   switch (stepIndex) {
@@ -46,6 +47,8 @@ function getStepContent(stepIndex) {
       return <Skill />;
     case 4:
       return <Project />;
+    case 5:
+      return <Preview />;
 
     default:
       return <FakePage />;
@@ -53,7 +56,14 @@ function getStepContent(stepIndex) {
 }
 
 function getSteps() {
-  return ["اطلاعات پایه", "سوابق تحصیلی", "سوابق شغلی", "مهارت ها", "پروژه ها"];
+  return [
+    "اطلاعات پایه",
+    "سوابق تحصیلی",
+    "سوابق شغلی",
+    "مهارت ها",
+    "پروژه ها",
+    "بازبینی",
+  ];
 }
 
 function QontoStepIcon(props) {
@@ -108,7 +118,7 @@ const ResumeForm = () => {
   };
 
   const handleReset = () => {
-    setactiveStep(0);
+    setactiveStep(5);
   };
 
   const handleStep = (step) => () => {
@@ -193,7 +203,7 @@ const ResumeForm = () => {
                     onClick={handleReset}
                     startIcon={<ArrowForward />}
                   >
-                    preview
+                    بازبینی
                   </Button>
                 </Grid>
                 {/* <Grid item>

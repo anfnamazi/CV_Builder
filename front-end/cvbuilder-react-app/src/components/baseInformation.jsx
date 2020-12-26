@@ -185,7 +185,9 @@ const BaseInfo = () => {
       setbirth(new Date(birthDay));
     }
     if (image) {
-      setpersonImage(`${config.local_api}/img/${image}`);
+      setpersonImage(
+        `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/img/${image}`
+      );
     }
     if (city) {
       setcityState({ city });

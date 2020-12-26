@@ -1,30 +1,21 @@
 import {
-  Button,
+  Fab,
   Grid,
+  Hidden,
   List,
   ListItem,
   ListItemText,
   Paper,
   Typography,
 } from "@material-ui/core";
-import React, { Fragment, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { getAllResumeByAdmin } from "../services/adminService";
+import { SkipPrevious } from "@material-ui/icons";
+import React, { Fragment, useContext } from "react";
 import config from "../config.json";
+import ResumeContext from "../context/resumeContext";
+import { useStyles } from "../utils/styles";
 
-const Pdf = ({ match }) => {
-  const [allInfo, setallInfo] = useState({
-    educationHistories: [{}, {}],
-    jobHistories: [{}, {}],
-    researchs: [{}, {}],
-    projects: [{}, {}],
-    languages: [{}, {}],
-    experiments: [{}, {}],
-    honors: [{}, {}],
-    docs: ["", ""],
-    userBaseInfo: {},
-    contactInfo: {},
-  });
+const Preview = () => {
+  const { allResume, handleNext } = useContext(ResumeContext);
 
   const months = [
     "فروردین",
@@ -53,7 +44,7 @@ const Pdf = ({ match }) => {
     image,
     nationalCard,
     eduCertif,
-  } = allInfo.userBaseInfo;
+  } = allResume.userBaseInfo;
 
   const {
     email,
@@ -66,44 +57,16 @@ const Pdf = ({ match }) => {
     address,
     socialMediaName,
     socialMediaId,
-  } = allInfo.contactInfo;
-
-  const getAllInfo = async (userId) => {
-    const response = await getAllResumeByAdmin(userId);
-    if (response.status < 210) {
-      const { userBaseInfo } = response.data;
-      if (userBaseInfo) {
-        setallInfo({ ...response.data });
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (match.params.id) {
-      getAllInfo(match.params.id);
-    }
-  }, []);
+  } = allResume.contactInfo;
 
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
       ? config[process.env.REACT_APP_ENVIRONMENT].local_api
       : config.server_url;
+
+  const classes = useStyles();
   return (
     <Fragment>
-      <Grid container style={{ marginTop: 10 }} justify="space-evenly">
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => window.print()}
-        >
-          دانلود pdf
-        </Button>
-        <Link to="/admin">
-          <Button variant="contained" color="secondary">
-            بازگشت
-          </Button>
-        </Link>
-      </Grid>
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         اطلاعات پایه
       </Typography>
@@ -210,7 +173,7 @@ const Pdf = ({ match }) => {
         سوابق تحصیلی
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
-        {allInfo.educationHistories.map((edu) => (
+        {allResume.educationHistories.map((edu) => (
           <Grid
             container
             spacing={3}
@@ -279,7 +242,7 @@ const Pdf = ({ match }) => {
         سوابق شغلی
       </Typography>
       <Paper style={{ padding: "10px 30px" }}>
-        {allInfo.jobHistories.map((job) => (
+        {allResume.jobHistories.map((job) => (
           <Grid
             container
             spacing={3}
@@ -368,7 +331,7 @@ const Pdf = ({ match }) => {
         مقالات
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        {allInfo.researchs.map((research) => (
+        {allResume.researchs.map((research) => (
           <Grid
             container
             spacing={3}
@@ -421,7 +384,7 @@ const Pdf = ({ match }) => {
         پروژه ها
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        {allInfo.projects.map((project) => (
+        {allResume.projects.map((project) => (
           <Grid
             container
             spacing={3}
@@ -474,7 +437,7 @@ const Pdf = ({ match }) => {
         زبان
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        {allInfo.languages.map((language) => (
+        {allResume.languages.map((language) => (
           <Grid
             container
             spacing={3}
@@ -515,7 +478,7 @@ const Pdf = ({ match }) => {
         مهارت های تجربی
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        {allInfo.experiments.map((experiment) => (
+        {allResume.experiments.map((experiment) => (
           <Grid
             container
             spacing={3}
@@ -537,15 +500,15 @@ const Pdf = ({ match }) => {
                 {experiment.description}
               </ListItem>
               {/* {typeof experiment.experienceDoc === "object" ? (
-                <img
-                  src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
-                  style={{
-                    width: "100%",
-                    margin: "10px 0",
-                  }}
-                  alt=""
-                />
-              ) : null} */}
+                  <img
+                    src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
+                    style={{
+                      width: "100%",
+                      margin: "10px 0",
+                    }}
+                    alt=""
+                  />
+                ) : null} */}
             </Grid>
           </Grid>
         ))}
@@ -554,7 +517,7 @@ const Pdf = ({ match }) => {
         افتخارات
       </Typography>
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
-        {allInfo.honors.map((honor) => (
+        {allResume.honors.map((honor) => (
           <Grid
             container
             spacing={3}
@@ -610,8 +573,22 @@ const Pdf = ({ match }) => {
           ) : null}
         </Grid>
       </Paper>
+      <Fab
+        style={{
+          position: "fixed",
+          bottom: 50,
+          left: 50,
+        }}
+        variant="contained"
+        color="primary"
+        onClick={handleNext}
+        size="medium"
+      >
+        <Hidden xsDown>ادامه</Hidden>
+        <SkipPrevious className={classes.extendedIcon} />
+      </Fab>
     </Fragment>
   );
 };
 
-export default Pdf;
+export default Preview;
