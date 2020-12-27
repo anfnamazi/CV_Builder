@@ -4,6 +4,7 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
+  InputAdornment,
   InputLabel,
   MenuItem,
   Paper,
@@ -39,6 +40,35 @@ import {
   removeJob,
 } from "../../action/jobs";
 import { useDispatch } from "react-redux";
+import NumberFormat from "react-number-format";
+import PropTypes from "prop-types";
+
+function NumberFormatCustom(props) {
+  const { inputRef, onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={inputRef}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+    />
+  );
+}
+
+NumberFormatCustom.propTypes = {
+  inputRef: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 
 const Job = ({ job, index, length }) => {
   const jobGroups = ["موسیقی", "تئاتر", " فیلم", "کتاب"];
@@ -87,43 +117,8 @@ const Job = ({ job, index, length }) => {
           <Close />
         </IconButton>
       ) : null}
-      <Grid container justify="center" spacing={2}>
-        <Grid item xs={6} sm={3}>
-          <Tooltip title="لورم ایپسوم">
-            <TextField
-              className={classes.formControl}
-              onBlur={(e) => dispatch(changejobTitle(e, index))}
-              name="jobTitle"
-              required
-              key={Math.random()}
-              defaultValue={job.jobTitle}
-              label={
-                <Fragment>
-                  سمت شغلی{" "}
-                  <Help
-                    style={{ fontSize: 14, transform: "rotateY(180deg)" }}
-                  />
-                </Fragment>
-              }
-            />
-          </Tooltip>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <FormControl className={classes.formControl}>
-            <InputLabel>گروه شغلی</InputLabel>
-            <Select
-              onChange={(e) => dispatch(changejobGroup(e, index))}
-              name="jobGroup"
-              required
-              value={job.jobGroup}
-            >
-              {jobGroups.map((group) => (
-                <MenuItem value={group}>{group}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} sm={3}>
+      <Grid container justify="center" spacing={2} alignItems="flex-end">
+        {/* <Grid item xs={6} sm={3}>
           <TextField
             className={classes.formControl}
             onBlur={(e) => dispatch(changejobCenter(e, index))}
@@ -133,8 +128,8 @@ const Job = ({ job, index, length }) => {
             defaultValue={job.jobCenter}
             label="مرکز شغلی"
           />
-        </Grid>
-        <Grid item xs={6} sm={3}>
+        </Grid> */}
+        <Grid item xs={6} sm={4}>
           <TextField
             className={classes.formControl}
             onBlur={(e) => dispatch(changetitleCenter(e, index))}
@@ -145,93 +140,6 @@ const Job = ({ job, index, length }) => {
             label="عنوان مرکز"
           />
         </Grid>
-      </Grid>
-      <Grid container justify="center" style={{ marginTop: 20 }} spacing={2}>
-        <Grid item xs={6} sm={2}>
-          <FormControl className={classes.formControl}>
-            <InputLabel>نحوه همکاری</InputLabel>
-            <Select
-              onChange={(e) => dispatch(changecooperateType(e, index))}
-              name="cooperateType"
-              required
-              value={job.cooperateType}
-            >
-              {cooperateTypes.map((group) => (
-                <MenuItem value={group}>{group}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} sm={2}>
-          <FormControl className={classes.formControl}>
-            <InputLabel>سطح ارشدیت</InputLabel>
-            <Select
-              onChange={(e) => dispatch(changeseniorLevel(e, index))}
-              name="seniorLevel"
-              required
-              value={job.seniorLevel}
-            >
-              {seniorLevels.map((group) => (
-                <MenuItem value={group}>{group}</MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} sm={2}>
-          <FormControl className={classes.formControl}>
-            <InputLabel>کشور</InputLabel>
-            <Select
-              onChange={(e) => dispatch(changejobCountry(e, index))}
-              name="jobCountry"
-              value={job.jobCountry}
-              required
-            >
-              <MenuItem value={"ایران"}>ایران</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Autocomplete
-            options={provinces}
-            getOptionLabel={(option) => option.title}
-            className={classes.formControl}
-            value={{ title: job.jobProvince }}
-            onChange={(e, newValue) =>
-              newValue
-                ? dispatch(changejobProvince(newValue.title, index))
-                : dispatch(changejobProvince("", index))
-            }
-            required
-            renderInput={(params) => (
-              <TextField name {...params} name="jobProvince" label="استان" />
-            )}
-          />
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Autocomplete
-            options={citiesFiltered}
-            getOptionLabel={(option) => option.city}
-            label="شهر"
-            value={{ city: job.jobCity }}
-            className={classes.formControl}
-            onChange={(e, newValue) =>
-              newValue
-                ? dispatch(changejobCity(newValue.city, index))
-                : dispatch(changejobCity("", index))
-            }
-            required
-            renderInput={(params) => (
-              <TextField {...params} name="jobCity" label="شهر" />
-            )}
-          />
-        </Grid>
-      </Grid>
-      <Grid
-        container
-        alignItems="flex-end"
-        spacing={2}
-        style={{ marginTop: 20 }}
-      >
         <Grid item xs={6} sm={4}>
           <InputLabel>شروع</InputLabel>
           <Grid container spacing={1}>
@@ -301,6 +209,119 @@ const Job = ({ job, index, length }) => {
           </Grid>
         </Grid>
         <Grid item xs={6} sm={4}>
+          <Tooltip title="لورم ایپسوم">
+            <TextField
+              className={classes.formControl}
+              onBlur={(e) => dispatch(changejobTitle(e, index))}
+              name="jobTitle"
+              required
+              key={Math.random()}
+              defaultValue={job.jobTitle}
+              label={
+                <Fragment>
+                  سمت شغلی{" "}
+                  <Help
+                    style={{ fontSize: 14, transform: "rotateY(180deg)" }}
+                  />
+                </Fragment>
+              }
+            />
+          </Tooltip>
+        </Grid>
+        <Grid item xs={6} sm={4}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>گروه شغلی</InputLabel>
+            <Select
+              onChange={(e) => dispatch(changejobGroup(e, index))}
+              name="jobGroup"
+              required
+              value={job.jobGroup}
+            >
+              {jobGroups.map((group) => (
+                <MenuItem value={group}>{group}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6} sm={4}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>نحوه همکاری</InputLabel>
+            <Select
+              onChange={(e) => dispatch(changecooperateType(e, index))}
+              name="cooperateType"
+              required
+              value={job.cooperateType}
+            >
+              {cooperateTypes.map((group) => (
+                <MenuItem value={group}>{group}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid>
+        {/* <Grid item xs={6} sm={2}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>سطح ارشدیت</InputLabel>
+            <Select
+              onChange={(e) => dispatch(changeseniorLevel(e, index))}
+              name="seniorLevel"
+              required
+              value={job.seniorLevel}
+            >
+              {seniorLevels.map((group) => (
+                <MenuItem value={group}>{group}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Grid> */}
+        <Grid item xs={6} sm={2}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>کشور</InputLabel>
+            <Select
+              onChange={(e) => dispatch(changejobCountry(e, index))}
+              name="jobCountry"
+              value={job.jobCountry}
+              required
+            >
+              <MenuItem value={"ایران"}>ایران</MenuItem>
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Autocomplete
+            options={provinces}
+            getOptionLabel={(option) => option.title}
+            className={classes.formControl}
+            value={{ title: job.jobProvince }}
+            onChange={(e, newValue) =>
+              newValue
+                ? dispatch(changejobProvince(newValue.title, index))
+                : dispatch(changejobProvince("", index))
+            }
+            required
+            renderInput={(params) => (
+              <TextField name {...params} name="jobProvince" label="استان" />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <Autocomplete
+            options={citiesFiltered}
+            getOptionLabel={(option) => option.city}
+            label="شهر"
+            value={{ city: job.jobCity }}
+            className={classes.formControl}
+            onChange={(e, newValue) =>
+              newValue
+                ? dispatch(changejobCity(newValue.city, index))
+                : dispatch(changejobCity("", index))
+            }
+            required
+            renderInput={(params) => (
+              <TextField {...params} name="jobCity" label="شهر" />
+            )}
+          />
+        </Grid>
+        <Grid item xs={6} sm={4}>
           <FormControlLabel
             control={
               <Checkbox
@@ -326,9 +347,14 @@ const Job = ({ job, index, length }) => {
             required
             key={Math.random()}
             defaultValue={job.income}
-            type="number"
-            placeholder="4000000 تومان"
+            placeholder="4,000,000"
             className={classes.formControl}
+            InputProps={{
+              inputComponent: NumberFormatCustom,
+              startAdornment: (
+                <InputAdornment position="start">تومان</InputAdornment>
+              ),
+            }}
           />
         </Grid>
         <Grid item xs={6} sm={4}>
@@ -357,9 +383,6 @@ const Job = ({ job, index, length }) => {
       <Typography variant="caption" display="block" gutterBottom>
         در این بخش می توانید خیلی خلاصه و کوتاه، وظایف و دستاوردهای خود را به
         تفکیک و جداگانه لیست کنید.
-      </Typography>
-      <Typography variant="caption" display="block" gutterBottom>
-        برای تفکیک از دکمه Enter استفاده کنید.
       </Typography>
       <Grid item style={{ margin: "10px" }} justify="center" spacing={2}>
         <TextField

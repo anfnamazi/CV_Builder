@@ -22,7 +22,8 @@ import {
   RecentActors,
   SkipPrevious,
 } from "@material-ui/icons";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+// import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import DatePicker from "react-datepicker2";
 import React, { Fragment, useContext, useState, useEffect } from "react";
 import ResumeContext from "../context/resumeContext";
 import { useStyles } from "../utils/styles";
@@ -46,7 +47,7 @@ const BaseInfo = () => {
   const [evidence, setevidence] = useState(
     "لطفا مدرک تحصیلی خود را بارگذاری کنید."
   );
-  const [birth, setbirth] = useState(new Date().setFullYear(2002));
+  const [birth, setbirth] = useState(jMoment(new Date().setFullYear(2002)));
   const [citiesFiltered, setcitiesFiltered] = useState([]);
   const [cityState, setcityState] = useState("");
 
@@ -182,7 +183,7 @@ const BaseInfo = () => {
 
   useEffect(() => {
     if (birthDay) {
-      setbirth(new Date(birthDay));
+      setbirth(jMoment(new Date(birthDay)));
     }
     if (image) {
       setpersonImage(
@@ -287,7 +288,12 @@ const BaseInfo = () => {
                 </Tooltip>
               </Grid> */}
             </Grid>
-            <Grid container spacing={2} style={{ marginTop: 20 }}>
+            <Grid
+              container
+              spacing={2}
+              style={{ marginTop: 20 }}
+              alignItems="flex-end"
+            >
               <Grid xs={6} sm={3} item>
                 <FormControl className={classes.formControl}>
                   <InputLabel>وضعیت تاهل</InputLabel>
@@ -313,7 +319,7 @@ const BaseInfo = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
+              {/* <MuiPickersUtilsProvider utils={JalaliUtils} locale="fa">
                 <Grid item xs={6} sm={4}>
                   <DatePicker
                     variant="inline"
@@ -333,7 +339,20 @@ const BaseInfo = () => {
                     onChange={setbirth}
                   />
                 </Grid>
-              </MuiPickersUtilsProvider>
+              </MuiPickersUtilsProvider> */}
+              <Grid item xs={6} sm={4}>
+                <InputLabel com style={{ marginBottom: 10, fontSize: 12 }}>
+                  تاریخ تولد
+                </InputLabel>
+                <DatePicker
+                  isGregorian={false}
+                  timePicker={false}
+                  value={birth}
+                  className={classes.formControl}
+                  // defaultValue={birthDay}
+                  onChange={setbirth}
+                />
+              </Grid>
             </Grid>
           </Grid>
         </Grid>
