@@ -37,7 +37,7 @@ import provinces from "../utils/provinces.json";
 import cities from "../utils/cities.json";
 import { Autocomplete } from "@material-ui/lab";
 
-jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
+// jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
 const BaseInfo = () => {
   const [personImage, setpersonImage] = useState(
@@ -340,8 +340,10 @@ const BaseInfo = () => {
                   />
                 </Grid>
               </MuiPickersUtilsProvider> */}
-              <Grid item xs={6} sm={4}>
-                <InputLabel com style={{ marginBottom: 10, fontSize: 12 }}>
+              <Grid item xs={6} sm={4} style={{ direction: "ltr" }}>
+                <InputLabel
+                  style={{ marginBottom: 10, fontSize: 12, direction: "rtl" }}
+                >
                   تاریخ تولد
                 </InputLabel>
                 <DatePicker
@@ -350,7 +352,7 @@ const BaseInfo = () => {
                   value={birth}
                   className={classes.formControl}
                   // defaultValue={birthDay}
-                  onChange={setbirth}
+                  onChange={(date) => setbirth(date)}
                 />
               </Grid>
             </Grid>

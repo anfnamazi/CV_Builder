@@ -62,6 +62,13 @@ const Skill = () => {
     "بهمن",
     "اسفند",
   ];
+  const masks = {
+    1: "ضعیف",
+    2: "متوسط",
+    3: "خوب",
+    4: "خیلی خوب",
+    5: "عالی",
+  };
 
   const context = useContext(ResumeContext);
 
@@ -134,6 +141,11 @@ const Skill = () => {
                   onChange={(e) => dispatch(changereadSkill(e, index))}
                 />
               </Box>
+              {language.readSkill !== null && (
+                <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                  {masks[language.readSkill]}
+                </Box>
+              )}
             </Grid>
             <Grid md={2} item>
               <Box component="fieldset" borderColor="transparent">
@@ -146,6 +158,11 @@ const Skill = () => {
                   onChange={(e) => dispatch(changewriteSkill(e, index))}
                 />
               </Box>
+              {language.writeSkill !== null && (
+                <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                  {masks[language.writeSkill]}
+                </Box>
+              )}
             </Grid>
             <Grid md={2} item>
               <Box component="fieldset" borderColor="transparent">
@@ -158,6 +175,11 @@ const Skill = () => {
                   onChange={(e) => dispatch(changehearSkill(e, index))}
                 />
               </Box>
+              {language.hearSkill !== null && (
+                <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                  {masks[language.hearSkill]}
+                </Box>
+              )}
             </Grid>
             <Grid md={2} item>
               <Box component="fieldset" borderColor="transparent">
@@ -170,6 +192,11 @@ const Skill = () => {
                   onChange={(e) => dispatch(changespeakSkill(e, index))}
                 />
               </Box>
+              {language.speakSkill !== null && (
+                <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                  {masks[language.speakSkill]}
+                </Box>
+              )}
             </Grid>
           </Grid>
         </Paper>
@@ -233,6 +260,11 @@ const Skill = () => {
                       }
                     />
                   </Box>
+                  {experimentalSkill.skillLevel !== null && (
+                    <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                      {masks[experimentalSkill.skillLevel]}
+                    </Box>
+                  )}
                 </Grid>
                 <Grid xs={12} item>
                   <TextField
