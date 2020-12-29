@@ -295,10 +295,10 @@ const Pdf = ({ match }) => {
                   <ListItemText secondary="گروه شغلی:" />
                   {job.jobGroup}
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemText secondary="مرکز شغلی:" />
                   {job.jobCenter}
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <ListItemText secondary="عنوان مرکز:" />
                   {job.titleCenter}
@@ -307,10 +307,10 @@ const Pdf = ({ match }) => {
                   <ListItemText secondary="نحوه همکاری:" />
                   {job.cooperateType}
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemText secondary="سطح ارشدیت:" />
                   {job.seniorLevel}
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <ListItemText secondary="کشور:" />
                   {job.jobCountry}

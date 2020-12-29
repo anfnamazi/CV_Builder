@@ -1,10 +1,10 @@
 export const jobsReducer = (state = [{
     jobTitle: "",
     jobGroup: "",
-    jobCenter: "",
+    // jobCenter: "",
     titleCenter: "",
     cooperateType: "",
-    seniorLevel: "",
+    // seniorLevel: "",
     jobCountry: "",
     jobProvince: "",
     jobCity: "",

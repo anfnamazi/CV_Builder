@@ -69,6 +69,14 @@ const Skill = () => {
     4: "خیلی خوب",
     5: "عالی",
   };
+  const experimentalSkillTypeList = [
+    "مهارت هنری",
+    "نرم افزار",
+    "کار گروهی",
+    "روابط عمومی",
+    "کسب و کار",
+  ];
+  const honorTypeList = ["علمی", "فرهنگی", "هنری", "ورزشی"];
 
   const context = useContext(ResumeContext);
 
@@ -198,6 +206,21 @@ const Skill = () => {
                 </Box>
               )}
             </Grid>
+            <Grid xs={12} sm={6} item>
+              {/* <InputLabel style={{ marginBottom: 10 }}>مدرک مربوطه</InputLabel> */}
+              <div class="file-drop-area">
+                <span class="fake-btn">
+                  <CastForEducation />
+                </span>
+                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <input
+                  class="file-input"
+                  type="file"
+                  name="skillCert"
+                  // onChange={onChangeIdCard}
+                />
+              </div>
+            </Grid>
           </Grid>
         </Paper>
       ))}
@@ -216,74 +239,98 @@ const Skill = () => {
       <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
         مهارت های تجربی
       </Typography>
-      <Grid container spacing={1}>
-        {experimentalSkills.map((experimentalSkill, index) => (
-          <Grid item spacing={3} xs={12} sm={6}>
-            <Paper
-              style={{
-                padding: "25px 30px",
-                marginBottom: 15,
-                position: "relative",
-              }}
+      {experimentalSkills.map((experimentalSkill, index) => (
+        <Paper
+          style={{
+            padding: "25px 30px",
+            marginBottom: 15,
+            position: "relative",
+          }}
+        >
+          {experimentalSkills.length > 1 ? (
+            <IconButton
+              color="secondary"
+              onClick={() => dispatch(removeexperimentalSkill(index))}
+              size="small"
+              style={{ position: "absolute", top: 5, left: 5 }}
             >
-              {experimentalSkills.length > 1 ? (
-                <IconButton
-                  color="secondary"
-                  onClick={() => dispatch(removeexperimentalSkill(index))}
-                  size="small"
-                  style={{ position: "absolute", top: 5, left: 5 }}
+              <Close />
+            </IconButton>
+          ) : null}
+          <Grid container alignItems="center" spacing={2}>
+            <Grid xs={6} sm={4} item>
+              <FormControl className={classes.formControl}>
+                <InputLabel>نوع مهارت</InputLabel>
+                <Select
+                  name="experienceSkillType"
+                  // value={experimentalSkill.type}
+                  // onChange={(e) =>
+                  //   dispatch(changeexperienceSkillType(e, index))
+                  // }
                 >
-                  <Close />
-                </IconButton>
-              ) : null}
-              <Grid container justify="center" spacing={2}>
-                <Grid xs={6} item>
-                  <TextField
-                    label="نام مهارت"
-                    name="experienceSkillTitle"
-                    key={Math.random()}
-                    defaultValue={experimentalSkill.Name}
-                    onBlur={(e) =>
-                      dispatch(changeexperienceSkillTitle(e, index))
-                    }
-                  />
-                </Grid>
-                <Grid xs={6} item>
-                  <Box component="fieldset" borderColor="transparent">
-                    <Typography component="legend">سطح</Typography>
-                    <Rating
-                      size="small"
-                      // name="experienceSkillLevel"
-                      value={experimentalSkill.skillLevel}
-                      onChange={(e) =>
-                        dispatch(changeexperienceSkillLevel(e, index))
-                      }
-                    />
-                  </Box>
-                  {experimentalSkill.skillLevel !== null && (
-                    <Box component="small" style={{ color: "#f50057" }} ml={2}>
-                      {masks[experimentalSkill.skillLevel]}
-                    </Box>
-                  )}
-                </Grid>
-                <Grid xs={12} item>
-                  <TextField
-                    className={classes.formControl}
-                    name="experienceDescription"
-                    key={Math.random()}
-                    defaultValue={experimentalSkill.description}
-                    onBlur={(e) =>
-                      dispatch(changeexperienceDescription(e, index))
-                    }
-                    multiline
-                    label="توضیحات"
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
+                  {experimentalSkillTypeList.map((type) => (
+                    <MenuItem value={type}>{type}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid xs={6} sm={4} item>
+              <TextField
+                label="نام مهارت"
+                name="experienceSkillTitle"
+                className={classes.formControl}
+                key={Math.random()}
+                defaultValue={experimentalSkill.Name}
+                onBlur={(e) => dispatch(changeexperienceSkillTitle(e, index))}
+              />
+            </Grid>
+            <Grid xs={12} sm={4} style={{ textAlign: "center" }} item>
+              <Box component="fieldset" borderColor="transparent">
+                <Typography component="legend">سطح</Typography>
+                <Rating
+                  size="small"
+                  // name="experienceSkillLevel"
+                  value={experimentalSkill.skillLevel}
+                  onChange={(e) =>
+                    dispatch(changeexperienceSkillLevel(e, index))
+                  }
+                />
+              </Box>
+              {experimentalSkill.skillLevel !== null && (
+                <Box component="small" style={{ color: "#f50057" }} ml={2}>
+                  {masks[experimentalSkill.skillLevel]}
+                </Box>
+              )}
+            </Grid>
+            <Grid xs={12} sm={6} item>
+              {/* <InputLabel style={{ marginBottom: 10 }}>مدرک مربوطه</InputLabel> */}
+              <div class="file-drop-area">
+                <span class="fake-btn">
+                  <CastForEducation />
+                </span>
+                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <input
+                  class="file-input"
+                  type="file"
+                  name="skillCert"
+                  // onChange={onChangeIdCard}
+                />
+              </div>
+            </Grid>
+            <Grid xs={12} sm={6} item>
+              <TextField
+                className={classes.formControl}
+                name="experienceDescription"
+                key={Math.random()}
+                defaultValue={experimentalSkill.description}
+                onBlur={(e) => dispatch(changeexperienceDescription(e, index))}
+                multiline
+                label="توضیحات"
+              />
+            </Grid>
           </Grid>
-        ))}
-      </Grid>
+        </Paper>
+      ))}
       <Grid container spacing={1}>
         <Fab
           color="primary"
@@ -351,8 +398,24 @@ const Skill = () => {
               <Close />
             </IconButton>
           ) : null}
-          <Grid container justify="center" spacing={2}>
-            <Grid xs={12} md={8} item>
+          <Grid container justify="center" alignItems="center" spacing={2}>
+            <Grid xs={6} md={3} item>
+              <FormControl className={classes.formControl}>
+                <InputLabel>نوع افتخار</InputLabel>
+                <Select
+                  name="experienceSkillType"
+                  // value={honor.type}
+                  // onChange={(e) =>
+                  //   dispatch(changehonorType(e, index))
+                  // }
+                >
+                  {honorTypeList.map((type) => (
+                    <MenuItem value={type}>{type}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid xs={6} md={5} item>
               <TextField
                 name="honorTitle"
                 key={Math.random()}
@@ -363,7 +426,7 @@ const Skill = () => {
                 placeholder="به طور مثال: برنده جایزه، مقاله برتر پژوهشگاه، دانشجوی ممتاز کارشناسی ارشد"
               />
             </Grid>
-            <Grid xs={12} md={4} item>
+            <Grid xs={12} sm={6} md={4} item>
               <InputLabel>تاریخ</InputLabel>
               <Grid container spacing={1}>
                 <Grid item xs={6}>
@@ -394,6 +457,21 @@ const Skill = () => {
                   />
                 </Grid>
               </Grid>
+            </Grid>
+            <Grid xs={12} sm={6} item>
+              {/* <InputLabel style={{ marginBottom: 10 }}>مدرک مربوطه</InputLabel> */}
+              <div class="file-drop-area">
+                <span class="fake-btn">
+                  <CastForEducation />
+                </span>
+                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <input
+                  class="file-input"
+                  type="file"
+                  name="skillCert"
+                  // onChange={onChangeIdCard}
+                />
+              </div>
             </Grid>
           </Grid>
         </Paper>

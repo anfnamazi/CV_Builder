@@ -181,10 +181,10 @@ export const addJob = () => {
         jobList.push({
             jobTitle: "",
             jobGroup: "",
-            jobCenter: "",
+            // jobCenter: "",
             titleCenter: "",
             cooperateType: "",
-            seniorLevel: "",
+            // seniorLevel: "",
             jobCountry: "",
             jobProvince: "",
             jobCity: "",

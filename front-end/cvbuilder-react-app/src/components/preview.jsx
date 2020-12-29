@@ -258,10 +258,10 @@ const Preview = () => {
                   <ListItemText secondary="گروه شغلی:" />
                   {job.jobGroup}
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemText secondary="مرکز شغلی:" />
                   {job.jobCenter}
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <ListItemText secondary="عنوان مرکز:" />
                   {job.titleCenter}
@@ -270,10 +270,10 @@ const Preview = () => {
                   <ListItemText secondary="نحوه همکاری:" />
                   {job.cooperateType}
                 </ListItem>
-                <ListItem>
+                {/* <ListItem>
                   <ListItemText secondary="سطح ارشدیت:" />
                   {job.seniorLevel}
-                </ListItem>
+                </ListItem> */}
                 <ListItem>
                   <ListItemText secondary="کشور:" />
                   {job.jobCountry}
