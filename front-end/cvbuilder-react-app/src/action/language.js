@@ -43,6 +43,15 @@ export const changespeakSkill = (event, index) => {
     }
 }
 
+export const changeCertLanguage = (event, index) => {
+    return (dispatch, getState) => {
+        const langList = [...getState().languages];
+        langList[index].cert = event.target.files[0];
+        const languages = [...langList];
+        dispatch({ type: "UPDATE_LANG", payload: languages });
+    }
+}
+
 export const addLanguage = () => {
     return (dispatch, getState) => {
         const langList = [...getState().languages];
@@ -51,7 +60,8 @@ export const addLanguage = () => {
             readSkill: null,
             writeSkill: null,
             hearSkill: null,
-            speakSkill: null
+            speakSkill: null,
+            cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." }
         })
         const languages = [...langList];
         dispatch({ type: "ADD_LANG", payload: languages });

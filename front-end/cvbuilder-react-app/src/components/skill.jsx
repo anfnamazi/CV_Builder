@@ -22,6 +22,8 @@ import {
   changeexperienceSkillLevel,
   changeexperienceSkillTitle,
   removeexperimentalSkill,
+  changeexperienceCert,
+  changeexperienceType,
 } from "../action/experimentalSkills";
 import {
   addHonor,
@@ -29,9 +31,12 @@ import {
   changehonorTitle,
   changehonorYear,
   removeHonor,
+  changehonorCert,
+  changehonorType,
 } from "../action/honors";
 import {
   addLanguage,
+  changeCertLanguage,
   changehearSkill,
   changelanguage,
   changereadSkill,
@@ -212,12 +217,12 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <span class="file-msg">{language.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"
-                  name="skillCert"
-                  // onChange={onChangeIdCard}
+                  // value={language.cert}
+                  onChange={(e) => dispatch(changeCertLanguage(e, index))}
                 />
               </div>
             </Grid>
@@ -263,10 +268,8 @@ const Skill = () => {
                 <InputLabel>نوع مهارت</InputLabel>
                 <Select
                   name="experienceSkillType"
-                  // value={experimentalSkill.type}
-                  // onChange={(e) =>
-                  //   dispatch(changeexperienceSkillType(e, index))
-                  // }
+                  value={experimentalSkill.type}
+                  onChange={(e) => dispatch(changeexperienceType(e, index))}
                 >
                   {experimentalSkillTypeList.map((type) => (
                     <MenuItem value={type}>{type}</MenuItem>
@@ -308,12 +311,11 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <span class="file-msg">{experimentalSkill.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"
-                  name="skillCert"
-                  // onChange={onChangeIdCard}
+                  onChange={(e) => dispatch(changeexperienceCert(e, index))}
                 />
               </div>
             </Grid>
@@ -403,11 +405,8 @@ const Skill = () => {
               <FormControl className={classes.formControl}>
                 <InputLabel>نوع افتخار</InputLabel>
                 <Select
-                  name="experienceSkillType"
-                  // value={honor.type}
-                  // onChange={(e) =>
-                  //   dispatch(changehonorType(e, index))
-                  // }
+                  value={honor.type}
+                  onChange={(e) => dispatch(changehonorType(e, index))}
                 >
                   {honorTypeList.map((type) => (
                     <MenuItem value={type}>{type}</MenuItem>
@@ -464,12 +463,12 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">لطفا مدرک مربوطه را بارگذاری کنید.</span>
+                <span class="file-msg">{honor.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"
                   name="skillCert"
-                  // onChange={onChangeIdCard}
+                  onChange={(e) => dispatch(changehonorCert(e, index))}
                 />
               </div>
             </Grid>

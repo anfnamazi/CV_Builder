@@ -340,20 +340,31 @@ const BaseInfo = () => {
                   />
                 </Grid>
               </MuiPickersUtilsProvider> */}
-              <Grid item xs={6} sm={4} style={{ direction: "ltr" }}>
+              <Grid item xs={6} sm={4}>
                 <InputLabel
-                  style={{ marginBottom: 10, fontSize: 12, direction: "rtl" }}
+                  style={{
+                    fontSize: 12,
+                    position: "absolute",
+                  }}
                 >
                   تاریخ تولد
                 </InputLabel>
-                <DatePicker
-                  isGregorian={false}
-                  timePicker={false}
-                  value={birth}
-                  className={classes.formControl}
-                  // defaultValue={birthDay}
-                  onChange={(date) => setbirth(date)}
-                />
+                <div
+                  className={`MuiInput-root
+                  MuiInput-underline
+                  MuiInputBase-formControl
+                  MuiInput-formControl`}
+                  style={{ direction: "ltr" }}
+                >
+                  <DatePicker
+                    isGregorian={false}
+                    timePicker={false}
+                    value={birth}
+                    className={`${classes.formControl} MuiInputBase-input`}
+                    // defaultValue={birthDay}
+                    onChange={(date) => setbirth(date)}
+                  />
+                </div>
               </Grid>
             </Grid>
           </Grid>
@@ -385,11 +396,11 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               placeholder="09123456789"
               required
-              onInvalid={(e) =>
-                e.target.setCustomValidity(
-                  "لطفا شماره موبایل خود را بررسی کنید"
-                )
-              }
+              // onInvalid={(e) =>
+              //   e.target.setCustomValidity(
+              //     "لطفا شماره موبایل خود را بررسی کنید"
+              //   )
+              // }
             />
           </Grid>
           <Grid item xs={6} sm={3}>
@@ -400,11 +411,11 @@ const BaseInfo = () => {
               defaultValue={tel}
               type="number"
               style={{ direction: "ltr" }}
-              InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
+              // InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
               placeholder="88888888"
-              onInvalid={(e) =>
-                e.target.setCustomValidity("لطفا شماره تلفن خود را بررسی کنید")
-              }
+              // onInvalid={(e) =>
+              //   e.target.setCustomValidity("لطفا شماره تلفن خود را بررسی کنید")
+              // }
             />
           </Grid>
           <Grid item xs={6} sm={3}>

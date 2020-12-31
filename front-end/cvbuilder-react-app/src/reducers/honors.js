@@ -1,7 +1,9 @@
 export const honorsReducer = (state = [{
     honorTitle: "",
     honorMonth: "",
-    honorYear: ""
+    honorYear: "",
+    cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." },
+    type: ""
 }], action) => {
     switch (action.type) {
         case "ADD_HONORS":

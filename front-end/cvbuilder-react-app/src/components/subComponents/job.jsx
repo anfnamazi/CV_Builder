@@ -365,7 +365,7 @@ const Job = ({ job, index, length }) => {
             onBlur={(e) => dispatch(changenumber(e, index))}
             name="phoneNumber"
             required
-            InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
+            // InputProps={{ inputProps: { min: 10000000, max: 99999999 } }}
             key={Math.random()}
             defaultValue={job.number}
             className={classes.formControl}

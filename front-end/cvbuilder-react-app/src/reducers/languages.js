@@ -3,7 +3,8 @@ export const languagesReducer = (state = [{
     readSkill: null,
     writeSkill: null,
     hearSkill: null,
-    speakSkill: null
+    speakSkill: null,
+    cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." }
 }], action) => {
     switch (action.type) {
         case "ADD_LANG":

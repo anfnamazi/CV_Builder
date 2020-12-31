@@ -25,13 +25,33 @@ export const changehonorYear = (event, index) => {
     }
 }
 
+export const changehonorCert = (event, index) => {
+    return (dispatch, getState) => {
+        const honorList = [...getState().honors];
+        honorList[index].cert = event.target.files[0];
+        const honors = [...honorList];
+        dispatch({ type: "UPDATE_HONORS", payload: honors });
+    }
+}
+
+export const changehonorType = (event, index) => {
+    return (dispatch, getState) => {
+        const honorList = [...getState().honors];
+        honorList[index].type = event.target.value;
+        const honors = [...honorList];
+        dispatch({ type: "UPDATE_HONORS", payload: honors });
+    }
+}
+
 export const addHonor = () => {
     return (dispatch, getState) => {
         const honorList = [...getState().honors];
         honorList.push({
             honorTitle: "",
             honorMonth: "",
-            honorYear: ""
+            honorYear: "",
+            cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." },
+            type: ""
         })
         const honors = [...honorList];
         dispatch({ type: "ADD_HONORS", payload: honors });

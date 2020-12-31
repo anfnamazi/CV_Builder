@@ -1,7 +1,9 @@
 export const experimentalSkillsReducer = (state = [{
     Name: "",
     skillLevel: null,
-    description: ""
+    description: "",
+    cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." },
+    type: ""
 }], action) => {
     switch (action.type) {
         case "ADD_EXSKILLS":

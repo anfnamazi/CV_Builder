@@ -25,13 +25,33 @@ export const changeexperienceDescription = (event, index) => {
     }
 }
 
+export const changeexperienceCert = (event, index) => {
+    return (dispatch, getState) => {
+        const exList = [...getState().experimentalSkills];
+        exList[index].cert = event.target.files[0];
+        const experimentalSkills = [...exList];
+        dispatch({ type: "UPDATE_EXSKILLS", payload: experimentalSkills });
+    }
+}
+
+export const changeexperienceType = (event, index) => {
+    return (dispatch, getState) => {
+        const exList = [...getState().experimentalSkills];
+        exList[index].type = event.target.value;
+        const experimentalSkills = [...exList];
+        dispatch({ type: "UPDATE_EXSKILLS", payload: experimentalSkills });
+    }
+}
+
 export const addexperimentalSkill = () => {
     return (dispatch, getState) => {
         const exList = [...getState().experimentalSkills];
         exList.push({
             Name: "",
             skillLevel: null,
-            description: ""
+            description: "",
+            cert: { name: "لطفا مدرک مربوطه را بارگذاری کنید." },
+            type: ""
         })
         const experimentalSkills = [...exList];
         dispatch({ type: "ADD_EXSKILLS", payload: experimentalSkills });
