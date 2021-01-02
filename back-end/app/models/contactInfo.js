@@ -27,6 +27,9 @@ const UserInfoSchema = new mongoose.Schema(
     address: {
       type: String
     },
+    sanaCode: {
+      type: String
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User'

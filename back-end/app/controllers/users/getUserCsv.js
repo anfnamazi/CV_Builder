@@ -192,6 +192,7 @@ const getUserCsv = async (req, res) => {
       استان: item.contactInfo.province,
       شهر: item.contactInfo.city,
       آدرس: item.contactInfo.address,
+      'کد ثنا': item.contactInfo.sanaCode,
       ' شبکه اجتماعی': item.contactInfo.socialMediaName,
       ' آی دی مرتبط': item.contactInfo.socialMediaId
     }

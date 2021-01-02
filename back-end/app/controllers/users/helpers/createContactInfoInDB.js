@@ -16,7 +16,8 @@ const createContactInfoInDB = (
     city = '',
     address = '',
     socialMediaName = '',
-    socialMediaId = ''
+    socialMediaId = '',
+    sanaCode = ''
   },
   userId
 ) => {
@@ -32,6 +33,7 @@ const createContactInfoInDB = (
       address,
       socialMediaName,
       socialMediaId,
+      sanaCode,
       user: userId
     })
     ContactInfo.save((err, item) => {
