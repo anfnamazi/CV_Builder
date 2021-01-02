@@ -38,6 +38,7 @@ router.use(require('./userData/projects')) // projects
 router.use(require('./userData/researchs')) // researchs
 router.use(require('./userData/languages')) // languages
 router.use(require('./userData/experiments')) // experiments
+router.use(require('./userData/moneyAccounts')) // experiments
 router.use(require('./userData/honors')) // honors
 
 /*

@@ -31,6 +31,7 @@ const getUserCsv = async (req, res) => {
       'docs',
       'languages',
       'experiments',
+      'moneyAccounts',
       'honors'
     ])
     let edus = item.educationHistories.map((value, index) => {
@@ -89,6 +90,21 @@ const getUserCsv = async (req, res) => {
     })
 
     let experiments = item.experiments.map((value) => {
+      let str = ''
+      const obj = {
+        مهارت: value.Name,
+        درجه: value.skillLevel,
+        توضیحات: value.description
+      }
+
+      _.map(obj, (value, key) => {
+        str = str + key + ':' + value + '\n'
+      })
+
+      return str
+    })
+
+    let moneyAccounts = item.moneyAccounts.map((value) => {
       let str = ''
       const obj = {
         مهارت: value.Name,
@@ -206,7 +222,8 @@ const getUserCsv = async (req, res) => {
       projects.length,
       researchs.length,
       languages.length,
-      experiments.length
+      experiments.length,
+      moneyAccounts.length
     )
     for (let index = 0; index < max; index++) {
       csvItems[index] = {
@@ -215,7 +232,8 @@ const getUserCsv = async (req, res) => {
         'پروژه ها': projects[index] ? projects[index] : '',
         تحقیقات: researchs[index] ? researchs[index] : '',
         زبان: languages[index] ? languages[index] : '',
-        'مهارت تجربی': experiments[index] ? experiments[index] : ''
+        'مهارت تجربی': experiments[index] ? experiments[index] : '',
+        'اطلاعات مالی': moneyAccounts[index] ? moneyAccounts[index] : ''
       }
       if (index === 0) {
         csvItems[index] = { ...baseItems, ...csvItems[index] }

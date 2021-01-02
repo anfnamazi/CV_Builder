@@ -99,6 +99,12 @@ const UserSchema = new mongoose.Schema(
         ref: 'Experiment'
       }
     ],
+    moneyAccounts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'MoneyAccount'
+      }
+    ],
     honors: [
       {
         type: Schema.Types.ObjectId,

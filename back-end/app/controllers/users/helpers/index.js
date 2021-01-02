@@ -11,6 +11,7 @@ const { createProjectInDB } = require('./createProjectInDB')
 const { createResearchInDB } = require('./createResearchInDB')
 const { createLanguageInDB } = require('./createLanguageInDB')
 const { createExperimentInDB } = require('./createExperimentInDB')
+const { createMoneyAccountsInDB } = require('./createMoneyAccountInDB')
 const { createHonorInDB } = require('./createHonorInDB')
 
 module.exports = {
@@ -27,5 +28,6 @@ module.exports = {
   createResearchInDB,
   createLanguageInDB,
   createExperimentInDB,
-  createHonorInDB
+  createHonorInDB,
+  createMoneyAccountsInDB
 }
