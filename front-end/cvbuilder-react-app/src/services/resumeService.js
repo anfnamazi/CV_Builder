@@ -85,3 +85,7 @@ export const saveHonores = honorForm => {
 export const getallResumeByUser = () => {
     return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/populated`)
 }
+
+export const saveMoneyAccount = moneyAccountForm => {
+    return http.post(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/moneyAccounts`, moneyAccountForm)
+}

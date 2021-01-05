@@ -31,6 +31,7 @@ import {
   saveBaseInfo,
   saveContactInfo,
   saveDocsInfo,
+  saveMoneyAccount,
 } from "../services/resumeService";
 import config from "../config.json";
 import provinces from "../utils/provinces.json";
@@ -86,7 +87,12 @@ const BaseInfo = () => {
     address,
     socialMediaName,
     socialMediaId,
+    sanaCode,
   } = context.allResume.contactInfo;
+
+  const moneyAccount = { ...context.allResume.moneyAccounts[0] };
+
+  const { bankName, accountNumber, shabaNumber } = moneyAccount;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -126,11 +132,16 @@ const BaseInfo = () => {
     const province = event.target.province.value;
     const city = event.target.city.value;
     const address = event.target.address.value;
+    const sanaCode = event.target.sanaCode.value;
     const socialMediaName = event.target.socialMediaName.value;
     const socialMediaId = event.target.socialMediaId.value;
 
     const nationalCard = event.target.nationalCard.files[0];
     const eduCertif = event.target.eduCertif.files[0];
+
+    const bankName = event.target.bankName.value;
+    const accountNumber = event.target.accountNumber.value;
+    const shabaNumber = event.target.shabaNumber.value;
 
     const formData = new FormData();
     formData.append("firstName", firstName);
@@ -158,15 +169,24 @@ const BaseInfo = () => {
       province,
       city,
       address,
+      sanaCode,
       socialMediaName,
       socialMediaId,
     };
+
+    const moneyAccount = [{ bankName, accountNumber, shabaNumber }];
 
     const response = await saveBaseInfo(formData);
 
     const response2 = await saveContactInfo(contactForm);
 
-    if (response.status < 210 && response2.status < 210) {
+    const response3 = await saveMoneyAccount(moneyAccount);
+
+    if (
+      response.status < 202 &&
+      response2.status < 202 &&
+      response3.status < 202
+    ) {
       context.handleNext();
       context.initializeData();
     }
@@ -484,7 +504,7 @@ const BaseInfo = () => {
               className={classes.formControl}
               label="کد ثنا"
               name="sanaCode"
-              // defaultValue={sanaCode}
+              defaultValue={sanaCode}
               placeholder="********"
             />
           </Grid>
@@ -539,7 +559,7 @@ const BaseInfo = () => {
             <TextField
               className={classes.formControl}
               name="bankName"
-              // defaultValue={bankName}
+              defaultValue={bankName}
               label="نام بانک"
               placeholder="ملی"
             />
@@ -550,7 +570,7 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               className={classes.formControl}
               name="accountNumber"
-              // defaultValue={accountNumber}
+              defaultValue={accountNumber}
               label="شماره حساب"
               placeholder="**************"
             />
@@ -560,7 +580,7 @@ const BaseInfo = () => {
               style={{ direction: "ltr" }}
               className={classes.formControl}
               name="shabaNumber"
-              // defaultValue={shabaNumber}
+              defaultValue={shabaNumber}
               label="شماره شبا"
               placeholder="IR**************************"
             />

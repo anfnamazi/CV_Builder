@@ -24,6 +24,7 @@ const Pdf = ({ match }) => {
     docs: ["", ""],
     userBaseInfo: {},
     contactInfo: {},
+    moneyAccounts: [],
   });
 
   const months = [
@@ -66,7 +67,12 @@ const Pdf = ({ match }) => {
     address,
     socialMediaName,
     socialMediaId,
+    sanaCode,
   } = allInfo.contactInfo;
+
+  const moneyAccount = { ...allInfo.moneyAccounts[0] };
+
+  const { bankName, accountNumber, shabaNumber } = moneyAccount;
 
   const getAllInfo = async (userId) => {
     const response = await getAllResumeByAdmin(userId);
@@ -166,6 +172,10 @@ const Pdf = ({ match }) => {
                 <ListItemText secondary="آی دی مرتبط:" />
                 {socialMediaId}
               </ListItem>
+              <ListItem>
+                <ListItemText secondary="کد ثنا:" />
+                {sanaCode}
+              </ListItem>
             </List>
           </Grid>
           <Grid item xs={6}>
@@ -201,6 +211,18 @@ const Pdf = ({ match }) => {
               <ListItem>
                 <ListItemText secondary="آدرس:" />
                 {address}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="نام بانک:" />
+                {bankName}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="شماره حساب:" />
+                {accountNumber}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="شماره شبا:" />
+                {shabaNumber}
               </ListItem>
             </List>
           </Grid>
@@ -537,15 +559,15 @@ const Pdf = ({ match }) => {
                 {experiment.description}
               </ListItem>
               {/* {typeof experiment.experienceDoc === "object" ? (
-                <img
-                  src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
-                  style={{
-                    width: "100%",
-                    margin: "10px 0",
-                  }}
-                  alt=""
-                />
-              ) : null} */}
+                  <img
+                    src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
+                    style={{
+                      width: "100%",
+                      margin: "10px 0",
+                    }}
+                    alt=""
+                  />
+                ) : null} */}
             </Grid>
           </Grid>
         ))}

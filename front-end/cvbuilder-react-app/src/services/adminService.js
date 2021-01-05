@@ -36,3 +36,7 @@ export const getAllResumeByAdmin = (userId) => {
 export const getUserCSV = (userId) => {
   return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/${userId}/csv`);
 };
+
+export const getUserZIP = (userId) => {
+  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/${userId}/ZipAttachment`);
+};
