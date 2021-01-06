@@ -65,7 +65,7 @@ const AdminPanel = () => {
             <TableCell align="left">ردیف</TableCell>
             <TableCell>کاربر</TableCell>
             <TableCell align="left">تاریخ</TableCell>
-            <TableCell align="left">دانلود&nbsp;(pdf,excel)</TableCell>
+            <TableCell align="left">دانلود&nbsp;(zip,pdf,excel)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
