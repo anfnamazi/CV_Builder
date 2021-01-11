@@ -55,9 +55,14 @@ const Preview = () => {
     province,
     city,
     address,
+    sanaCode,
     socialMediaName,
     socialMediaId,
   } = allResume.contactInfo;
+
+  const moneyAccount = { ...allResume.moneyAccounts[0] };
+
+  const { bankName, accountNumber, shabaNumber } = moneyAccount;
 
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
@@ -129,6 +134,10 @@ const Preview = () => {
                 <ListItemText secondary="آی دی مرتبط:" />
                 {socialMediaId}
               </ListItem>
+              <ListItem>
+                <ListItemText secondary="کد ثنا:" />
+                {sanaCode}
+              </ListItem>
             </List>
           </Grid>
           <Grid item xs={6}>
@@ -164,6 +173,18 @@ const Preview = () => {
               <ListItem>
                 <ListItemText secondary="آدرس:" />
                 {address}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="نام بانک:" />
+                {bankName}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="شماره حساب:" />
+                {accountNumber}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="شماره شبا:" />
+                {shabaNumber}
               </ListItem>
             </List>
           </Grid>

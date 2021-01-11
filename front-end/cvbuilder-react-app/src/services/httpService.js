@@ -15,7 +15,11 @@ axios.interceptors.response.use(null, (error) => {
         // console.log(error);
         toast.error("مشکلی از سمت سرور رخ داده است");
     } else if (error.response.status === 401) {
-        window.location.replace("/login");
+        if (window.location.pathname === "/admin") {
+            window.location.replace("admin/login");
+        } else {
+            window.location.replace("/login");
+        }
     } else {
         if (error.response.data.errors) {
             if (typeof error.response.data.errors.msg === "object") {

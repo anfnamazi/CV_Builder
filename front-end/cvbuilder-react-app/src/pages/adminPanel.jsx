@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getallUsers, getUserCSV } from "../services/adminService";
+import { getallUsers, getUserCSV, getUserZIP } from "../services/adminService";
 import { useStyles } from "../utils/styles";
 import fileDownload from "js-file-download";
 import { MeetingRoom } from "@material-ui/icons";
@@ -40,6 +40,17 @@ const AdminPanel = () => {
     }
   };
 
+  const handleDownlaodZIP = async (userId) => {
+    try {
+      const zipResult = await getUserZIP(userId);
+      if (zipResult.status === 200) {
+        fileDownload(zipResult.data, "filename.zip");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     handleGetUsers();
   }, []);
@@ -55,7 +66,7 @@ const AdminPanel = () => {
             <TableCell align="left">ردیف</TableCell>
             <TableCell>کاربر</TableCell>
             <TableCell align="left">تاریخ</TableCell>
-            <TableCell align="left">دانلود&nbsp;(pdf,excel)</TableCell>
+            <TableCell align="left">دانلود&nbsp;(zip,pdf,excel)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -85,6 +96,13 @@ const AdminPanel = () => {
                     />
                   </IconButton>
                 </Link>
+                <IconButton onClick={(e) => handleDownlaodZIP(user._id)}>
+                  <img
+                    className="download-icon"
+                    src={require("../assets/images/zipIcon.svg")}
+                    alt=""
+                  />
+                </IconButton>
               </TableCell>
             </TableRow>
           ))}

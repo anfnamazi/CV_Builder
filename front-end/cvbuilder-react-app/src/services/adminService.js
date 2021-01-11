@@ -1,6 +1,8 @@
 import http from "./httpService";
 import config from "../config.json";
 
+const token = localStorage.getItem("token");
+
 export const getallUsers = () => {
   return http.get(
     `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users`
@@ -53,18 +55,17 @@ export const getAllResumeByAdmin = (userId) => {
 };
 
 export const getUserCSV = (userId) => {
-  window.open(
+  return http.get(
     `${
       config[process.env.REACT_APP_ENVIRONMENT].local_api
-    }/users/${userId}/zipAttachment` +
-      "?token=" +
-      localStorage.getItem("token")
+    }/users/${userId}/csv?token=${token}`
   );
-  // return http.get(
-  //   `${
-  //     config[process.env.REACT_APP_ENVIRONMENT].local_api
-  //   }/users/${userId}/zipAttachment` +
-  //     "?token=" +
-  //     localStorage.getItem("token")
-  // );
+};
+
+export const getUserZIP = (userId) => {
+  return http.get(
+    `${
+      config[process.env.REACT_APP_ENVIRONMENT].local_api
+    }/users/${userId}/ZipAttachment?token=${token}`
+  );
 };
