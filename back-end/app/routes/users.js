@@ -16,7 +16,8 @@ const {
   getUserPopulated,
   getUserCsv,
   updateUser,
-  deleteUser
+  deleteUser,
+  getZipAttachment
 } = require('../controllers/users')
 
 const {
@@ -97,6 +98,34 @@ router.get(
       handleError(res, err)
     }
   }
+)
+
+router.get(
+  '/zipAttachment',
+  requireAuth,
+  roleAuthorization(['admin', 'user']),
+  trimRequest.all,
+  async (req, res) => {
+    try {
+      // if (req.user.role == 'admin') {
+      //   await getUsers(req, res)
+      //   return
+      // }
+      const id = req.user.id || ''
+      req.params.id = id
+      await getZipAttachment(req, res)
+    } catch (err) {
+      handleError(res, err)
+    }
+  }
+)
+
+router.get(
+  '/:id/zipAttachment',
+  requireAuth,
+  // roleAuthorization(['admin']),
+  trimRequest.all,
+  getZipAttachment
 )
 
 router.get(

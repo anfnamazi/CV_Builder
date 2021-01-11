@@ -10,6 +10,9 @@ const UserBaseInfoSchema = new mongoose.Schema(
       },
       title: {
         type: String
+      },
+      fileType: {
+        type: String
       }
     },
     nationalCard: {
@@ -18,6 +21,9 @@ const UserBaseInfoSchema = new mongoose.Schema(
         required: false
       },
       title: {
+        type: String
+      },
+      fileType: {
         type: String
       }
     },
@@ -28,7 +34,13 @@ const UserBaseInfoSchema = new mongoose.Schema(
       type: String
     },
     image: {
-      type: String
+      file: {
+        type: String,
+        required: false
+      },
+      fileType: {
+        type: String
+      }
     },
     job: {
       type: String

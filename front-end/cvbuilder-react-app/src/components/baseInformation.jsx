@@ -187,7 +187,7 @@ const BaseInfo = () => {
     }
     if (image) {
       setpersonImage(
-        `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/img/${image}`
+        `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/img/${image.file}`
       );
     }
     if (city) {

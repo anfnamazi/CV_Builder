@@ -31,9 +31,10 @@ const AdminPanel = () => {
   const handleDownlaodCSV = async (userId) => {
     try {
       const csvResult = await getUserCSV(userId);
-      if (csvResult.status === 200) {
-        fileDownload(csvResult.data, "filename.csv");
-      }
+      // if (csvResult.status === 200) {
+      //   // fileDownload(csvResult.data, "filename.zip");
+      //   window.open()
+      // }
     } catch (error) {
       console.log(error);
     }
