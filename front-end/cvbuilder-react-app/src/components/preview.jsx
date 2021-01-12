@@ -79,7 +79,7 @@ const Preview = () => {
         <Grid container spacing={3} justify="center">
           {image ? (
             <img
-              src={`${newLocalUrl}/img/${image}`}
+              src={`${newLocalUrl}/img/${image.file}`}
               style={{
                 height: 100,
                 width: 100,

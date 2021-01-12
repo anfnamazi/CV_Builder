@@ -7,6 +7,9 @@ const { matchedData } = require('express-validator')
 const { isIDGood, handleError } = require('../../middleware/utils')
 const _ = require('lodash')
 const { Parser, parse } = require('json2csv')
+const fs = require('fs')
+// const json2csv = require('json2csv')
+const path = require('path')
 const moment = require('jalali-moment')
 /**
  * Get item function called by route
@@ -239,10 +242,17 @@ const getUserCsv = async (req, res) => {
         csvItems[index] = { ...baseItems, ...csvItems[index] }
       }
     }
-    let csvUser = parse(csvItems)
-    res.setHeader('Content-disposition', 'attachment; filename=testing.csv')
-    res.set('Content-Type', 'text/csv')
-    res.status(200).send(csvUser)
+
+    const parser = new Parser({ withBOM: true })
+    const csvUser = parser.parse(csvItems)
+
+    const csvFileName = path.join(__dirname, `../../../uploads/csv/${id}.csv`)
+
+    fs.writeFile(csvFileName, csvUser, { encoding: 'utf8' }, function (err) {
+      if (err) throw err
+      console.log('file saved')
+      res.status(200).download(csvFileName, `csv_${item.phone}.csv`)
+    })
   } catch (error) {
     handleError(res, error)
   }

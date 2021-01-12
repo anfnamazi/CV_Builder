@@ -31,10 +31,10 @@ const AdminPanel = () => {
   const handleDownlaodCSV = async (userId) => {
     try {
       const csvResult = await getUserCSV(userId);
-      // if (csvResult.status === 200) {
-      //   // fileDownload(csvResult.data, "filename.zip");
-      //   window.open()
-      // }
+      if (csvResult.status === 200) {
+        fileDownload(csvResult.data,'resume.csv');
+       
+      }
     } catch (error) {
       console.log(error);
     }

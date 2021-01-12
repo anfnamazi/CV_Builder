@@ -63,7 +63,7 @@ export const getUserCSV = (userId) => {
 };
 
 export const getUserZIP = (userId) => {
-  return http.get(
+  window.open(
     `${
       config[process.env.REACT_APP_ENVIRONMENT].local_api
     }/users/${userId}/ZipAttachment?token=${token}`

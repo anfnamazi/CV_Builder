@@ -70,7 +70,6 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^0.16.2",
-    "json-server-auth": "^2.0.2"
+   
   }
 }
