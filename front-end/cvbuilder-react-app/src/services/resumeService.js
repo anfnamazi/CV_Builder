@@ -166,7 +166,7 @@ export const saveHonores = (honorForm) => {
   if (honorForm) {
     honorForm.map((honor) => {
       if (honor.cert && honor.cert.size) {
-        data.append("cert", honor.cert, honor.Name);
+        data.append("cert", honor.cert, honor.honorTitle);
       }
     });
     data.append("document", json);

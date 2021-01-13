@@ -28,7 +28,7 @@ const createHonorUser = async (req, res) => {
         req = matchedData(req)
         if (files && files.cert) {
           files.cert.map((cert) => {
-            if (cert.originalname === jobField.Name) {
+            if (cert.originalname === jobField.honorTitle) {
               jobField.cert = {
                 file: cert.filename,
                 fileType: cert.mimetype.split('/')[1],
