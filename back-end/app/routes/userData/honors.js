@@ -23,6 +23,11 @@ const {
 } = require('../../middleware/utils')
 const Honor = require('../../models/honor')
 
+var multer = require('multer')
+var upload = multer({ dest: 'uploads/' })
+
+var cpUpload = upload.fields([{ name: 'cert', maxCount: 10 }])
+
 /*
  * add or edit BaseInfo of user, by Admin
  */
@@ -50,8 +55,9 @@ router.post(
   '/honors',
   requireAuth,
   roleAuthorization(['user']),
+  cpUpload,
   trimRequest.all,
-  validateAddHonorUser,
+  // validateAddHonorUser,
   createHonorUser
 )
 

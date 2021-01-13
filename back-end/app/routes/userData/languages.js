@@ -24,11 +24,15 @@ const {
   isIDGood,
   buildErrObject
 } = require('../../middleware/utils')
+var multer = require('multer')
 const Language = require('../../models/language')
 
+var upload = multer({ dest: 'uploads/' })
 /*
  * add or edit BaseInfo of user, by Admin
  */
+
+var cpUpload = upload.fields([{ name: 'cert', maxCount: 10 }])
 router.post(
   '/:id/languages',
   requireAuth,
@@ -53,7 +57,9 @@ router.post(
   '/languages',
   requireAuth,
   roleAuthorization(['user']),
+  cpUpload,
   trimRequest.all,
+
   // validateAddSkillUser,
   createLanguageUser
 )

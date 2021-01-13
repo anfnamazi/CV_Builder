@@ -23,6 +23,18 @@ const languageschema = new mongoose.Schema(
       type: Number,
       max: 100
     },
+    cert: {
+      file: {
+        type: String,
+        required: false
+      },
+      fileType: {
+        type: String
+      },
+      name: {
+        type: String
+      }
+    },
     user: {
       type: Schema.Types.ObjectId,
       ref: 'User'

@@ -10,13 +10,33 @@ const model = require('../../models/language')
 const createLanguageUser = async (req, res) => {
   try {
     let user = req.user
-    const edusCount = req.body.length
     let items = []
     const resultDelete = await model.deleteMany({ user: user._id })
     if (resultDelete) {
       user.languages = []
-      req.body.map(async (jobField) => {
+      let files = undefined
+      if (req.files) {
+        files = req.files
+      }
+      const doc = JSON.parse(req.body.document)
+      const edusCount = doc.languageForm.length
+      doc.languageForm.map(async (jobField, index) => {
+        if (jobField.Name === '') {
+          return res.status(200).json({})
+        }
         req = matchedData(req)
+
+        if (files && files.cert) {
+          files.cert.map((cert) => {
+            if (cert.originalname === jobField.Name) {
+              jobField.cert = {
+                file: cert.filename,
+                fileType: cert.mimetype.split('/')[1],
+                name: 'image_' + cert.originalname
+              }
+            }
+          })
+        }
         const item = await createLanguageInDB(jobField, user._id)
         user.languages.push(item._id)
 
