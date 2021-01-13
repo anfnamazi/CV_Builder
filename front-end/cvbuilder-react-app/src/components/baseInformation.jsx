@@ -37,6 +37,7 @@ import config from "../config.json";
 import provinces from "../utils/provinces.json";
 import cities from "../utils/cities.json";
 import { Autocomplete } from "@material-ui/lab";
+import validator from 'validator'
 
 // jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
@@ -415,6 +416,9 @@ const BaseInfo = () => {
               type="number"
               style={{ direction: "ltr" }}
               placeholder="09123456789"
+              // error={!(phone && validator.isMobilePhone(phone,"fa-IR"))}
+              // helperText={!(phone && validator.isMobilePhone(phone,'fa-IR'))?'!شماره وارد شده صحیح نیست': ''}
+              
               required
               // onInvalid={(e) =>
               //   e.target.setCustomValidity(

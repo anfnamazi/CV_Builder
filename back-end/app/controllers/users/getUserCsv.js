@@ -110,9 +110,9 @@ const getUserCsv = async (req, res) => {
     let moneyAccounts = item.moneyAccounts.map((value) => {
       let str = ''
       const obj = {
-        مهارت: value.Name,
-        درجه: value.skillLevel,
-        توضیحات: value.description
+        'نام بانک': value.bankName,
+        'شماره حساب': value.accountNumber,
+        'شماره شبا': value.shabaNumber
       }
 
       _.map(obj, (value, key) => {
@@ -243,7 +243,7 @@ const getUserCsv = async (req, res) => {
       }
     }
 
-    const parser = new Parser({ withBOM: true })
+    const parser = new Parser({ withBOM: true, excelStrings: true })
     const csvUser = parser.parse(csvItems)
 
     const csvFileName = path.join(__dirname, `../../../uploads/csv/${id}.csv`)
