@@ -3,6 +3,7 @@ const { deleteUser } = require('./deleteUser')
 const { getUser } = require('./getUser')
 const { getUserPopulated } = require('./getUserPopulated')
 const { getUserCsv } = require('./getUserCsv')
+const { getZipAttachment } = require('./getZipAttachment')
 const { getUsers } = require('./getUsers')
 const { updateUser } = require('./updateUser')
 const { createBaseInfo } = require('./createBaseInfo')
@@ -29,6 +30,7 @@ module.exports = {
   getUser,
   getUserPopulated,
   getUserCsv,
+  getZipAttachment,
   getUsers,
   updateUser,
   createBaseInfo,

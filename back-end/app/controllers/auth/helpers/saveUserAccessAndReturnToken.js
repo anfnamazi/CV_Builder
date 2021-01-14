@@ -14,7 +14,6 @@ const {
  * @param {Object} user - user object
  */
 const saveUserAccessAndReturnToken = (req = {}, user = {}) => {
-  console.log(req)
   return new Promise((resolve, reject) => {
     const userAccess = new UserAccess({
       email: user.email,

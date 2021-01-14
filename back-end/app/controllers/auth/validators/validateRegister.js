@@ -12,7 +12,7 @@ const validateRegister = [
     .isEmpty()
     .withMessage('IS_EMPTY')
     .isMobilePhone('fa-IR')
-    .withMessage('NOT_A_VALID_IR_MOBILE_PHONE'),
+    .withMessage('شماره موبایل وارد شده صحیح نیست'),
   (req, res, next) => {
     validateResult(req, res, next)
   }

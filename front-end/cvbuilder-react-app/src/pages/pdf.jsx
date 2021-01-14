@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { getAllResumeByAdmin } from "../services/adminService";
 import config from "../config.json";
 import PDF from "../utils/pdfGen";
+import jsPDF from 'jspdf';
+import {font} from './Amiri-Regular-normal'
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
@@ -91,8 +93,65 @@ const Pdf = ({ match }) => {
     if (match.params.id) {
       getAllInfo(match.params.id);
     }
-    PDF.createPdf(bodyRef.current);
+    // PDF.createPdf(bodyRef.current);
   }, []);
+
+  const downloadPdf = ()=>{
+    var AmiriRegular = font;
+
+        var doc = new jsPDF("p", "pt", "a4");
+
+        doc.addFileToVFS(require('./Amiri-Regular.ttf'), AmiriRegular);
+        doc.addFont(require('./Amiri-Regular.ttf'), 'Amiri', 'normal');
+
+        doc.setFont('Amiri'); // set font
+        doc.setFontSize(14);
+
+        const leftLabelColumn = 250
+        const rightLabelColumn = 500
+        const leftValueColumn = 50
+        const rightValueColumn = 400
+
+        doc.text(`:نام`, rightLabelColumn, 50);
+        doc.text(`:نام خوانوادگی`, rightLabelColumn, 100);
+        doc.text(`:عنوان شغلی`, rightLabelColumn, 150);
+        doc.text(`:جنسیت`, rightLabelColumn, 200);
+    /////////////////////////////////////////////////////////////////////////////
+        doc.text(`:ایمیل`, leftLabelColumn, 50);
+        doc.text(`:موبایل`, leftLabelColumn, 100);
+        doc.text(`:تلفن`, leftLabelColumn, 150);
+        doc.text(`:وب سایت`, leftLabelColumn, 200);
+    ////////////////////////////////////////////////////////////////////////////
+        doc.text(`${firstName}`, rightValueColumn, 50);
+        doc.text(`${lastName}`, rightValueColumn, 100);
+        doc.text(`${job}`, rightValueColumn, 150);
+        doc.text(`${gender}`, rightValueColumn, 200);
+    ///////////////////////////////////////////////////////////////////////////
+        doc.text(`${email}`, leftValueColumn, 50);
+        doc.text(`${phone}`, leftValueColumn, 100);
+        doc.text(`${tel}`, leftValueColumn, 150);
+        doc.text(`${webPage}`, leftValueColumn, 200);
+        /////////////////////////////////////////
+
+        doc.addPage()
+        ///////////////////////////
+        doc.text(`:مقطع`, rightLabelColumn, 50);
+        doc.text(`:رشته تحصیلی`, rightLabelColumn, 100);
+        /////////////////////////
+        allInfo.educationHistories.map((edu) => {
+          doc.text(`${edu.sectionEdu}`, rightValueColumn, 50);
+          doc.text(`${edu.fieldEdu}`, rightValueColumn, 100);
+        }
+        )
+        doc.save(`${phone}.pdf`);
+  }
+
+
+  // const generatePdfContent = () =>  (
+   
+  // )
+    
+  
 
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
@@ -104,9 +163,19 @@ const Pdf = ({ match }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => window.print()}
+          // onClick={() => window.print()}
+          onClick={() => downloadPdf()}
+          
         >
           دانلود pdf
+        </Button>
+        <Button
+          variant="contained"
+          color="default"
+          onClick={() => window.print()}
+         
+        >
+          پرینت
         </Button>
         <Link to="/admin">
           <Button variant="contained" color="secondary">
@@ -114,7 +183,7 @@ const Pdf = ({ match }) => {
           </Button>
         </Link>
       </Grid>
-      <div ref={bodyRef}>
+      <div ref={bodyRef} id='body'>
         <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
           اطلاعات پایه
         </Typography>
@@ -122,7 +191,7 @@ const Pdf = ({ match }) => {
           <Grid container spacing={3} justify="center">
             {image ? (
               <img
-                src={`${newLocalUrl}/img/${image}`}
+                src={`${newLocalUrl}/img/${image.file}`}
                 style={{
                   height: 100,
                   width: 100,

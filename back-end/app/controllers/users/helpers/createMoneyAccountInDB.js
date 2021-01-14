@@ -6,12 +6,12 @@ const { buildErrObject } = require('../../../middleware/utils')
  * @param {String} userId - the user_id to add base info for
  */
 const createMoneyAccountsInDB = (
-  { accountName = '', bankName = '', shabaNumber = 0 },
+  { accountNumber = '', bankName = '', shabaNumber = 0 },
   userId
 ) => {
   return new Promise((resolve, reject) => {
     const skill = new model({
-      accountName,
+      accountNumber,
       bankName,
       shabaNumber,
       user: userId

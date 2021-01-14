@@ -4,41 +4,68 @@ import config from "../config.json";
 const token = localStorage.getItem("token");
 
 export const getallUsers = () => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users`);
+  return http.get(
+    `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users`
+  );
 };
 
 export const getBaseInfoByAdmin = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/base`);
+  return http.get(
+    `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/base`
+  );
 };
 
 export const getContactInfoByAdmin = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/contactInfo`);
+  return http.get(
+    `${
+      config[process.env.REACT_APP_ENVIRONMENT].local_api
+    }/${userId}/contactInfo`
+  );
 };
 
 export const getDocsInfoByAdmin = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/docs`);
+  return http.get(
+    `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/docs`
+  );
 };
 
 export const getEducationHistoriesByAdmin = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/edus`);
+  return http.get(
+    `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/edus`
+  );
 };
 
 export const getJobHistoriesByAdmin = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/jobs`);
+  return http.get(
+    `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/${userId}/jobs`
+  );
 };
 
 export const getAllResumeByAdmin = (userId) => {
-  const newLocalUrl = `http://localhost:${config.port[process.env.REACT_APP_ENVIRONMENT]
-    }`;
-  return http.get(`${process.env.REACT_APP_ENVIRONMENT === "development"
-    ? config[process.env.REACT_APP_ENVIRONMENT].local_api
-    : config.server_url}/users/${userId}/populated`);
+  const newLocalUrl = `http://localhost:${
+    config.port[process.env.REACT_APP_ENVIRONMENT]
+  }`;
+  return http.get(
+    `${
+      process.env.REACT_APP_ENVIRONMENT === "development"
+        ? config[process.env.REACT_APP_ENVIRONMENT].local_api
+        : config.server_url
+    }/users/${userId}/populated`
+  );
 };
 
 export const getUserCSV = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/${userId}/csv?token=${token}`);
+  return http.get(
+    `${
+      config[process.env.REACT_APP_ENVIRONMENT].local_api
+    }/users/${userId}/csv?token=${token}`
+  );
 };
 
 export const getUserZIP = (userId) => {
-  return http.get(`${config[process.env.REACT_APP_ENVIRONMENT].local_api}/users/${userId}/ZipAttachment?token=${token}`);
+  window.open(
+    `${
+      config[process.env.REACT_APP_ENVIRONMENT].local_api
+    }/users/${userId}/ZipAttachment?token=${token}`
+  );
 };

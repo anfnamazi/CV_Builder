@@ -4,7 +4,7 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 
 const moneyAccountsschema = new mongoose.Schema(
   {
-    accountName: {
+    accountNumber: {
       type: String
     },
     bankName: {

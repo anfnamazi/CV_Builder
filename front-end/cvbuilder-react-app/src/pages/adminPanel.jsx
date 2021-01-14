@@ -32,7 +32,8 @@ const AdminPanel = () => {
     try {
       const csvResult = await getUserCSV(userId);
       if (csvResult.status === 200) {
-        fileDownload(csvResult.data, "filename.csv");
+        fileDownload(csvResult.data,'resume.csv');
+       
       }
     } catch (error) {
       console.log(error);

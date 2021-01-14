@@ -6,7 +6,14 @@ const { buildErrObject } = require('../../../middleware/utils')
  * @param {String} userId - the user_id to add base info for
  */
 const createLanguageInDB = (
-  { Name = '', readSkill = 0, writeSkill = 0, hearSkill = 0, speakSkill = 0 },
+  {
+    Name = '',
+    readSkill = 0,
+    writeSkill = 0,
+    hearSkill = 0,
+    speakSkill = 0,
+    cert = ''
+  },
   userId
 ) => {
   return new Promise((resolve, reject) => {
@@ -16,6 +23,7 @@ const createLanguageInDB = (
       writeSkill,
       hearSkill,
       speakSkill,
+      cert,
       user: userId
     })
     skill.save((err, item) => {

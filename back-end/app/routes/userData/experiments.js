@@ -25,7 +25,10 @@ const {
   buildErrObject
 } = require('../../middleware/utils')
 const Experiment = require('../../models/experiment')
+var multer = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
+var cpUpload = upload.fields([{ name: 'cert', maxCount: 10 }])
 /*
  * add or edit BaseInfo of user, by Admin
  */
@@ -53,6 +56,7 @@ router.post(
   '/experiments',
   requireAuth,
   roleAuthorization(['user']),
+  cpUpload,
   trimRequest.all,
   // validateAddSkillUser,
   createExperimentUser
@@ -116,13 +120,11 @@ router.get(
   trimRequest.all,
   async (req, res) => {
     try {
-      res
-        .status(201)
-        .json(
-          await getItems(req, Experiment, {
-            _id: { $in: req.user.experiments }
-          })
-        )
+      res.status(201).json(
+        await getItems(req, Experiment, {
+          _id: { $in: req.user.experiments }
+        })
+      )
     } catch (err) {
       handleError(res, err)
     }

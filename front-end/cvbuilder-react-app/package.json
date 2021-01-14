@@ -47,7 +47,8 @@
     "react-to-pdf": "^0.0.13",
     "react-toastify": "^6.1.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "redux-thunk": "^2.3.0",
+    "validator": "^13.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -70,8 +71,5 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "json-server": "^0.16.2",
-    "json-server-auth": "^2.0.2"
-  }
+  "devDependencies": {}
 }

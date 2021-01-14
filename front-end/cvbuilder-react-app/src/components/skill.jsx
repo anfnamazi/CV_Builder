@@ -217,7 +217,7 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">{language.cert.name}</span>
+                <span class="file-msg">{language.cert && language.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"
@@ -311,7 +311,7 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">{experimentalSkill.cert.name}</span>
+                <span class="file-msg">{experimentalSkill.cert && experimentalSkill.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"
@@ -463,7 +463,7 @@ const Skill = () => {
                 <span class="fake-btn">
                   <CastForEducation />
                 </span>
-                <span class="file-msg">{honor.cert.name}</span>
+                <span class="file-msg">{honor.cert && honor.cert.name}</span>
                 <input
                   class="file-input"
                   type="file"

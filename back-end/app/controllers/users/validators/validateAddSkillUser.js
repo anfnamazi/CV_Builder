@@ -56,6 +56,7 @@ const validateAddSkillUser = [
       return false
     })
     .withMessage('POSSIBLE_RANGE: 0 ~ 5'),
+  check('cert').optional(),
   (req, res, next) => {
     validateResult(req, res, next)
   }

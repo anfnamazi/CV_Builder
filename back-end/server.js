@@ -10,6 +10,8 @@ const app = express()
 const i18n = require('i18n')
 const initMongo = require('./config/mongo')
 const path = require('path')
+var PDFDocument = require('pdfkit')
+var fs = require('fs')
 
 // Setup express server port from ENV, default: 3000
 app.set('port', process.env.PORT || 3000)

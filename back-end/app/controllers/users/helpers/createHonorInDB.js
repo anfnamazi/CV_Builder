@@ -6,7 +6,7 @@ const { buildErrObject } = require('../../../middleware/utils')
  * @param {String} userId - the user_id to add base info for
  */
 const createHonorInDB = (
-  { honorTitle = '', honorMonth = 1, honorYear = '' },
+  { honorTitle = '', honorMonth = 1, honorYear = '', cert = '', type = '' },
   userId
 ) => {
   return new Promise((resolve, reject) => {
@@ -14,6 +14,8 @@ const createHonorInDB = (
       honorTitle,
       honorMonth,
       honorYear,
+      cert,
+      type,
       user: userId
     })
     honor.save((err, item) => {

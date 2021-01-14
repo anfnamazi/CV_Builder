@@ -19,21 +19,32 @@ const createBaseInfoUser = async (req, res) => {
     req = matchedData(req)
     if (files) {
       if (files.image) {
-        req.image = files.image ? files.image[0].filename : undefined
+        const fileType = files.image[0].mimetype.split('/')[1]
+        req.image = files.image
+          ? {
+              file: files.image[0].filename,
+              fileType: fileType
+            }
+          : undefined
       }
       if (files.eduCertif) {
+        const fileType = files.eduCertif[0].mimetype.split('/')[1]
         req.eduCertif = files.eduCertif
           ? {
               file: files.eduCertif[0].filename,
-              title: files.eduCertif[0].originalname
+              title: files.eduCertif[0].originalname,
+              fileType: fileType
             }
           : undefined
       }
       if (files.nationalCard) {
+        const fileType = files.nationalCard[0].mimetype.split('/')[1]
+
         req.nationalCard = files.nationalCard
           ? {
               file: files.nationalCard[0].filename,
-              title: files.nationalCard[0].originalname
+              title: files.nationalCard[0].originalname,
+              fileType: fileType
             }
           : undefined
       }

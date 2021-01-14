@@ -6,7 +6,7 @@ const { buildErrObject } = require('../../../middleware/utils')
  * @param {String} userId - the user_id to add base info for
  */
 const createExperimentInDB = (
-  { Name = '', skillLevel = 0, description = '' },
+  { Name = '', skillLevel = 0, description = '', cert = '', type = '' },
   userId
 ) => {
   return new Promise((resolve, reject) => {
@@ -14,6 +14,8 @@ const createExperimentInDB = (
       Name,
       skillLevel,
       description,
+      cert,
+      type,
       user: userId
     })
     skill.save((err, item) => {
