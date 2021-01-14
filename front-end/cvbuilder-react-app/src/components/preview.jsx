@@ -67,7 +67,7 @@ const Preview = () => {
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
       ? config[process.env.REACT_APP_ENVIRONMENT].local_api
-      : config.server_url;
+      : '..';
 
   const classes = useStyles();
   return (

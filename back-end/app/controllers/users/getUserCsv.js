@@ -11,6 +11,7 @@ const fs = require('fs')
 // const json2csv = require('json2csv')
 const path = require('path')
 const moment = require('jalali-moment')
+var jsonexport = require('jsonexport')
 /**
  * Get item function called by route
  * @param {Object} req - request object
@@ -243,16 +244,29 @@ const getUserCsv = async (req, res) => {
       }
     }
 
-    const parser = new Parser({ withBOM: true, excelStrings: true })
-    const csvUser = parser.parse(csvItems)
+    jsonexport(csvItems, function (err, csv) {
+      if (err) return console.log(err)
 
-    const csvFileName = path.join(__dirname, `../../../uploads/csv/${id}.csv`)
+      const csvFileName = path.join(__dirname, `../../../uploads/csv/${id}.csv`)
 
-    fs.writeFile(csvFileName, csvUser, { encoding: 'utf8' }, function (err) {
-      if (err) throw err
-      console.log('file saved')
-      res.status(200).download(csvFileName, `csv_${item.phone}.csv`)
+      fs.writeFile(csvFileName, csv, { encoding: 'utf8' }, function (err) {
+        if (err) throw err
+        console.log('file saved')
+        res.status(200).download(csvFileName, `csv_${item.phone}.csv`)
+      })
+      console.log(csv)
     })
+
+    // const parser = new Parser({ withBOM: true, excelStrings: true })
+    // const csvUser = parser.parse(csvItems)
+
+    // const csvFileName = path.join(__dirname, `../../../uploads/csv/${id}.csv`)
+
+    // fs.writeFile(csvFileName, csvUser, { encoding: 'utf8' }, function (err) {
+    //   if (err) throw err
+    //   console.log('file saved')
+    //   res.status(200).download(csvFileName, `csv_${item.phone}.csv`)
+    // })
   } catch (error) {
     handleError(res, error)
   }

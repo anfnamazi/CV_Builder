@@ -156,7 +156,7 @@ const Pdf = ({ match }) => {
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
       ? config[process.env.REACT_APP_ENVIRONMENT].local_api
-      : config.server_url;
+      : '..';
   return (
     <Fragment>
       <Grid container style={{ marginTop: 10 }} justify="space-evenly">

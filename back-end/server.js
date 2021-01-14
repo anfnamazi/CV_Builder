@@ -84,6 +84,14 @@ app.get('/login', function (req, res) {
 app.get('/admin', function (req, res) {
   res.sendFile(path.join(__dirname, 'build', 'index.html'))
 })
+app.get('/admin/login', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
+app.get('/logout', function (req, res) {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'))
+})
+
 app.use(require('./app/routes'))
 app.listen(app.get('port'))
 
