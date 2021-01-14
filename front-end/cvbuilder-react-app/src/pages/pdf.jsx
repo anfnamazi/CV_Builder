@@ -12,8 +12,8 @@ import { Link } from "react-router-dom";
 import { getAllResumeByAdmin } from "../services/adminService";
 import config from "../config.json";
 import PDF from "../utils/pdfGen";
-import jsPDF from 'jspdf';
-import {font} from './Amiri-Regular-normal'
+import jsPDF from "jspdf";
+import { font } from "./Amiri-Regular-normal";
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
@@ -96,62 +96,58 @@ const Pdf = ({ match }) => {
     // PDF.createPdf(bodyRef.current);
   }, []);
 
-  const downloadPdf = ()=>{
+  const downloadPdf = () => {
     var AmiriRegular = font;
 
-        var doc = new jsPDF("p", "pt", "a4");
+    var doc = new jsPDF("p", "pt", "a4");
 
-        doc.addFileToVFS(require('./Amiri-Regular.ttf'), AmiriRegular);
-        doc.addFont(require('./Amiri-Regular.ttf'), 'Amiri', 'normal');
+    doc.addFileToVFS(require("./Amiri-Regular.ttf"), AmiriRegular);
+    doc.addFont(require("./Amiri-Regular.ttf"), "Amiri", "normal");
 
-        doc.setFont('Amiri'); // set font
-        doc.setFontSize(14);
+    doc.setFont("Amiri"); // set font
+    doc.setFontSize(14);
 
-        const leftLabelColumn = 250
-        const rightLabelColumn = 500
-        const leftValueColumn = 50
-        const rightValueColumn = 400
+    const leftLabelColumn = 250;
+    const rightLabelColumn = 500;
+    const leftValueColumn = 50;
+    const rightValueColumn = 400;
 
-        doc.text(`:نام`, rightLabelColumn, 50);
-        doc.text(`:نام خوانوادگی`, rightLabelColumn, 100);
-        doc.text(`:عنوان شغلی`, rightLabelColumn, 150);
-        doc.text(`:جنسیت`, rightLabelColumn, 200);
+    doc.text(`:نام`, rightLabelColumn, 50);
+    doc.text(`:نام خوانوادگی`, rightLabelColumn, 100);
+    doc.text(`:عنوان شغلی`, rightLabelColumn, 150);
+    doc.text(`:جنسیت`, rightLabelColumn, 200);
     /////////////////////////////////////////////////////////////////////////////
-        doc.text(`:ایمیل`, leftLabelColumn, 50);
-        doc.text(`:موبایل`, leftLabelColumn, 100);
-        doc.text(`:تلفن`, leftLabelColumn, 150);
-        doc.text(`:وب سایت`, leftLabelColumn, 200);
+    doc.text(`:ایمیل`, leftLabelColumn, 50);
+    doc.text(`:موبایل`, leftLabelColumn, 100);
+    doc.text(`:تلفن`, leftLabelColumn, 150);
+    doc.text(`:وب سایت`, leftLabelColumn, 200);
     ////////////////////////////////////////////////////////////////////////////
-        doc.text(`${firstName}`, rightValueColumn, 50);
-        doc.text(`${lastName}`, rightValueColumn, 100);
-        doc.text(`${job}`, rightValueColumn, 150);
-        doc.text(`${gender}`, rightValueColumn, 200);
+    doc.text(`${firstName}`, rightValueColumn, 50);
+    doc.text(`${lastName}`, rightValueColumn, 100);
+    doc.text(`${job}`, rightValueColumn, 150);
+    doc.text(`${gender}`, rightValueColumn, 200);
     ///////////////////////////////////////////////////////////////////////////
-        doc.text(`${email}`, leftValueColumn, 50);
-        doc.text(`${phone}`, leftValueColumn, 100);
-        doc.text(`${tel}`, leftValueColumn, 150);
-        doc.text(`${webPage}`, leftValueColumn, 200);
-        /////////////////////////////////////////
+    doc.text(`${email}`, leftValueColumn, 50);
+    doc.text(`${phone}`, leftValueColumn, 100);
+    doc.text(`${tel}`, leftValueColumn, 150);
+    doc.text(`${webPage}`, leftValueColumn, 200);
+    /////////////////////////////////////////
 
-        doc.addPage()
-        ///////////////////////////
-        doc.text(`:مقطع`, rightLabelColumn, 50);
-        doc.text(`:رشته تحصیلی`, rightLabelColumn, 100);
-        /////////////////////////
-        allInfo.educationHistories.map((edu) => {
-          doc.text(`${edu.sectionEdu}`, rightValueColumn, 50);
-          doc.text(`${edu.fieldEdu}`, rightValueColumn, 100);
-        }
-        )
-        doc.save(`${phone}.pdf`);
-  }
-
+    doc.addPage();
+    ///////////////////////////
+    doc.text(`:مقطع`, rightLabelColumn, 50);
+    doc.text(`:رشته تحصیلی`, rightLabelColumn, 100);
+    /////////////////////////
+    allInfo.educationHistories.map((edu) => {
+      doc.text(`${edu.sectionEdu}`, rightValueColumn, 50);
+      doc.text(`${edu.fieldEdu}`, rightValueColumn, 100);
+    });
+    doc.save(`${phone}.pdf`);
+  };
 
   // const generatePdfContent = () =>  (
-   
+
   // )
-    
-  
 
   const newLocalUrl =
     process.env.REACT_APP_ENVIRONMENT === "development"
@@ -165,7 +161,6 @@ const Pdf = ({ match }) => {
           color="primary"
           // onClick={() => window.print()}
           onClick={() => downloadPdf()}
-          
         >
           دانلود pdf
         </Button>
@@ -173,7 +168,6 @@ const Pdf = ({ match }) => {
           variant="contained"
           color="default"
           onClick={() => window.print()}
-         
         >
           پرینت
         </Button>
@@ -183,7 +177,7 @@ const Pdf = ({ match }) => {
           </Button>
         </Link>
       </Grid>
-      <div ref={bodyRef} id='body'>
+      <div ref={bodyRef} id="body">
         <Typography variant="h5" style={{ marginTop: 20 }} gutterBottom>
           اطلاعات پایه
         </Typography>
@@ -590,10 +584,6 @@ const Pdf = ({ match }) => {
                     <ListItemText secondary="سطح نوشتن:" />
                     {language.writeSkill}/5
                   </ListItem>
-                </List>
-              </Grid>
-              <Grid item xs={6}>
-                <List>
                   <ListItem>
                     <ListItemText secondary="سطح شنیداری:" />
                     {language.hearSkill}/5
@@ -601,6 +591,23 @@ const Pdf = ({ match }) => {
                   <ListItem>
                     <ListItemText secondary="سطح گفتاری:" />
                     {language.speakSkill}/5
+                  </ListItem>
+                </List>
+              </Grid>
+              <Grid item xs={6}>
+                <List>
+                  <ListItem>
+                    <ListItemText secondary="مدرک مربوطه:" />
+                    {typeof language.cert === "object" ? (
+                      <img
+                        src={`${newLocalUrl}/img/${language.cert.file}`}
+                        style={{
+                          width: "calc(100% - 100px)",
+                          margin: "10px 0",
+                        }}
+                        alt=""
+                      />
+                    ) : null}
                   </ListItem>
                 </List>
               </Grid>
@@ -620,28 +627,35 @@ const Pdf = ({ match }) => {
               <Grid item xs={6}>
                 <ListItem>
                   <ListItemText secondary="نام مهارت:" />
+                  {experiment.type}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="نام مهارت:" />
                   {experiment.Name}
                 </ListItem>
                 <ListItem>
                   <ListItemText secondary="سطح مهارت:" />
                   {experiment.skillLevel}/5
                 </ListItem>
-              </Grid>
-              <Grid item xs={6}>
                 <ListItem>
                   <ListItemText secondary="توضیحات:" />
                   {experiment.description}
                 </ListItem>
-                {/* {typeof experiment.experienceDoc === "object" ? (
-                  <img
-                    src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
-                    style={{
-                      width: "100%",
-                      margin: "10px 0",
-                    }}
-                    alt=""
-                  />
-                ) : null} */}
+              </Grid>
+              <Grid item xs={6}>
+                <ListItem>
+                  <ListItemText secondary="مدرک مربوطه:" />
+                  {typeof experiment.cert === "object" ? (
+                    <img
+                      src={`${newLocalUrl}/img/${experiment.cert.file}`}
+                      style={{
+                        width: "calc(100% - 100px)",
+                        margin: "10px 0",
+                      }}
+                      alt=""
+                    />
+                  ) : null}
+                </ListItem>
               </Grid>
             </Grid>
           ))}
@@ -659,10 +673,12 @@ const Pdf = ({ match }) => {
               <Grid item xs={6}>
                 <ListItem>
                   <ListItemText secondary="عنوان افتخار:" />
+                  {honor.type}
+                </ListItem>
+                <ListItem>
+                  <ListItemText secondary="عنوان افتخار:" />
                   {honor.honorTitle}
                 </ListItem>
-              </Grid>
-              <Grid item xs={6}>
                 <ListItem>
                   <ListItemText secondary="ماه افتخار:" />
                   {months[honor.honorMonth - 1]}
@@ -670,6 +686,21 @@ const Pdf = ({ match }) => {
                 <ListItem>
                   <ListItemText secondary="سال افتخار:" />
                   {honor.honorYear}
+                </ListItem>
+              </Grid>
+              <Grid item xs={6}>
+                <ListItem>
+                  <ListItemText secondary="مدرک مربوطه:" />
+                  {typeof honor.cert === "object" ? (
+                    <img
+                      src={`${newLocalUrl}/img/${honor.cert.file}`}
+                      style={{
+                        width: "calc(100% - 100px)",
+                        margin: "10px 0",
+                      }}
+                      alt=""
+                    />
+                  ) : null}
                 </ListItem>
               </Grid>
             </Grid>

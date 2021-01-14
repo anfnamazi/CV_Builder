@@ -478,10 +478,6 @@ const Preview = () => {
                   <ListItemText secondary="سطح نوشتن:" />
                   {language.writeSkill}/5
                 </ListItem>
-              </List>
-            </Grid>
-            <Grid item xs={6}>
-              <List>
                 <ListItem>
                   <ListItemText secondary="سطح شنیداری:" />
                   {language.hearSkill}/5
@@ -489,6 +485,23 @@ const Preview = () => {
                 <ListItem>
                   <ListItemText secondary="سطح گفتاری:" />
                   {language.speakSkill}/5
+                </ListItem>
+              </List>
+            </Grid>
+            <Grid item xs={6}>
+              <List>
+                <ListItem>
+                  <ListItemText secondary="مدرک مربوطه:" />
+                  {typeof language.cert === "object" ? (
+                    <img
+                      src={`${newLocalUrl}/img/${language.cert.file}`}
+                      style={{
+                        width: "calc(100% - 100px)",
+                        margin: "10px 0",
+                      }}
+                      alt=""
+                    />
+                  ) : null}
                 </ListItem>
               </List>
             </Grid>
@@ -508,28 +521,35 @@ const Preview = () => {
             <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="نام مهارت:" />
+                {experiment.type}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="نام مهارت:" />
                 {experiment.Name}
               </ListItem>
               <ListItem>
                 <ListItemText secondary="سطح مهارت:" />
                 {experiment.skillLevel}/5
               </ListItem>
-            </Grid>
-            <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="توضیحات:" />
                 {experiment.description}
               </ListItem>
-              {/* {typeof experiment.experienceDoc === "object" ? (
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="مدرک مربوطه:" />
+                {typeof experiment.cert === "object" ? (
                   <img
-                    src={`${newLocalUrl}/img/${experiment.experienceDoc.file}`}
+                    src={`${newLocalUrl}/img/${experiment.cert.file}`}
                     style={{
-                      width: "100%",
+                      width: "calc(100% - 100px)",
                       margin: "10px 0",
                     }}
                     alt=""
                   />
-                ) : null} */}
+                ) : null}
+              </ListItem>
             </Grid>
           </Grid>
         ))}
@@ -547,10 +567,12 @@ const Preview = () => {
             <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="عنوان افتخار:" />
+                {honor.type}
+              </ListItem>
+              <ListItem>
+                <ListItemText secondary="عنوان افتخار:" />
                 {honor.honorTitle}
               </ListItem>
-            </Grid>
-            <Grid item xs={6}>
               <ListItem>
                 <ListItemText secondary="ماه افتخار:" />
                 {months[honor.honorMonth - 1]}
@@ -558,6 +580,21 @@ const Preview = () => {
               <ListItem>
                 <ListItemText secondary="سال افتخار:" />
                 {honor.honorYear}
+              </ListItem>
+            </Grid>
+            <Grid item xs={6}>
+              <ListItem>
+                <ListItemText secondary="مدرک مربوطه:" />
+                {typeof honor.cert === "object" ? (
+                  <img
+                    src={`${newLocalUrl}/img/${honor.cert.file}`}
+                    style={{
+                      width: "calc(100% - 100px)",
+                      margin: "10px 0",
+                    }}
+                    alt=""
+                  />
+                ) : null}
               </ListItem>
             </Grid>
           </Grid>
