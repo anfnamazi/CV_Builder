@@ -33,6 +33,7 @@ const App = () => {
       <StylesProvider jss={jss}>
         <ToastContainer />
         <Grid
+          id="headerLogo"
           container
           alignItems="center"
           justify="center"

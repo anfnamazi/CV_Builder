@@ -77,7 +77,7 @@ const AdminPanel = () => {
                 {user.phone}
               </TableCell>
               <TableCell align="left">
-                {new Date(user.updatedAt).toLocaleString()}
+                {new Date(user.updatedAt).toLocaleDateString("fa-IR")}
               </TableCell>
               <TableCell align="left">
                 <IconButton onClick={(e) => handleDownlaodCSV(user._id)}>

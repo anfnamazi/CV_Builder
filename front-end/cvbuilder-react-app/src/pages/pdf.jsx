@@ -14,6 +14,7 @@ import config from "../config.json";
 import PDF from "../utils/pdfGen";
 import jsPDF from "jspdf";
 import { font } from "./Amiri-Regular-normal";
+import '../assets/scss/pdf.css'
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({
@@ -105,27 +106,56 @@ const Pdf = ({ match }) => {
     doc.addFont(require("./Amiri-Regular.ttf"), "Amiri", "normal");
 
     doc.setFont("Amiri"); // set font
-    doc.setFontSize(14);
+    doc.setFontSize(13);
 
-    const leftLabelColumn = 250;
+    const leftLabelColumn = 200;
     const rightLabelColumn = 500;
-    const leftValueColumn = 50;
+    const leftValueColumn = 30;
     const rightValueColumn = 400;
 
-    doc.text(`:نام`, rightLabelColumn, 50);
-    doc.text(`:نام خوانوادگی`, rightLabelColumn, 100);
-    doc.text(`:عنوان شغلی`, rightLabelColumn, 150);
-    doc.text(`:جنسیت`, rightLabelColumn, 200);
+    let baseHeight = 50
+    const differenceHeight = 50
+
+    doc.text(`:نام`, rightLabelColumn, baseHeight);
+    doc.text(`:نام خوانوادگی`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:عنوان شغلی`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:جنسیت`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:وضعیت تاهل`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:وضعیت سربازی`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:تاریخ تولد`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:توصیف خلاصه`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:شبکه اجتماعی`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:آی دی مرتبط`, rightLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:کد ثنا`, rightLabelColumn, baseHeight += differenceHeight);
+    
+    
     /////////////////////////////////////////////////////////////////////////////
-    doc.text(`:ایمیل`, leftLabelColumn, 50);
-    doc.text(`:موبایل`, leftLabelColumn, 100);
-    doc.text(`:تلفن`, leftLabelColumn, 150);
-    doc.text(`:وب سایت`, leftLabelColumn, 200);
+    baseHeight = 50
+    doc.text(`:ایمیل`, leftLabelColumn, baseHeight);
+    doc.text(`:موبایل`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:تلفن`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:وب سایت`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:کشور`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:استان`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:شهر`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:آدرس`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:نام بانک`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:شماره حساب`, leftLabelColumn, baseHeight += differenceHeight);
+    doc.text(`:شماره شبا`, leftLabelColumn, baseHeight += differenceHeight);
+    
     ////////////////////////////////////////////////////////////////////////////
-    doc.text(`${firstName}`, rightValueColumn, 50);
-    doc.text(`${lastName}`, rightValueColumn, 100);
-    doc.text(`${job}`, rightValueColumn, 150);
-    doc.text(`${gender}`, rightValueColumn, 200);
+    baseHeight = 50
+    doc.text(`${firstName}`, rightValueColumn, baseHeight);
+    doc.text(`${lastName}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${job}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${gender}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${marital}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${military}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${new Date(birthDay).toLocaleDateString("fa-IR")}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${description}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${socialMediaName}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${socialMediaId}`, rightValueColumn, baseHeight += differenceHeight);
+    doc.text(`${sanaCode}`, rightValueColumn, baseHeight += differenceHeight);
     ///////////////////////////////////////////////////////////////////////////
     doc.text(`${email}`, leftValueColumn, 50);
     doc.text(`${phone}`, leftValueColumn, 100);
@@ -155,7 +185,7 @@ const Pdf = ({ match }) => {
       : '..';
   return (
     <Fragment>
-      <Grid container style={{ marginTop: 10 }} justify="space-evenly">
+      <Grid className='headBlock' id='headBlock' container style={{ marginTop: 10 }} justify="space-evenly">
         <Button
           variant="contained"
           color="primary"

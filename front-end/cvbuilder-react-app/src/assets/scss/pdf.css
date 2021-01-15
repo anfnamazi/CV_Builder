@@ -1,0 +1,12 @@
+@media print {
+  #headBlock {
+    display: none;
+  }
+  #headerLogo {
+    display: none;
+  }
+}
+
+/* #headBlock {
+  display: none;
+} */
