@@ -44,8 +44,10 @@ import { useStyles } from "../utils/styles";
 
 const Project = () => {
   // const [researchTypeState, setresearchTypeState] = useState();
-  const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "سایر"];
+  const researchTypeList = ["کتاب", "مقاله", "پایان نامه", "پژوهش"];
   const articleTypeList = ["داخلی", "خارجی"];
+  const bookTypeList = ["ترجمه", "تالیف"];
+  const sectionList = ["دکتری", "ارشد"];
   const months = [
     "فروردین",
     "اردیبهشت",
@@ -130,16 +132,34 @@ const Project = () => {
             </Grid>
             <Grid xs={6} sm={3} item>
               <FormControl className={classes.formControl}>
-                <InputLabel>نوع مقاله</InputLabel>
+                <InputLabel>
+                  {research.researchType === "مقاله"
+                    ? "نوع مقاله"
+                    : research.researchType === "کتاب"
+                    ? "نوع کتاب"
+                    : research.researchType === "پایان نامه"
+                    ? "مقطع"
+                    : null}
+                </InputLabel>
                 <Select
                   name="articleType"
                   value={research.articleType}
                   onChange={(e) => dispatch(changearticleType(e, index))}
-                  // disabled={researchTypeState === "مقاله" ? false : true}
+                  disabled={research.researchType === "پژوهش" ? true : false}
                 >
-                  {articleTypeList.map((type) => (
-                    <MenuItem value={type}>{type}</MenuItem>
-                  ))}
+                  {research.researchType === "مقاله"
+                    ? articleTypeList.map((type) => (
+                        <MenuItem value={type}>{type}</MenuItem>
+                      ))
+                    : research.researchType === "کتاب"
+                    ? bookTypeList.map((type) => (
+                        <MenuItem value={type}>{type}</MenuItem>
+                      ))
+                    : research.researchType === "پایان نامه"
+                    ? sectionList.map((type) => (
+                        <MenuItem value={type}>{type}</MenuItem>
+                      ))
+                    : null}
                 </Select>
               </FormControl>
             </Grid>
@@ -158,6 +178,7 @@ const Project = () => {
                 onBlur={(e) => dispatch(changepublisher(e, index))}
                 className={classes.formControl}
                 key={Math.random()}
+                disabled={research.researchType === "کتاب" ? false : true}
               />
             </Grid>
             <Grid xs={6} sm={5} item>
