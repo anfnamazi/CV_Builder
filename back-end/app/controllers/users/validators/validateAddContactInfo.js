@@ -15,7 +15,7 @@ const validateAddContactInfo = [
   check('phone')
     .optional()
     .isMobilePhone('fa-IR')
-    .withMessage('NOT_VALID_IR_MOBILE_PHONE'),
+    .withMessage('لطفا شماره موبایل خود را بررسی کنید'),
   check('tel').optional(),
   check('webPage').optional(),
   check('country').optional(),
