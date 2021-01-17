@@ -34,7 +34,7 @@ router.post(
   requireAuth,
   roleAuthorization(['admin']),
   trimRequest.all,
-  validateAddResearch,
+  // validateAddResearch,
   async (req, res) => {
     try {
       let id = req.params.id || ''
@@ -54,7 +54,7 @@ router.post(
   requireAuth,
   roleAuthorization(['user']),
   trimRequest.all,
-  validateAddResearchUser,
+  // validateAddResearchUser,
   createResearchUser
 )
 

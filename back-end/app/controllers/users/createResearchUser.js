@@ -18,7 +18,7 @@ const createResearchUser = async (req, res) => {
     if (resultDelete) {
       user.researchs = []
       req.body.map(async (jobField) => {
-        req = matchedData(req)
+        // req = matchedData(req)
         const item = await createResearchInDB(jobField, user._id)
         user.researchs.push(item._id)
 

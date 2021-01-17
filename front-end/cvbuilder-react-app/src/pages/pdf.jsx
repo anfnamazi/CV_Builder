@@ -186,20 +186,20 @@ const Pdf = ({ match }) => {
   return (
     <Fragment>
       <Grid className='headBlock' id='headBlock' container style={{ marginTop: 10 }} justify="space-evenly">
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
           // onClick={() => window.print()}
           onClick={() => downloadPdf()}
         >
           دانلود pdf
-        </Button>
+        </Button> */}
         <Button
           variant="contained"
           color="default"
           onClick={() => window.print()}
         >
-          پرینت
+          دانلود
         </Button>
         <Link to="/admin">
           <Button variant="contained" color="secondary">

@@ -5,15 +5,13 @@ const mongoosePaginate = require('mongoose-paginate-v2')
 const ResearchSchema = new mongoose.Schema(
   {
     researchType: {
-      type: String,
-      enum: ['کتاب', 'مقاله', 'پایان نامه', 'سایر']
+      type: String
     },
     researchTitle: {
       type: String
     },
     articleType: {
-      type: String,
-      enum: ['داخلی', 'خارجی']
+      type: String
     },
     publisher: {
       type: String
