@@ -37,7 +37,9 @@ import config from "../config.json";
 import provinces from "../utils/provinces.json";
 import cities from "../utils/cities.json";
 import { Autocomplete } from "@material-ui/lab";
-import validator from 'validator'
+import validator from "validator";
+import { hideLoading, showLoading } from "react-redux-loading-bar";
+import { useDispatch } from "react-redux";
 
 // jMoment.loadPersian({ dialect: "persian-modern", usePersianDigits: true });
 
@@ -64,6 +66,8 @@ const BaseInfo = () => {
   ];
 
   const context = useContext(ResumeContext);
+
+  const dispatch = useDispatch();
 
   const {
     firstName,
@@ -106,11 +110,21 @@ const BaseInfo = () => {
   };
 
   const onChangeIdCard = (event) => {
-    setidCard(event.target.files[0].name);
+    if (event.target.files[0].size > 500000) {
+      alert("File size must under 500kb!");
+      return;
+    } else {
+      setidCard(event.target.files[0].name);
+    }
   };
 
   const onChangeEvidence = (event) => {
-    setevidence(event.target.files[0].name);
+    if (event.target.files[0].size > 500000) {
+      alert("File size must under 500kb!");
+      return;
+    } else {
+      setevidence(event.target.files[0].name);
+    }
   };
 
   const handleSaveBaseInfo = async (event) => {
@@ -137,8 +151,18 @@ const BaseInfo = () => {
     const socialMediaName = event.target.socialMediaName.value;
     const socialMediaId = event.target.socialMediaId.value;
 
-    const nationalCard = event.target.nationalCard.files[0];
-    const eduCertif = event.target.eduCertif.files[0];
+    let nationalCard = event.target.nationalCard.files[0];
+    if (nationalCard) {
+      if (nationalCard.size > 500000) {
+        nationalCard = null;
+      }
+    }
+    let eduCertif = event.target.eduCertif.files[0];
+    if (eduCertif) {
+      if (eduCertif.size > 500000) {
+        eduCertif = null;
+      }
+    }
 
     const bankName = event.target.bankName.value;
     const accountNumber = event.target.accountNumber.value;
@@ -177,19 +201,25 @@ const BaseInfo = () => {
 
     const moneyAccount = [{ bankName, accountNumber, shabaNumber }];
 
-    const response = await saveBaseInfo(formData);
+    dispatch(showLoading());
+    try {
+      const response = await saveBaseInfo(formData);
 
-    const response2 = await saveContactInfo(contactForm);
+      const response2 = await saveContactInfo(contactForm);
 
-    const response3 = await saveMoneyAccount(moneyAccount);
+      const response3 = await saveMoneyAccount(moneyAccount);
 
-    if (
-      response.status < 202 &&
-      response2.status < 202 &&
-      response3.status < 202
-    ) {
-      context.handleNext();
-      context.initializeData();
+      if (
+        response.status < 202 &&
+        response2.status < 202 &&
+        response3.status < 202
+      ) {
+        context.handleNext();
+        context.initializeData();
+        dispatch(hideLoading());
+      }
+    } catch (error) {
+      dispatch(hideLoading());
     }
   };
 
@@ -208,7 +238,9 @@ const BaseInfo = () => {
     }
     if (image) {
       setpersonImage(
-        `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/img/${image.file}`
+        `${config[process.env.REACT_APP_ENVIRONMENT].local_api}/img/${
+          image.file
+        }`
       );
     }
     if (city) {
@@ -418,7 +450,7 @@ const BaseInfo = () => {
               placeholder="09123456789"
               // error={!(phone && validator.isMobilePhone(phone,"fa-IR"))}
               // helperText={!(phone && validator.isMobilePhone(phone,'fa-IR'))?'!شماره وارد شده صحیح نیست': ''}
-              
+
               required
               // onInvalid={(e) =>
               //   e.target.setCustomValidity(

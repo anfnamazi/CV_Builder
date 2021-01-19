@@ -25,4 +25,9 @@ export const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(1),
         marginLeft: theme.spacing(1),
     },
+    backdrop: {
+        zIndex: 1000,
+        color: '#9b00e8',
+        background: "#00000044"
+    },
 }));

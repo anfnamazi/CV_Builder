@@ -1,3 +1,4 @@
+import { loadingBarReducer } from 'react-redux-loading-bar';
 import { combineReducers } from 'redux';
 import { edusReducer } from './edus';
 import { experimentalSkillsReducer } from './experimentalSkills';
@@ -14,5 +15,6 @@ export const reducers = combineReducers({
     experimentalSkills: experimentalSkillsReducer,
     honors: honorsReducer,
     researches: researchesReducer,
-    projects: projectsReducer
+    projects: projectsReducer,
+    loadingBar: loadingBarReducer,
 });

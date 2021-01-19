@@ -3,6 +3,8 @@ import {
   createMuiTheme,
   ThemeProvider,
   Grid,
+  Backdrop,
+  CircularProgress,
 } from "@material-ui/core";
 import React from "react";
 import ResumeForm from "./pages/resumeForm";
@@ -18,6 +20,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Logout from "./pages/Logout";
 import AdminLogin from "./pages/adminLogin";
+import LoadingBar from "react-redux-loading-bar";
+import { useStyles } from "./utils/styles";
+import { useSelector } from "react-redux";
 
 const App = () => {
   const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
@@ -27,11 +32,16 @@ const App = () => {
       primary: { main: "#9b00e8" },
     },
   });
-
+  const classes = useStyles();
+  const loadingBar = useSelector(state => state.loadingBar)
   return (
     <ThemeProvider theme={theme}>
       <StylesProvider jss={jss}>
         <ToastContainer />
+        <LoadingBar style={{ width: "100%", height: 5, background: "#9b00e8" }} />
+        <Backdrop className={classes.backdrop} open={loadingBar.default}>
+          <CircularProgress color="inherit" />
+        </Backdrop>
         <Grid
           id="headerLogo"
           container
@@ -65,7 +75,7 @@ const App = () => {
           </BrowserRouter>
         </Container>
       </StylesProvider>
-    </ThemeProvider>
+    </ThemeProvider >
   );
 };
 

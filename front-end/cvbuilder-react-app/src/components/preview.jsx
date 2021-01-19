@@ -91,7 +91,7 @@ const Preview = () => {
           ) : null}
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <List>
               <ListItem>
                 <ListItemText secondary="نام:" />
@@ -140,7 +140,7 @@ const Preview = () => {
               </ListItem>
             </List>
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12} sm={6}>
             <List>
               <ListItem>
                 <ListItemText secondary="ایمیل:" />
@@ -200,7 +200,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="مقطع:" />
@@ -228,7 +228,7 @@ const Preview = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="کشور:" />
@@ -269,7 +269,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="سمت شغلی:" />
@@ -309,7 +309,7 @@ const Preview = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="ماه شروع:" />
@@ -358,7 +358,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="نوع اثر:" />
@@ -378,7 +378,7 @@ const Preview = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="لینک مرتبط:" />
@@ -411,7 +411,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="عنوان:" />
@@ -431,7 +431,7 @@ const Preview = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="سال شروع:" />
@@ -464,7 +464,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="نام زبان:" />
@@ -488,7 +488,7 @@ const Preview = () => {
                 </ListItem>
               </List>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <List>
                 <ListItem>
                   <ListItemText secondary="مدرک مربوطه:" />
@@ -518,7 +518,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <ListItem>
                 <ListItemText secondary="نام مهارت:" />
                 {experiment.type}
@@ -536,7 +536,7 @@ const Preview = () => {
                 {experiment.description}
               </ListItem>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <ListItem>
                 <ListItemText secondary="مدرک مربوطه:" />
                 {typeof experiment.cert === "object" ? (
@@ -564,7 +564,7 @@ const Preview = () => {
             spacing={3}
             style={{ borderBottom: "1px dotted #999" }}
           >
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <ListItem>
                 <ListItemText secondary="عنوان افتخار:" />
                 {honor.type}
@@ -582,7 +582,7 @@ const Preview = () => {
                 {honor.honorYear}
               </ListItem>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <ListItem>
                 <ListItemText secondary="مدرک مربوطه:" />
                 {typeof honor.cert === "object" ? (
@@ -606,7 +606,7 @@ const Preview = () => {
       <Paper style={{ padding: "10px 30px", marginBottom: 30 }}>
         <Grid container spacing={5}>
           {typeof nationalCard === "object" ? (
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <img
                 src={`${newLocalUrl}/img/${nationalCard.file}`}
                 style={{
@@ -618,7 +618,7 @@ const Preview = () => {
             </Grid>
           ) : null}
           {typeof eduCertif === "object" ? (
-            <Grid item xs={6}>
+            <Grid item xs={12} sm={6}>
               <img
                 src={`${newLocalUrl}/img/${eduCertif.file}`}
                 style={{
