@@ -14,7 +14,7 @@ import config from "../config.json";
 import PDF from "../utils/pdfGen";
 import jsPDF from "jspdf";
 import { font } from "./Amiri-Regular-normal";
-import '../assets/scss/pdf.css'
+import '../assets/css/pdf.css'
 
 const Pdf = ({ match }) => {
   const [allInfo, setallInfo] = useState({

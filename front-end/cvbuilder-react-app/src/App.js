@@ -11,7 +11,7 @@ import ResumeForm from "./pages/resumeForm";
 import { create } from "jss";
 import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@material-ui/core/styles";
-import "./assets/scss/main.scss";
+import "./assets/css/main.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./pages/login";
 import AdminPanel from "./pages/adminPanel";

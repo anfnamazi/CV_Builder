@@ -1,0 +1,216 @@
+@font-face {
+  font-family: yekan;
+  src: url("../fonts/yekan.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: yekanf;
+  src: url("../fonts/yekanf.woff") format("woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 200;
+  src: url("../fonts/IRANSansWeb200.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 300;
+  src: url("../fonts/IRANSansWeb300.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 400;
+  src: url("../fonts/IRANSansWeb400.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 500;
+  src: url("../fonts/IRANSansWeb500.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 600;
+  src: url("../fonts/IRANSansWeb600.woff") format("woff");
+}
+
+@font-face {
+  font-family: "IranSans";
+  font-weight: 900;
+  src: url("../fonts/IRANSansWeb900.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Afsoon";
+  src: url("../fonts/afsoon.woff") format("woff");
+}
+
+* {
+  font-family: IranSans !important;
+  padding: 0;
+  margin: 0;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.file-drop-area {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 450px;
+  max-width: 100%;
+  padding: 25px;
+  border: 1px dashed rgba(0, 0, 0, 0.4);
+  border-radius: 3px;
+  transition: 0.2s;
+}
+
+.file-drop-area.is-active {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.fake-btn {
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  padding: 8px 15px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: #777;
+  text-transform: uppercase;
+}
+
+.file-msg {
+  font-size: small;
+  font-weight: 300;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.file-input:focus {
+  outline: none;
+}
+
+/* login */
+
+body {
+  background: #fbf3ff;
+}
+
+.myRightCtn {
+  position: relative;
+  background: url(../images/loginImg.jpeg) center;
+  background-size: cover;
+  border-radius: 25px;
+  height: 100%;
+  min-height: 400px;
+  padding: 0px;
+  color: rgb(192, 192, 192);
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.myLeftCtn {
+  position: relative;
+  background: #fff;
+  border-radius: 25px;
+  height: 100%;
+  padding: 0px 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.myLeftCtn header {
+  color: blueviolet;
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.myCard {
+  position: relative;
+  background: #fff;
+  height: 100%;
+  border-radius: 25px;
+  -webkit-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 10px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+.myRightCtn header {
+  color: #fff;
+  font-size: 44px;
+}
+
+.myForm {
+  position: relative;
+}
+
+.myLeftCtn .butt {
+  background: linear-gradient(45deg, #bb36fd, #9b00e8);
+  color: #fff;
+  width: 230px;
+  border: none;
+  border-radius: 25px;
+  padding: 10px;
+  -webkit-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  -moz-box-shadow: 0px 10px 41px -11px rgba(0, 0, 0, 0.7);
+  box-shadow: 0px 10px 20px -11px rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
+.myLeftCtn .butt:hover {
+  background: linear-gradient(45deg, #c85bff, #b726ff);
+}
+
+.myLeftCtn .butt:focus {
+  outline: none;
+}
+
+/* admin panel */
+
+.download-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.download-icon-container {
+  display: flex;
+  width: 100px;
+  justify-content: space-between;
+}
+
+.header-txt {
+  font-family: Afsoon !important;
+  font-size: 20px;
+}
